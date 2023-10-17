@@ -1,0 +1,97 @@
+{
+    "Group A": {
+        "name": "Residential (Dewelling)",
+        "category": [
+            "Single",
+            "Duplex",
+            "Residential R-1,R-2",
+            "Others"
+        ]
+    },
+    "Group B": {
+        "name": "Residential",
+        "category": [
+            "Hotel",
+            "Motel",
+            "Townhouse",
+            "Boarding House",
+            "Lodging House",
+            "Residential R-3,R-4,R-5",
+            "Others"
+        ]
+    },
+    "Group C": {
+        "name": "Educational & Recreational",
+        "category": [
+            "School Building ",
+            "Civic Center",
+            "Club House",
+            "School Auditorium , Gymnasuim",
+            "Church,Mosque,Temple,Chaple",
+            "Others"
+        ]
+    },
+    "Group D": {
+        "name": "Institutional",
+        "category": [
+            "Hospital or Similar Structure",
+            "Home for Aged",
+            "Goverment office",
+            "Others"
+        ]
+    },
+    "Group E": {
+        "name": "Commercial",
+        "category": [
+            "Bank",
+            "Store",
+            "Shopping",
+            "Drinking/Dining",
+            "Shop",
+            "Others"
+        ]
+    },
+    "Group F": {
+        "name": "Light Industrial",
+        "category": [
+            "Factory/Plant",
+            "Others"
+        ]
+    },
+    "Group G": {
+        "name": "Medium Industrial",
+        "category": [
+            "Storage/Werehouse",
+            "Factory",
+            "Others"
+        ]
+    },
+    "Group H": {
+        "name": "Assembly (Occupant Load Less than 1000)",
+        "category": [
+            "Theater,Auditorium,Convention Hall,Grandstand,Bleacher",
+            "Others"
+        ]
+    },
+    "Group I": {
+        "name": "Assembly (Occupant Load Less than 1000)",
+        "category": [
+            "Coliseum,Sports,Complex,Convention Center",
+            "Others"
+        ]
+    },
+    "Group J-1": {
+        "name": "Agricultural",
+        "category": [
+            "Barn,Granary,Poultry House,Piggery,Grain Mill",
+            "Others"
+        ]
+    },
+    "Group J-2": {
+        "name": "Accessories",
+        "category": [
+            "Private Carport/Garage , Tower,Swimming pool, Fence,Steel,Conrete Tank",
+            "Others"
+        ]
+    }
+}

@@ -1,0 +1,123 @@
+:root {
+    --my_blue: #245A94;
+    --border_black_1: 1px solid black;
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    min-width: 425px;
+    width: 100%;
+    min-height: 500px;
+    width: 100%;
+}
+
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+::-webkit-scrollbar {
+    display: none;
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+}
+
+
+
+
+/* fill remaining space */
+#flex_container {
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+}
+
+#flex_header {
+    flex: 0 1 auto;
+}
+
+#flex_main {
+    flex: 1 1 auto;
+}
+
+#flex_footer {
+    flex: 0 1 40px;
+}
+
+.my-dd-icon {
+    height: 2.5rem;
+}
+
+.my-dd-btn {
+    background-color: transparent;
+    border: none;
+}
+
+#nav_right>.dropdown {
+    display: inline;
+    justify-content: space-around;
+
+}
+
+.my-btn-blue {
+    background-color: #2050AB !important; 
+    color: white !important;
+
+}
+
+.my-btn-blue:hover {
+    background-color: #2c5cb4;
+    color: #e3d63c;
+}
+
+
+.my-btn-red{
+    background-color: #AB2020 !important;
+    color:white !important;
+
+}
+
+
+.required {
+    color: red;
+
+}
+
+.input-no-border{
+    border:transparent;
+}
+
+.input-underline {
+    border-top: white;
+    border-left: transparent;
+    border-right: transparent;
+    border-bottom: 1px solid black;
+}
+
+.input-underline:focus-visible {
+    border: 1px solid red !important;
+}
+
+
+.my-img-profile-cont{
+    border: 2px solid;
+    /* width: 30%; */
+    padding: 0px !important;
+    border-radius: 50%;
+    aspect-ratio: 1/1;
+
+}
+
+.my-img-profile{
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+
+}
+
+.text-overflow-ellipsis{
+    white-space: nowrap;
+    overflow: hidden ;
+    text-overflow: ellipsis;
+}
