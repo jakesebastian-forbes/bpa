@@ -5,7 +5,8 @@
             width: 22cm;
             height: 39cm;
             font-style: Arial, Helvetica, sans-serif;
-
+            /* font-weight: 620; */
+         
         }
 
         
@@ -17,6 +18,7 @@
 
         #locational_form_body{
             font-size: 12px;
+
         }
 
 
@@ -58,7 +60,7 @@
                         <p>Application No. : <span><input type="text" class="input-underline"></span></p>
                         <p>Date of Receipt : <span><input type="text" class="input-underline"></span></p>
                         <p>PMO No./O.R No. : <span><input type="text" class="input-underline"></span></p>
-                        <p>ADate Issued : <span><input type="text" class="input-underline"></span></p>
+                        <p>Date Issued : <span><input type="text" class="input-underline"></span></p>
                         <p>Amount Paid : <span><input type="text" class="input-underline"></span></p>
                     </div>
 
@@ -128,7 +130,7 @@
                     <input type="text" name="" id="" class="input-underline w-100">
                     <p>(4) ADDRESS OF CORPORATION</p>
                     <input type="text" name="" id="" class="input-underline w-100">
-                    <p>(6) ADDRESS OF CORPORATION</p>
+                    <p>(6) ADDRESS OF AUTHORIZED REPRESENTATIVE</p>
                     <br>
                     <p>(8) PROJECT NATURE</p>
                     <div class="row p-0 m-0" id="proj_nature_radios">

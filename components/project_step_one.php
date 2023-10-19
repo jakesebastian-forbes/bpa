@@ -62,7 +62,7 @@
                     <label for="first">Last Name <span class="required">*</span></label>
                     <input type="text">
                 </div>
-                <div class="input-wrapper col-lg-6 col-11">
+                <!-- <div class="input-wrapper col-lg-6 col-11">
                     <label for="first">Suffix</label>
 
                     <select name="" id="">
@@ -73,21 +73,16 @@
                         <option value="Ms">Ms</option>
                         <option value="Dr">Dr</option>
                     </select>
-                </div>
-            </div>
+                </div> -->
 
-
-            <div class="row">
                 <div class="input-wrapper col-lg-6 col-11">
                     <label for="first">Tax Identification Number<span class="required">*</span></label>
                     <input type="text">
                 </div>
-                <div class="input-wrapper col-lg-6 col-11">
-                    <!-- <label for="first">Middle Name</label>
-                    <input type="text"> -->
-                </div>
             </div>
 
+
+          
             <h4 class="row">Contact Information</h4>
 
             <div class="row">

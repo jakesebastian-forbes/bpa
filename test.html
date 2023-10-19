@@ -18,16 +18,24 @@
     
 
     
+<h2 id = "show">adasd</h2>
+<input type="number" name="" id="inp_number">
 
-
-        <label>Is the property under a mortgage?</label>
-  
-      <div class="row mx-auto" style="width:80%">
-        <select name="mortgage" id="mortgage" style="" required>
-          <option value="">Please select an option</option>
-          <option value="yes">Yes</option>
-          <option value="no">No</option>
-        </select>
-      </div>
+<button>click me</button>
 </body>
+
+<script>
+$("button").click(function(){
+
+  let num = $("#inp_number")[0].value;
+
+  $.ajax({url: "https://api.funtranslations.com/translate/numbers.json?text="+num, 
+  success: function(result){
+    console.log(result)
+    let translated = result.contents.translated;
+    $("#show").text(translated.toUpperCase());
+  }});
+});
+
+</script>
 </html>

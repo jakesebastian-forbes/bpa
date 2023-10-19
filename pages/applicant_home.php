@@ -30,6 +30,12 @@ require "../php/db_func.php";
     width: 400px;
 
   }
+
+  #new-application-form label{
+    margin-left: -2.3rem;
+    margin-top: 0.4rem;
+
+  }
 </style>
 
 </head>
@@ -66,8 +72,9 @@ require "../php/db_func.php";
                   <div id = "new-application-form">
                   <form action="../php/project_create.php" method="post">
                    
-                      <label>Occupancy Classification</label>
                     <div class="row mx-auto" style="width:80%">
+                    <label for = "occupancy_classification">Occupancy Classification</label>
+
                       <select name="occupancy_classification" id="occupancy_classification"  required>
                         <option value="">Please select an option</option>
                         <option value="residential">Residential</option>
@@ -78,22 +85,10 @@ require "../php/db_func.php";
                     </div>
 
 
-                   
-                      <!-- <label>Applicant Type</label>
-                
-                    <div class="row mx-auto" style="width:80%">
-                      <select name="applicant_type" id="applicant_type" required>
-                        <option value="">Please select an option</option>
-                        <option value="owner">Owner</option>
-                        <option value="incharge">Engineer/Architech in-charge</option>
-                      </select>
-                    </div> -->
-
-
-            
-                    <label>Right over land</label>
               
                     <div class="row mx-auto" style="width:80%">
+                    <label>Right over land</label>
+
 
                       <select name="right_over_land" id="right_over_land"  required>
                         <option value="">Please select an option</option>
@@ -104,11 +99,10 @@ require "../php/db_func.php";
 
 
 
-
-           
-                      <label>Are you the registered owner?</label>
                  
                     <div class="row mx-auto" style="width:80%">
+                    <label>Are you the registered owner?</label>
+
                       <select name="registered_owner" id="registered_owner"  required>
                         <option value="">Please select an option</option>
                         <option value="yes">Yes</option>
@@ -116,51 +110,12 @@ require "../php/db_func.php";
                       </select>
                     </div>
 
-<!-- 
-
-                 
-                      <label>Construction Status</label>
-                 
-                    <div class="row mx-auto" style="width:80%">
-                      <select name="construction_status" id="construction_status"  required>
-                        <option value="">Please select an option</option>
-                        <option value="new">New</option>
-                        <option value="on_going">Ongoing</option>
-                        <option value="as_built">As built</option>
-                      </select>
-                    </div> -->
-
-
-<!--             
-                      <label>Is the property within a subdivision?</label>
-              
-                    <div class="row mx-auto" style="width:80%">
-                      <select name="within_subdivision" id="within_subdivision"  required>
-                        <option value="">Please select an option</option>
-                        <option value="yes">Yes</option>
-                        <option value="no">No</option>
-                      </select>
-                    </div> -->
-
-
-
-<!--         
-                      <label>Is the property under a mortgage?</label>
-               
-                    <div class="row mx-auto" style="width:80%">
-                      <select name="mortgage" id="mortgage"  required>
-                        <option value="">Please select an option</option>
-                        <option value="yes">Yes</option>
-                        <option value="no">No</option>
-                      </select>
-                    </div>
- -->
-
 
              
-                      <label>Is the property owned by a corporation?</label>
                 
                     <div class="row mx-auto" style="width:80%">
+                    <label>Is the property owned by a corporation?</label>
+
                       <select name="corporate_owned" id="corporate_owned"  required>
                         <option value="">Please select an option</option>
                         <option value="yes">Yes</option>
@@ -168,18 +123,17 @@ require "../php/db_func.php";
                       </select>
                     </div>
 
-
-
-<!-- 
-                      <label>Does the property have a co-owner?</label>
-               
+                    
                     <div class="row mx-auto" style="width:80%">
-                      <select name="coowner" id="coowner"  required>
-                        <option value="">Please select an option</option>
-                        <option value="yes">Yes</option>
-                        <option value="no">No</option>
-                      </select>
-                    </div> -->
+                
+                    <label>What would you like to call this project?</label>
+                    <input type="text" name="" id="" width="100%" placeholder="Project Title">
+                    </div>
+
+
+
+
+
 
 
                     
