@@ -178,13 +178,13 @@
                 <div class="col-6">
                     <div class="form-group">
                         <label for="application" class="mx-3 text-uppercase fw-bold" style="font-size: 10px;">application no.</label>
-                        <input class="mx-3 form-control w-50" style="height: 25px;" type="text" placeholder="">
+                        <input class="mx-3  w-50" style="height: 25px;" type="text" placeholder="">
                     </div>
                 </div>
                 <div class="col-6">
                     <div class="form-group d-block" style=" margin-left: 205px">
                         <label for="application" class="mx-3 text-uppercase fw-bold" style="font-size: 10px;">permit no.</label>
-                        <input class="mx-3 form-control w-75" style="height: 25px;" type="text" placeholder="">
+                        <input class="mx-3  w-75" style="height: 25px;" type="text" placeholder="">
                     </div>
                 </div>
                 
@@ -196,7 +196,7 @@
                 <div class="col-4">
                     <div class="form-group">
                         <div class="mx-3 d-flex align-items-start flex-column">
-                            <input class="form-control input-field" style="height: 25px;" type="text" id="date_of_application" name="date_of_application" placeholder=""> 
+                            <input class=" input-field" style="height: 25px;" type="text" id="date_of_application" name="date_of_application" placeholder=""> 
                             <label for="date_of_application" class="mx-5 text-uppercase fw-bold" style="font-size: 10px;">date of application</label>
                         </div>
                     </div>
@@ -207,7 +207,7 @@
                 <div class="col-4">
                     <div class="form-group">
                         <div class="mx-3 d-flex align-items-end flex-column">
-                            <input class="form-control input-field" style="height: 25px;" type="text" id="date_issued" name="date_issued" placeholder=""> 
+                            <input class=" input-field" style="height: 25px;" type="text" id="date_issued" name="date_issued" placeholder=""> 
                             <label for="date_issued" class="mx-5 text-uppercase fw-bold" style="font-size: 10px;">date issued</label>
                         </div>
                     </div>
