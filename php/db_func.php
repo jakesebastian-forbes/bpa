@@ -3,7 +3,7 @@
 require 'gen_uuid.php';
 
 function db_conn(){
-  return $conn = mysqli_connect("localhost", "root","","bpanmh_db");
+  return $conn = mysqli_connect("localhost", "root","","bpa");
 }
 
 //OPERATIONS ARE PROCEDURAL

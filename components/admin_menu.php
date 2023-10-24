@@ -61,9 +61,9 @@
                 <p style="color:black;font-weight:bold;"><?php echo $_SESSION['name'];?></p>
                 <p ><?php echo ucwords($row["department"]." "."Department")?></p>
             </div>
-            <div class="row">
+            <!-- <div class="row">
                 <p>Applicant</p>
-            </div>
+            </div> -->
         </div>
 
     
@@ -104,8 +104,7 @@
 
 
   //add banner
-  $("#nav_left").append('<div style = "width:30px;height:inherit;background-color:#22b927;margin-top:-20px;margin-left:18px;"></div>')
-  $("#nav_center").append("<h4 class = 'text-center'>Engineering Department</h4>")
+  $("#nav_center").append("<h4 class = 'text-center'><?php echo ucwords($row["department"]." "."Department")?></h4>")
   $("#nav_center").append("<p class = 'text-center'>Admin Dashboard</p>")
     
 </script>

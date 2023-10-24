@@ -24,39 +24,46 @@ require "../php/db_func.php";
     </link>
     <script src="../bootstrap-5.3.0/js/bootstrap.bundle.js"></script>
     <script src="../js-css/jquery-3.6.4.js"></script>
-<style>
+    <style>
+        .notification-button {
+            display: none;
+        }
 
-.notification-button {
-        display: none;
-    }
-    .sessions {
-        display: none;
-    }
-    .nav-link.active{
-        background-color:#245A94 !important;
-        color: white !important;
-    }
- 
-    .nav-pills .nav-link {
-        color: black;
-        font-size: 14px;
-        border: 1px solid transparent;
-        background-color: transparent; /* Set the default background to transparent */
-    }
-    
-    .nav-pills .nav-link.active {
-        background-color: transparent; /* Set the active background to transparent */
-        color: black; /* Set the text color to black for the active state */
-    }
-    
-    .nav-pills .nav-link:hover {
-        background-color: #245A94;
-        color: white;
-        border: 1px solid black;
-    }
-    
+        .sessions {
+            display: none;
+        }
 
-</style>
+        .nav-link.active {
+            background-color: #245A94 !important;
+            color: white !important;
+        }
+
+        .nav-pills .nav-link {
+            color: black;
+            font-size: 14px;
+            border: 1px solid transparent;
+            background-color: transparent;
+            /* Set the default background to transparent */
+        }
+
+        .nav-pills .nav-link.active {
+            background-color: transparent;
+            /* Set the active background to transparent */
+            color: black;
+            /* Set the text color to black for the active state */
+        }
+
+        .nav-pills .nav-link:hover {
+            background-color: #245A94;
+            color: white;
+            border: 1px solid black;
+        }
+
+        #profile_info input{
+            border:transparent !important;
+            
+        }
+    </style>
 
 
 
@@ -103,28 +110,29 @@ require "../php/db_func.php";
                                     <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab" tabindex="0">
                                         <h6>PROFILE INFORMATION</h6>
                                         <hr>
+                                        <div id = "profile_info">
                                         <form>
                                             <div class="mb-3">
                                                 <div class="row">
                                                     <div class="col">
                                                         <label for="firstname" class="form-label">Lastname</label>
-                                                        <input type="text" class="form-control form-control-sm text-muted" id="lastname" name="lastname" placeholder="lastname">
+                                                        <input type="text" class="form-control form-control-sm" id="lastname" name="lastname" placeholder="lastname">
                                                     </div>
                                                     <div class="col">
                                                         <label for="lastname" class="form-label">Firstname</label>
-                                                        <input type="text" class="form-control form-control-sm text-muted" id="firstname" name="firstname" placeholder="firstname">
+                                                        <input type="text" class="form-control form-control-sm" id="firstname" name="firstname" placeholder="firstname">
                                                     </div>
                                                     <div class="col">
                                                         <label for="mi" class="form-label">M.I</label>
-                                                        <input type="text" class="form-control form-control-sm text-muted" id="mi" name="mi" placeholder="middle initial">
+                                                        <input type="text" class="form-control form-control-sm" id="mi" name="mi" placeholder="middle initial">
                                                     </div>
 
                                                 </div>
 
-                                                <small id="fullNameHelp" class="form-text text-muted">Your name may appear around here where you are mentioned. You can change or remove it at any time.</small>
+                                                <!-- <small id="fullNameHelp" class="form-text text-muted">Your name may appear around here where you are mentioned. You can change or remove it at any time.</small> -->
                                             </div>
-                                            <div class="mb-3">
-                                                <div class="row">
+                                            <div class="mb-5">
+                                                <div class="row mb-3">
                                                     <div class="col">
                                                         <label for="location" class="form-label">No.</label>
                                                         <input type="text" class="form-control form-control-sm" id="no" value="" name="no" placeholder="no">
@@ -137,12 +145,13 @@ require "../php/db_func.php";
                                                         <label for="location" class="form-label">Lot No.</label>
                                                         <input type="text" class="form-control form-control-sm" id="lot_no" value="" name="lot_no" placeholder="lot no">
                                                     </div>
+                                                    
+                                                </div>
+                                                <div class="row mb-3">
                                                     <div class="col">
                                                         <label for="location" class="form-label">Block No.</label>
                                                         <input type="text" class="form-control form-control-sm" id="block_no" value="" name="block_no" placeholder="block no">
                                                     </div>
-                                                </div>
-                                                <div class="row">
                                                     <div class="col">
                                                         <label for="location" class="form-label">Barangay</label>
                                                         <input type="text" class="form-control form-control-sm" id="barangay" value="" name="barangay" placeholder="barangay">
@@ -160,6 +169,7 @@ require "../php/db_func.php";
                                             <button type="button" class="btn btn-primary" style="background-color: #245A94;">Update Profile</button>
                                             <button type="reset" class="btn btn-light">Reset Changes</button>
                                         </form>
+                                        </div>
                                     </div>
 
                                     <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab" tabindex="0">
@@ -220,7 +230,7 @@ require "../php/db_func.php";
                                         </form>
                                     </div>
 
-                                    <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab" tabindex="0" >
+                                    <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab" tabindex="0">
                                         <h6>NOTIFICATION SETTINGS</h6>
                                         <hr>
                                         <form>
@@ -299,6 +309,8 @@ require "../php/db_func.php";
 
 <script>
     $('a[href="applicant_account_setting.php"] > li').addClass("my-active") //highlight active page in offcanvas menu
+
+    $("#profile_info input").attr("disabled","disabled")
 </script>
 
 </html>

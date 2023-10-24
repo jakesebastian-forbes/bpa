@@ -1,3 +1,4 @@
+
 <style>
         #locational_form {
             border: 1px solid black;
@@ -83,32 +84,30 @@
                     <input type="text" name="" id="" class="input-underline w-100">
 
                     <p>(11) RIGHT OVER LAND</p>
-                    <div class="row p-0 m-0" id="rol_radios">
+                    <div class="row p-0 m-0" id="rol_radios" name="rol_radios">
 
                         <div class="col">
-                            <p><span><input type="radio" name="right_over_land" id=""></span>Owner</p>
-                            <p><span><input type="radio" name="right_over_land" id=""></span>Lease</p>
-
+                            <p><span><input type="radio" name="right_over_land" id="right_over_land_1" value = "owner"></span>Owner</p>
+                            <p><span><input type="radio" name="right_over_land" id="right_over_land_2" value = "lease"></span>Lease</p>
                         </div>
                         <div class="col">
-                            <p><span><input type="radio" name="right_over_land" id="rol_others"></span> Other Specify
+                            <p><span><input type="radio" name="right_over_land" id="rol_others" value = "other"></span> Other Specify
                             </p>
-
                         </div>
                     </div>
 
                     <p>(13) EXISTING LAND USE OF PROJECT SITE</p>
-                    <div class="row p-0 m-0" id="elu_radios">
+                    <div class="row p-0 m-0" id="loc_elu_radios">
 
                         <div class="col">
-                            <p><span><input type="radio" name="elu" id=""></span> Residential</p>
-                            <p><span><input type="radio" name="elu" id=""></span> Institutional</p>
-                            <p><span><input type="radio" name="elu" id=""></span> Commercial</p>
+                            <p><span><input type="radio" name="elu" id="elu_1" value="residential"></span> Residential</p>
+                            <p><span><input type="radio" name="elu" id="elu_2" value="institutional"></span> Institutional</p>
+                            <p><span><input type="radio" name="elu" id="elu_3" value="commercial"></span> Commercial</p>
 
                         </div>
                         <div class="col">
-                            <p><span><input type="radio" name="elu" id=""></span> Industrial</p>
-                            <p><span><input type="radio" name="elu" id="elu_others"></span> Other Specify</p>
+                            <p><span><input type="radio" name="elu" id="elu_4" value="industrial"></span> Industrial</p>
+                            <p><span><input type="radio" name="elu" id="elu_others" value="other"></span> Other Specify</p>
 
                         </div>
                     </div>
@@ -136,12 +135,12 @@
                     <div class="row p-0 m-0" id="proj_nature_radios">
 
                         <div class="col">
-                            <p><span><input type="radio" name="proj_nature" id=""></span>New Development</p>
-                            <p><span><input type="radio" name="proj_nature" id=""></span>Improvement</p>
+                            <p><span><input type="radio" name="proj_nature" id="project_nature_1" value="new development"></span>New Development</p>
+                            <p><span><input type="radio" name="proj_nature" id="project_nature_2" value="improvement"></span>Improvement</p>
 
                         </div>
                         <div class="col">
-                            <p><span><input type="radio" name="proj_nature" id="proj_nature_others"></span> Other
+                            <p><span><input type="radio" name="proj_nature" id="proj_nature_others" value="other"></span> Other
                                 Specify</p>
 
                         </div>
@@ -159,21 +158,21 @@
                     </div>
                     <p>(12) PROJECT TENURE</p>
                     <div id="proj_tenure_radios">
-                        <p><span><input type="radio" name="proj_tenure" id=""></span>New Development</p>
+                        <p><span><input type="radio" name="proj_tenure" id="proj_tenure_1" value="new development"></span>New Development</p>
                         <div class="d-flex">
-                            <p class="d-inline-flex"><span><input type="radio" name="proj_tenure" id=""></span>Temporary
+                            <p class="d-inline-flex"><span><input type="radio" name="proj_tenure" id="proj_tenure_2" value="temporary"></span>Temporary
                                 (specify years)</p>
                             <input type="text" class="d-inline-flex input-underline">
                         </div>
-                        <p><span><input type="radio" name="proj_tenure" id=""></span>Vacant/Idle</p>
+                        <p><span><input type="radio" name="proj_tenure" id="proj_tenure_3" value="vacant/idle"></span>Vacant/Idle</p>
                         <div class="d-flex">
                             <p class="d-inline-flex"><span><input type="radio" name="proj_tenure"
-                                        id=""></span>Agricultural (specify crop)</p>
-                            <input type="text" class="d-inline-flex input-underline">
+                                        id="proj_tenure_4" value="agricultural"></span>Agricultural (specify crop)</p>
+                            <input type="text" class="d-inline-flex input-underline" value="other_agri">
                         </div>
                         <div class="row">
-                            <p class="col"><span><input type="radio" name="proj_tenure" id=""></span>Tenanted</p>
-                            <p class="col"><span><input type="radio" name="proj_tenure" id=""></span>Not Tenanted</p>
+                            <p class="col"><span><input type="radio" name="proj_tenure" id="proj_tenure_5" value="tenanted"></span>Tenanted</p>
+                            <p class="col"><span><input type="radio" name="proj_tenure" id="proj_tenure_6" value="not tenantend"></span>Not Tenanted</p>
 
                         </div>
                     </div>
@@ -188,16 +187,16 @@
                     ZONING COMPLIANCE/CZC.
                 </p>
                 <div class="row w-75">
-                    <p class="col"><span><input type="radio" name="written_notice" id=""></span>Yes</p>
-                    <p class="col"><span><input type="radio" name="written_notice" id=""></span>No</p>
+                    <p class="col"><span><input type="radio" name="written_notice" id="written_notice_1"></span>Yes</p>
+                    <p class="col"><span><input type="radio" name="written_notice" id="written_notice_2"></span>No</p>
 
                 </div>
-                <p><span><input type="radio" name="written_notice" id=""></span> Other HSRC Officer of Zoning
+                <p><span><input type="radio" name="written_notice" id="written_notice_3"></span> Other HSRC Officer of Zoning
                     Adminsitrator who issued the notice(s)</p>
                 <div class="row">
                     <div class="col-7">
-                        <input type="text" class="input-underline w-100">
-                        <input type="text" class="input-underline w-100">
+                        <input type="text" class="input-underline w-100" id="loc_date_notice" name="loc_date_notice">
+                        <input type="text" class="input-underline w-100" id="loc_order_notice" name="loc_order_notice">
                     </div>
                     <div class="col">
                         <p>(15)[b] Date(s) of notice(s)</p>
@@ -215,8 +214,8 @@
                 </p>
 
                 <div class="d-flex" style="position: relative; justify-content: space-around; margin-top: -20px;padding-left:304px; padding-right: 300px;">
-                    <p class ="d-inline-flex"><span><input type="radio" name="" id=""></span>Yes</p>
-                    <p class ="d-inline-flex"><span><input type="radio" name="" id=""></span>No</p>
+                    <p class ="d-inline-flex"><span><input type="radio" name="written_notice_16" id="written_notice_1"></span>Yes</p>
+                    <p class ="d-inline-flex"><span><input type="radio" name="written_notice_16" id="written_notice_2"></span>No</p>
                     
                 </div>
                 <p>If yes, please answer the following:</p>
@@ -238,8 +237,8 @@
                 <p>(17) PREPARED MODE OF LEASE OF DECISION:</p>
 
                 <div class="d-flex row" style="position: relative; justify-content: space-around;padding-left: 55px;padding-right: 283px; ">
-                    <p class ="col"><span><input type="radio" name="" id=""></span>Pick-up</p>
-                    <p class ="col"><span><input type="radio" name="" id=""></span>By mail, address to</p>
+                    <p class ="col"><span><input type="radio" name="pmld" id="pmld_1"></span>Pick-up</p>
+                    <p class ="col"><span><input type="radio" name="pmld" id="pmld_2"></span>By mail, address to</p>
                 </div>
 
                 
@@ -325,6 +324,42 @@
                 console.log("false")
             }
         });
+
+        <?php
+        
+        // $project_locational = $_SESSION['locational'];
+        $form_locational = select('f_locational',"id = '$project_locational'");
+        if (mysqli_num_rows($form_locational) > 0) {
+        while ($row = mysqli_fetch_assoc($form_locational)) {
+
+            // echo "$('#barangay')[0].value ='".$row['barangay'] . "';";
+            $rol = $row['right_over_land'];
+            $elu = $row['existing_land_use'];
+            $project_nature = $row['project_nature'];
+            $project_tenure = $row['project_tenure'];
+
+
+
+
+        
+    }
+}
+        
+        
+        ?>
+
+
+$(document).ready(function(){
+
+$("input[name='right_over_land'][value='<?php echo $rol?>']").attr('checked', 'checked');
+$("input[name='elu'][value='<?php echo $elu?>']").attr('checked', 'checked');
+$("input[name='proj_nature'][value='<?php echo $project_nature?>']").attr('checked', 'checked');
+$("input[name='proj_tenure'][value='<?php echo $project_tenure?>']").attr('checked', 'checked');
+
+});
+
+
+
 
 
     </script>

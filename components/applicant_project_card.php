@@ -3,7 +3,7 @@
 <?php
       // wrong retrival query or not
       $condition = "applicant_id = '" . $_SESSION['user_id'] . "' ORDER BY 'dateCreated' DESC";
-      $project = select("vw_project_basics", $condition); 
+      $project = select("vw_project_card", $condition); 
 
       //check if there are result
       if (mysqli_num_rows($project) > 0) {
@@ -65,7 +65,7 @@
           <form action="../php/project_delete.php" method="post">
           <ul class="dropdown-menu text-center">
             
-              <button type="submit" name = "project_id" value = "' . $row['id'] . '"
+              <button type="submit" name = "project_id" value = "' . $row['project_id'] . '"
               style = "display: inline-block;width: -webkit-fill-available;border: none;
               background: none;">Delete
               </button>
@@ -75,7 +75,7 @@
       </form>
   </div>
   </div>
-  <a href="applicant_openProject.php?project_id=' . $row['id'] . '" > <!-- link -->
+  <a href="applicant_openProject.php?project_id=' . $row['project_id'] . '" > <!-- link -->
   <div style= "
   background-image: url(../img/icon/project-folder.png);
   background-size: contain;
@@ -85,7 +85,7 @@
   </div>
 
   
-      <div class="text-center my-auto px-2" id = "' . $row['id'] . '">
+      <div class="text-center my-auto px-2" id = "' . $row['project_id'] . '">
           <p style="margin-bottom: 0;  text-overflow: ellipsis;white-space: nowrap;overflow: hidden;"
           title = "' . $row['title'] . '" >
           ' . $row['title'] . '</p> <!-- project title -->

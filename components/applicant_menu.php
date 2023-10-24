@@ -26,6 +26,22 @@
         color: white;
 
     }
+
+    .link-hover:hover{
+        /* background-color: #245A94; */
+        /* color: white !important; */
+        /* margin-left: 40px; */
+        /* filter: hue-rotate(2) */
+        border: 1px solid black;
+        /* border-bottom: 1px solid #245A94; */
+    }
+
+    ul {
+    list-style: none;
+    }
+
+   
+
 </style>
 
 <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvas_applicant_menu" aria-labelledby="offcanvas_applicant_menuLabel">
@@ -71,13 +87,13 @@
         }
         ?>
         <ul id="applicant_menu" class="mx-auto">
-            <a href="applicant_home.php" title="Home">
+            <a href="applicant_home.php" title="Home" class="link-hover">
                 <li>Home</li>
             </a>
-            <a href="applicant_chat.php" title="Chat">
+            <a href="applicant_chat.php" title="Chat" class="link-hover">
                 <li>Chat</li>
             </a>
-            <a href="public_downloadables.php" title="Downloadables">
+            <!-- <a href="public_downloadables.php" title="Downloadables">
                 <li>Downloadables</li>
             </a>
             <a href="public_faq.php" title="Frequently Asked Questions">
@@ -85,12 +101,12 @@
             </a>
             <a href="public_feedback.php" title="Give us Feedback">
                 <li>Feedback</li>
-            </a>
-            <a href="applicant_account_setting.php">
+            </a> -->
+            <a href="applicant_account_setting.php" class="link-hover">
                 <li>Account Settings</li>
             </a>
 
-            <a href="../php/session_logout.php">
+            <a href="../php/session_logout.php" class="link-hover">
                 <li>Logout</li>
             </a>
         </ul>

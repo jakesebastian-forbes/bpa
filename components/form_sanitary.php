@@ -163,11 +163,7 @@
 </style>
 
 
-    <div style="
-    width: 240.89999999999998mm;
-    border: 1px solid black;
-    height: 402.6mm;
-">
+    <div style=" width: 240.89999999999998mm; border: 1px solid black; height: 402.6mm;" id = "sanitary_form" class = "m-auto">
         <div>
 
             <p class="my-3 text-center text-uppercase fw-bold" style="font-size: 10px;">republic of the philippines <br>
@@ -481,104 +477,104 @@
                             <div id="feature_row_test" class="text-end row">
                                 <div style="display:inline-flex" id = "test">
                                     <input class="input-field-qty" style="height: 20px;" type="number" id="input-field-qty-1" name="input-field-qty-1">
-                                    <input type="radio" name = "feature_name1">
-                                    <input type="radio" name = "feature_name1">
+                                    <input type="radio" name = "feature_name1" id="feature_name_1">
+                                    <input type="radio" name = "feature_name1" id="feature_name_2">
                                     <p class="text-start text-uppercase fw-bold" style="font-size: 10px; white-space: nowrap;">water closet</p>
                                 </div>
                             </div>
                             <div id="feature_row_test" class="text-end row">
                                 <div style="display:inline-flex;  margin-top: -10px" id = "test">
                                     <input class="input-field-qty" style="height: 20px;" type="number" id="input-field-qty-2" name="input-field-qty-2">
-                                    <input type="radio" name = "feature_name2">
-                                    <input type="radio" name = "feature_name2">
+                                    <input type="radio" name = "feature_name2" id="feature_name_3">
+                                    <input type="radio" name = "feature_name2" id="feature_name_4">
                                     <p class="text-start text-uppercase fw-bold" style="font-size: 10px; white-space: nowrap;">floor drain</p>
                                 </div>
                             </div>
                             <div id="feature_row_test" class="text-end row">
                                 <div style="display:inline-flex;  margin-top: -10px" id = "test">
                                     <input class="input-field-qty" style="height: 20px;" type="number" id="input-field-qty-3" name="input-field-qty-3">
-                                    <input type="radio" name = "feature_name3">
-                                    <input type="radio" name = "feature_name3">
+                                    <input type="radio" name = "feature_name3" id="feature_name_5">
+                                    <input type="radio" name = "feature_name3" id="feature_name_6">
                                     <p class="text-start text-uppercase fw-bold" style="font-size: 10px; white-space: nowrap;">lavatories</p>
                                 </div>
                             </div>
                             <div id="feature_row_test" class="text-end row">
                                 <div style="display:inline-flex;  margin-top: -10px" id = "test">
                                     <input class="input-field-qty" style="height: 20px;" type="number" id="input-field-qty-4" name="input-field-qty-4">
-                                    <input type="radio" name = "feature_name4">
-                                    <input type="radio" name = "feature_name4">
+                                    <input type="radio" name = "feature_name4" id="feature_name_7">
+                                    <input type="radio" name = "feature_name4" id="feature_name_8">
                                     <p class="text-start text-uppercase fw-bold" style="font-size: 10px; white-space: nowrap;">kitchen sink</p>
                                 </div>
                             </div>
                             <div id="feature_row_test" class="text-end row">
                                 <div style="display:inline-flex;  margin-top: -10px" id = "test">
                                     <input class="input-field-qty" style="height: 20px;" type="number" id="input-field-qty-5" name="input-field-qty-5">
-                                    <input type="radio" name = "feature_name5">
-                                    <input type="radio" name = "feature_name5">
+                                    <input type="radio" name = "feature_name5" id="feature_name_9">
+                                    <input type="radio" name = "feature_name5" id="feature_name_10">
                                     <p class="text-start text-uppercase fw-bold" style="font-size: 10px; white-space: nowrap;">faucet</p>
                                 </div>
                             </div>
                             <div id="feature_row_test" class="text-end row">
                                 <div style="display:inline-flex; margin-top: -10px" id = "test">
                                     <input class="input-field-qty" style="height: 20px;" type="number" id="input-field-qty-6" name="input-field-qty-6">
-                                    <input type="radio" name = "feature_name6">
-                                    <input type="radio" name = "feature_name6">
+                                    <input type="radio" name = "feature_name6" id="feature_name_11">
+                                    <input type="radio" name = "feature_name6" id="feature_name_12">
                                     <p class="text-start text-uppercase fw-bold" style="font-size: 10px; white-space: nowrap;">shower head</p>
                                 </div>
                             </div>
                             <div id="feature_row_test" class="text-end row">
                                 <div style="display:inline-flex;  margin-top: -10px" id = "test">
                                     <input class="input-field-qty" style="height: 20px;" type="number" id="input-field-qty-7" name="input-field-qty-7">
-                                    <input type="radio" name = "feature_name7">
-                                    <input type="radio" name = "feature_name7">
+                                    <input type="radio" name = "feature_name7" id="feature_name_13">
+                                    <input type="radio" name = "feature_name7" id="feature_name_14">
                                     <p class="text-start text-uppercase fw-bold" style="font-size: 10px; white-space: nowrap;">water meter</p>
                                 </div>
                             </div>
                             <div id="feature_row_test" class="text-end row">
                                 <div style="display:inline-flex;  margin-top: -10px" id = "test">
                                     <input class="input-field-qty" style="height: 20px;" type="number" id="input-field-qty-8" name="input-field-qty-8">
-                                    <input type="radio" name = "feature_name8">
-                                    <input type="radio" name = "feature_name8">
+                                    <input type="radio" name = "feature_name8" id="feature_name_15">
+                                    <input type="radio" name = "feature_name8" id="feature_name_16">
                                     <p class="text-start text-uppercase fw-bold" style="font-size: 10px; white-space: nowrap;">grease trap</p>
                                 </div>
                             </div>
                             <div id="feature_row_test" class="text-end row">
                                 <div style="display:inline-flex; margin-top: -10px" id = "test">
                                     <input class="input-field-qty" style="height: 20px;" type="number" id="input-field-qty-9" name="input-field-qty-9">
-                                    <input type="radio" name = "feature_name9">
-                                    <input type="radio" name = "feature_name9">
+                                    <input type="radio" name = "feature_name9" id="feature_name_17">
+                                    <input type="radio" name = "feature_name9" id="feature_name_18">
                                     <p class="text-start text-uppercase fw-bold" style="font-size: 10px; white-space: nowrap;">bath tubs</p>
                                 </div>
                             </div>
                             <div id="feature_row_test" class="text-end row">
                                 <div style="display:inline-flex;  margin-top: -10px" id = "test">
                                     <input class="input-field-qty" style="height: 20px;" type="number" id="input-field-qty-10" name="input-field-qty-10">
-                                    <input type="radio" name = "feature_name10">
-                                    <input type="radio" name = "feature_name10">
+                                    <input type="radio" name = "feature_name10" id="feature_name_19">
+                                    <input type="radio" name = "feature_name10" id="feature_name_20">
                                     <p class="text-start text-uppercase fw-bold" style="font-size: 10px; white-space: nowrap;">slop sink</p>
                                 </div>
                             </div>
                             <div id="feature_row_test" class="text-end row">
                                 <div style="display:inline-flex;  margin-top: -10px" id = "test">
                                     <input class="input-field-qty" style="height: 20px;" type="number" id="input-field-qty-11" name="input-field-qty-11">
-                                    <input type="radio" name = "feature_name11">
-                                    <input type="radio" name = "feature_name11">
+                                    <input type="radio" name = "feature_name11" id="feature_name_21">
+                                    <input type="radio" name = "feature_name11" id="feature_name_22">
                                     <p class="text-start text-uppercase fw-bold" style="font-size: 10px; white-space: nowrap;">urinal</p>
                                 </div>
                             </div>
                             <div id="feature_row_test" class="text-end row">
                                 <div style="display:inline-flex;  margin-top: -10px" id = "test">
                                     <input class="input-field-qty" style="height: 20px;" type="number" id="input-field-qty-12" name="input-field-qty-12">
-                                    <input type="radio" name = "feature_name12">
-                                    <input type="radio" name = "feature_name12">
+                                    <input type="radio" name = "feature_name12" id="feature_name_23">
+                                    <input type="radio" name = "feature_name12" id="feature_name_24">
                                     <p class="text-start text-uppercase fw-bold" style="font-size: 10px; white-space: nowrap;">air conditioning unit</p>
                                 </div>
                             </div>
                             <div id="feature_row_test" class="text-end row">
                                 <div style="display:inline-flex;  margin-top: -10px" id = "test">
                                     <input class="input-field-qty" style="height: 20px;" type="number" id="input-field-qty-13" name="input-field-qty-13">
-                                    <input type="radio" name = "feature_name13">
-                                    <input type="radio" name = "feature_name13">
+                                    <input type="radio" name = "feature_name13" id="feature_name_25">
+                                    <input type="radio" name = "feature_name13" id="feature_name_26">
                                     <p class="text-start text-uppercase fw-bold" style="font-size: 10px; white-space: nowrap;">water tank/reservoir</p>
                                 </div>
                             </div>
@@ -593,104 +589,104 @@
                             <div id="feature_row_test" class="text-end row">
                                 <div style="display:inline-flex" id = "test">
                                     <input class="input-field-qty" style="height: 20px;" type="number" id="input-field-qty-14" name="input-field-qty-14">
-                                    <input type="radio" name = "feature_name14">
-                                    <input type="radio" name = "feature_name14">
+                                    <input type="radio" name = "feature_name14" id="feature_name_27">
+                                    <input type="radio" name = "feature_name14" id="feature_name_28">
                                     <p class="text-start text-uppercase fw-bold" style="font-size: 10px;">bidette</p>
                                 </div>
                             </div>
                             <div id="feature_row_test" class="text-end row">
                                 <div style="display:inline-flex; margin-top: -10px" id = "test">
                                     <input class="input-field-qty" style="height: 20px;" type="number" id="input-field-qty-15" name="input-field-qty-15">
-                                    <input type="radio" name = "feature_name15">
-                                    <input type="radio" name = "feature_name15">
+                                    <input type="radio" name = "feature_name15" id="feature_name_29">
+                                    <input type="radio" name = "feature_name15" id="feature_name_30">
                                     <p class="text-start text-uppercase fw-bold" style="font-size: 10px; white-space: nowrap;">laundry trays</p>
                                 </div>
                             </div>
                             <div id="feature_row_test" class="text-end row">
                                 <div style="display:inline-flex; margin-top: -10px" id = "test">
                                     <input class="input-field-qty" style="height: 20px;" type="number" id="input-field-qty-16" name="input-field-qty-16">
-                                    <input type="radio" name = "feature_name16">
-                                    <input type="radio" name = "feature_name16">
+                                    <input type="radio" name = "feature_name16" id="feature_name_31">
+                                    <input type="radio" name = "feature_name16" id="feature_name_32">
                                     <p class="text-start text-uppercase fw-bold" style="font-size: 10px; white-space: nowrap;">dental cuspidor</p>
                                 </div>
                             </div>
                             <div id="feature_row_test" class="text-end row">
                                 <div style="display:inline-flex; margin-top: -10px" id = "test">
                                     <input class="input-field-qty" style="height: 20px;" type="number" id="input-field-qty-17" name="input-field-qty-17">
-                                    <input type="radio" name = "feature_name17">
-                                    <input type="radio" name = "feature_name17">
+                                    <input type="radio" name = "feature_name17" id="feature_name_33">
+                                    <input type="radio" name = "feature_name17" id="feature_name_34">
                                     <p class="text-start text-uppercase fw-bold" style="font-size: 10px; white-space: nowrap;">gas heater</p>
                                 </div>
                             </div>
                             <div id="feature_row_test" class="text-end row">
                                 <div style="display:inline-flex; margin-top: -10px" id = "test">
                                     <input class="input-field-qty" style="height: 20px;" type="number" id="input-field-qty-18" name="input-field-qty-18">
-                                    <input type="radio" name = "feature_name18">
-                                    <input type="radio" name = "feature_name18">
+                                    <input type="radio" name = "feature_name18" id="feature_name_35">
+                                    <input type="radio" name = "feature_name18" id="feature_name_36">
                                     <p class="text-start text-uppercase fw-bold" style="font-size: 10px; white-space: nowrap;">electric heater</p>
                                 </div>
                             </div>
                             <div id="feature_row_test" class="text-end row">
                                 <div style="display:inline-flex; margin-top: -10px" id = "test">
                                     <input class="input-field-qty" style="height: 20px;" type="number" id="input-field-qty-19" name="input-field-qty-19">
-                                    <input type="radio" name = "feature_name19">
-                                    <input type="radio" name = "feature_name19">
+                                    <input type="radio" name = "feature_name19" id="feature_name_37">
+                                    <input type="radio" name = "feature_name19" id="feature_name_38">
                                     <p class="text-start text-uppercase fw-bold" style="font-size: 10px; white-space: nowrap;">water boiler</p>
                                 </div>
                             </div>
                             <div id="feature_row_test" class="text-end row">
                                 <div style="display:inline-flex; margin-top: -10px" id = "test">
                                     <input class="input-field-qty" style="height: 20px;" type="number" id="input-field-qty-20" name="input-field-qty-20">
-                                    <input type="radio" name = "feature_name20">
-                                    <input type="radio" name = "feature_name20">
+                                    <input type="radio" name = "feature_name20" id="feature_name_39">
+                                    <input type="radio" name = "feature_name20" id="feature_name_40">
                                     <p class="text-start text-uppercase fw-bold" style="font-size: 10px; white-space: nowrap;">drinking fountain</p>
                                 </div>
                             </div>
                             <div id="feature_row_test" class="text-end row">
                                 <div style="display:inline-flex; margin-top: -10px" id = "test">
                                     <input class="input-field-qty" style="height: 20px;" type="number" id="input-field-qty-21" name="input-field-qty-21">
-                                    <input type="radio" name = "feature_name21">
-                                    <input type="radio" name = "feature_name21">
+                                    <input type="radio" name = "feature_name21" id="feature_name_41">
+                                    <input type="radio" name = "feature_name21" id="feature_name_42">
                                     <p class="text-start text-uppercase fw-bold" style="font-size: 10px; white-space: nowrap;">bar sink</p>
                                 </div>
                             </div>
                             <div id="feature_row_test" class="text-end row">
                                 <div style="display:inline-flex; margin-top: -10px" id = "test">
                                     <input class="input-field-qty" style="height: 20px;" type="number" id="input-field-qty-22" name="input-field-qty-22">
-                                    <input type="radio" name = "feature_name22">
-                                    <input type="radio" name = "feature_name22">
+                                    <input type="radio" name = "feature_name22" id="feature_name_43">
+                                    <input type="radio" name = "feature_name22" id="feature_name_44">
                                     <p class="text-start text-uppercase fw-bold" style="font-size: 10px; white-space: nowrap;">soda fountain sink</p>
                                 </div>
                             </div>
                             <div id="feature_row_test" class="text-end row">
                                 <div style="display:inline-flex; margin-top: -10px" id = "test">
                                     <input class="input-field-qty" style="height: 20px;" type="number" id="input-field-qty-23" name="input-field-qty-23">
-                                    <input type="radio" name = "feature_name23">
-                                    <input type="radio" name = "feature_name23">
+                                    <input type="radio" name = "feature_name23" id="feature_name_45">
+                                    <input type="radio" name = "feature_name23" id="feature_name_46">
                                     <p class="text-start text-uppercase fw-bold" style="font-size: 10px; white-space: nowrap;">laboratory sink</p>
                                 </div>
                             </div>
                             <div id="feature_row_test" class="text-end row">
                                 <div style="display:inline-flex; margin-top: -10px" id = "test">
                                     <input class="input-field-qty" style="height: 20px;" type="number" id="input-field-qty-24" name="input-field-qty-24">
-                                    <input type="radio" name = "feature_name24">
-                                    <input type="radio" name = "feature_name24">
+                                    <input type="radio" name = "feature_name24" id="feature_name_47">
+                                    <input type="radio" name = "feature_name24" id="feature_name_48">
                                     <p class="text-start text-uppercase fw-bold" style="font-size: 10px; ">sterilizer</p>
                                 </div>
                             </div>
                             <div id="feature_row_test" class="text-end row">
                                 <div style="display:inline-flex; margin-top: -10px" id = "test">
                                     <input class="input-field-qty" style="height: 20px;" type="number" id="input-field-qty-25" name="input-field-qty-25">
-                                    <input type="radio" name = "feature_name25">
-                                    <input type="radio" name = "feature_name25">
+                                    <input type="radio" name = "feature_name25" id="feature_name_49">
+                                    <input type="radio" name = "feature_name25" id="feature_name_50">
                                     <p class="text-start text-uppercase fw-bold" style="font-size: 10px; white-space: nowrap;">swimming pool</p>
                                 </div>
                             </div>
                             <div id="feature_row_test" class="text-end row">
                                 <div style="display:inline-flex; margin-top: -10px" id="test">
                                     <input class="input-field-qty" style="height: 20px;" type="number" id="input-field-qty-26" name="input-field-qty-26">
-                                    <input type="radio" name = "feature_name26">
-                                    <input type="radio" name = "feature_name26">
+                                    <input type="radio" name = "feature_name26" id="feature_name_51">
+                                    <input type="radio" name = "feature_name26" id="feature_name_52">
                                     <p class="text-start text-uppercase fw-bold" style="font-size: 10px; white-space: nowrap;">others(specify)</p>
                                 </div>
                             </div>
@@ -753,13 +749,13 @@
                         <p class="mx-3 text-start text-uppercase fw-bold" style="font-size: 13px;">water supply</p>
                         <div style="display:inline-flex;" id="water_supply_row" class="mx-2 row">
                             <div class="" id = "water_supply_test" style="margin-top: -15px; ">
-                                <input type="radio" name = "water_name1">
+                                <input type="radio" name = "water_name1" id="water_name_1">
                                 <p class="text-uppercase fw-bold" style="font-size: 10px;">shallow well</p>
                             </div>
                         </div>
                         <div id="water_supply_row" class="mx-1 row">
                             <div class="" id = "water_supply_test" style="margin-top: -8px;">
-                                <input type="radio" name = "water_name2">
+                                <input type="radio" name = "water_name1" id="water_name_2">
                                 <p class="text-uppercase fw-bold" style="font-size: 10px;">deep well & pump set</p>
                             </div>
                         </div>
@@ -767,7 +763,7 @@
                         
                         <div id="water_supply_row" class="mx-1 row">
                             <div class="" id = "water_supply_test" style="margin-top: -8px;">
-                                <input type="radio" name = "water_name3">
+                                <input type="radio" name = "water_name1" id="water_name_3">
                                 <p class="text-uppercase fw-bold" style="font-size: 10px; ">city/municipal water system</p>
                             </div>
                         </div>
@@ -775,7 +771,7 @@
                         
                         <div id="water_supply_row" class="mx-1 row">
                             <div class="" id = "water_supply_test" style="margin-top: -8px;">
-                                <input type="radio" name = "water_name4">
+                                <input type="radio" name = "water_name1" id="water_name_4">
                                 <p class="text-uppercase fw-bold" style="font-size: 10px;">others(specify)</p>
                             </div>
                         </div>
@@ -787,25 +783,25 @@
                             <div class="col">
                                 <div id="water_supply_row" class="row">
                                     <div class="" id = "water_supply_test" style="margin-top: -15px;">
-                                        <input type="radio" name = "water_name5">
+                                        <input type="radio" name = "water_name2" id="water_name_5">
                                         <p class="text-uppercase fw-bold" style="font-size: 10px; white-space: nowrap;">waste water treatment plant</p>
                                     </div>
                                 </div>
                                 <div id="water_supply_row" class="row">
                                     <div class="" id = "water_supply_test" style="margin-top: -9px;">
-                                        <input type="radio" name = "water_name6">
+                                        <input type="radio" name = "water_name2" id="water_name_6">
                                         <p class="text-uppercase fw-bold" style="font-size: 10px; white-space: nowrap;">septic tank/imhope vault</p>
                                     </div>
                                 </div>
                                 <div id="water_supply_row" class="row">
                                     <div class="" id = "water_supply_test" style="margin-top: -9px;">
-                                        <input type="radio" name = "water_name7">
+                                        <input type="radio" name = "water_name2" id="water_name_7">
                                         <p class="text-uppercase fw-bold" style="font-size: 10px; white-space: nowrap;">sanitary sewer connection</p>
                                     </div>
                                 </div>
                                 <div id="water_supply_row" class="row">
                                     <div class="" id = "water_supply_test" style="margin-top: -9px;">
-                                        <input type="radio" name = "water_name8">
+                                        <input type="radio" name = "water_name2" id="water_name_8">
                                         <p class="text-uppercase fw-bold" style="font-size: 10px; white-space: nowrap;">sub-surface sand filter</p>
                                     </div>
                                 </div>
@@ -814,19 +810,19 @@
                             <div class="col">
                                 <div id="water_supply_row" class="row">
                                     <div class="" id = "water_supply_test" style="margin-top: -9px;">
-                                        <input type="radio" name = "water_name9">
+                                        <input type="radio" name = "water_name2" id="water_name_9">
                                         <p class="text-uppercase fw-bold" style="font-size: 10px; ">surface drainage</p>
                                     </div>
                                 </div>
                                 <div id="water_supply_row" class="row">
                                     <div class="" id = "water_supply_test" style="margin-top: -9px;">
-                                        <input type="radio" name = "water_name10">
+                                        <input type="radio" name = "water_name2" id="water_name_10">
                                         <p class="text-uppercase fw-bold" style="font-size: 10px; ">street canal</p>
                                     </div>
                                 </div>
                                 <div id="water_supply_row" class="row">
                                     <div class="" id = "water_supply_test" style="margin-top: -9px;">
-                                        <input type="radio" name = "water_name11">
+                                        <input type="radio" name = "water_name2" id="water_name_11">
                                         <p class="text-uppercase fw-bold" style="font-size: 10px; ">water drainage</p>
                                     </div>
                                 </div>

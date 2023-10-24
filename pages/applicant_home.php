@@ -2,6 +2,8 @@
 
 session_start();
 // print_r($_SESSION);
+// require "../php/db_conn.php";
+// echo $dbname;
 
 
 if (isset($_SESSION["forms"])) {
@@ -73,14 +75,16 @@ require "../php/db_func.php";
                   <form action="../php/project_create.php" method="post">
                    
                     <div class="row mx-auto" style="width:80%">
-                    <label for = "occupancy_classification">Occupancy Classification</label>
+                    <label for = "ext_land_use">Existing land use</label>
 
-                      <select name="occupancy_classification" id="occupancy_classification"  required>
+                      <select name="ext_land_use" id="ext_land_use"  required>
                         <option value="">Please select an option</option>
                         <option value="residential">Residential</option>
                         <option value="commercial">Commercial</option>
                         <option value="institutional">Institutional</option>
                         <option value="industrial">Industrial</option>
+                        <option value="others">Others</option>
+
                       </select>
                     </div>
 
@@ -99,18 +103,7 @@ require "../php/db_func.php";
 
 
 
-                 
-                    <div class="row mx-auto" style="width:80%">
-                    <label>Are you the registered owner?</label>
-
-                      <select name="registered_owner" id="registered_owner"  required>
-                        <option value="">Please select an option</option>
-                        <option value="yes">Yes</option>
-                        <option value="no">No</option>
-                      </select>
-                    </div>
-
-
+          
              
                 
                     <div class="row mx-auto" style="width:80%">
@@ -127,16 +120,10 @@ require "../php/db_func.php";
                     <div class="row mx-auto" style="width:80%">
                 
                     <label>What would you like to call this project?</label>
-                    <input type="text" name="" id="" width="100%" placeholder="Project Title">
+                    <input type="text" width="100%" placeholder="Project Title" name = "project_title" id = "project_title" required>
                     </div>
 
 
-
-
-
-
-
-                    
                   </div>
 
                 </div>

@@ -1,37 +1,46 @@
 <?php
 require '../php/db_func.php';
 session_start(); //start session
-// print_r($_SESSION);
 $link = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+// print_r($_SESSION);
 
 $project_id = substr($link, strpos($link, "project_id=") + 11);
 // echo $project_id;
 // echo "<br>";
 
-$ids = select("vw_ids", "project_id = '$project_id'");
-if (mysqli_num_rows($ids) > 0) {
+$vw_project_ids = select("vw_project_ids", "project_id = '$project_id'");
 
-    if ($row = mysqli_fetch_assoc($ids)) {
-        $user_id = $row['user_id'];
-        $applicant_address = $row['applicant_address'];
-        $project_id = $row['project_id'];
-        $proj_address = $row['proj_address'];
-        $land_property = $row['land_property'];
-        $plans_details = $row['plans_details'];
-        $plan_form = $row['plan_form'];
-        $plan_document = $row['plan_document'];
-        $sanitary = $row['sanitary'];
-        $electrical = $row['electrical'];
-        $locational = $row['locational'];
-        $unified = $row['unified'];
+if (mysqli_num_rows($vw_project_ids) > 0) {
+
+    if ($row = mysqli_fetch_assoc($vw_project_ids)) {
+        $project_applicant = $row['project_applicant'];
+        $project_title = $row['project_title'];
+        $project_status = $row['project_status'];
+        $project_address = $row['project_address'];
+        $project_supervisor = $row['project_supervisor'];
+        $project_documents = $row['documents'];
+        $project_forms = $row['project_forms'];
+        $project_unified = $row['unified'];
+        $project_locational = $row['locational'];
+        $project_sanitary = $row['sanitary'];
+        $project_electrical = $row['electrical'];
     }
 }
 
-$project = select("vw_project_basics", "id = '$project_id'");
-if ($project = mysqli_fetch_assoc($project)) {
 
-    $project_title = $project['title'];
-}
+// $ids = select("vw_project_card", "project_id = '$project_id'");
+// if (mysqli_num_rows($ids) > 0) {
+
+//     if ($row = mysqli_fetch_assoc($ids)) {
+//         $user_id = $row['applicant_id'];
+//         $project_title = $row['title'];
+//         $project_forms = $row['forms'];
+//         $doc_group = $row['documents'];
+
+
+//     }
+// }
+
 
 
 
@@ -43,7 +52,7 @@ if ($project = mysqli_fetch_assoc($project)) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo $project_title?></title>
+    <title><?php echo $project_title ?></title>
     <link rel="stylesheet" href="../js-css/general.css">
     <link rel="stylesheet" href="../bootstrap-5.3.0/css/bootstrap.css">
     <script src="../bootstrap-5.3.0/js/bootstrap.bundle.js"></script>
@@ -97,9 +106,9 @@ if ($project = mysqli_fetch_assoc($project)) {
                             <button class="nav-link" id="step_two_tab" data-bs-toggle="pill" data-bs-target="#step_two" type="button" role="tab" aria-controls="step_two" aria-selected="false">Step 2 : Filling up Forms</button>
                             <button class="nav-link" id="step_three_tab" data-bs-toggle="pill" data-bs-target="#step_three" type="button" role="tab" aria-controls="step_three" aria-selected="false">Step 3 : Uploading Documents</button>
                             <button class="nav-link" id="step_four_tab" data-bs-toggle="pill" data-bs-target="#step_four" type="button" role="tab" aria-controls="step_four" aria-selected="false">Step 4 : Review your application</button>
-                            <button class="nav-link" id="step_five_tab" data-bs-toggle="pill" data-bs-target="#step_five" type="button" role="tab" aria-controls="step_five" aria-selected="false" >Step 5 : Assessment</button>
-                            <button class="nav-link" id="step_six_tab" data-bs-toggle="pill" data-bs-target="#step_six" type="button" role="tab" aria-controls="step_six" aria-selected="false" >Step 6 : Set Schedule for signing</button>
-                            <button class="nav-link" id="step_seven_tab" data-bs-toggle="pill" data-bs-target="#step_seven" type="button" role="tab" aria-controls="step_seven" aria-selected="false" >Step 7 : Issuing Building Permit</button>
+                            <button class="nav-link" id="step_five_tab" data-bs-toggle="pill" data-bs-target="#step_five" type="button" role="tab" aria-controls="step_five" aria-selected="false" disabled>Step 5 : Assessment</button>
+                            <button class="nav-link" id="step_six_tab" data-bs-toggle="pill" data-bs-target="#step_six" type="button" role="tab" aria-controls="step_six" aria-selected="false" disabled>Step 6 : Set Schedule for signing</button>
+                            <button class="nav-link" id="step_seven_tab" data-bs-toggle="pill" data-bs-target="#step_seven" type="button" role="tab" aria-controls="step_seven" aria-selected="false" disabled>Step 7 : Issuing Building Permit</button>
                         </div>
                     </div>
                 </div>
@@ -107,7 +116,7 @@ if ($project = mysqli_fetch_assoc($project)) {
 
             </div>
 
-            <div class="col" id="main_right" style="max-height: 90vh; overflow: auto;">
+            <div class="col" id="main_right" style="max-height: 500px; min-height:100vh;overflow: auto;">
                 <div class="tab-content" id="step_tab_nav_Content">
                     <div class="tab-pane fade show active" id="step_one" role="tabpanel" aria-labelledby="step_one_tab" tabindex="0">
                         <?php require "../components/project_step_one.php" ?>
@@ -126,7 +135,7 @@ if ($project = mysqli_fetch_assoc($project)) {
 
                     </div>
                     <div class="tab-pane fade" id="step_five" role="tabpanel" aria-labelledby="step_five_tab" tabindex="0">
-                        <?php require "../components/project_step_five.php"?>
+                        <?php require "../components/project_step_five.php" ?>
 
                     </div>
                     <div class="tab-pane fade" id="step_six" role="tabpanel" aria-labelledby="step_six_tab" tabindex="0">
@@ -221,116 +230,135 @@ if ($project = mysqli_fetch_assoc($project)) {
 
 
             // add center project name
-            $("#nav_center").append('<div class="text-center" id ="project_title"><input class="text-center" style ="background-color:transparent;border:none;color:white" type="text" name="" id="inp_project_name" onchange = "update_title()" value="<?php echo $project_title; ?>"></div>')
+            $("#nav_center").append('<div class="text-center" id ="project_title"><input class="text-center" ' +
+                'style ="background-color:transparent;border:none;color:white" type="text" name="" id="inp_project_name" ' +
+                'onchange = "update_title()" value="<?php echo $project_title; ?>"><br><small><?php echo ucwords($project_status) ?></small></div>')
             $("#nav_center").addClass("m-auto");
 
             //add title/tooltip to required fields
             // $(".required").attr("title", "This field is required")
 
-        
+
+            //check project status
+            var project_status = '<?php echo $project_status ?>';
+            if (project_status.toLowerCase() == "pending") {
+
+                $("#step_one_common_info input").attr("disabled", "disabled")
+                $("#inp_project_name").attr("disabled", "disabled")
+                $("#step_two_wrapper input,select").attr("disabled", "disabled")
+                $("#step_two_wrapper > button").attr("disabled", "disabled")
+                $("#step_three_documents button:not(.nav-link)").attr("disabled", "disabled")
+                $("#step_four_forms input:not(.nav-link)").attr("disabled", "disabled")
+                $("#submit_for_review_btn").css("display", "none")
+                $("#step_five_tab").removeAttr("disabled", "")
+                $("#step_five_tab").click()
+            }
+
+
+
         });
 
 
         width_cap();
 
-            function width_cap() {
+        function width_cap() {
 
-                const mql = window.matchMedia('screen and (max-width: 529px)');
+            const mql = window.matchMedia('screen and (max-width: 529px)');
 
-                checkMedia(mql);
-                mql.addListener(checkMedia);
+            checkMedia(mql);
+            mql.addListener(checkMedia);
 
-                function checkMedia(mql) {
+            function checkMedia(mql) {
 
-                    if (mql.matches) {
+                if (mql.matches) {
 
-                        console.log('cap');
-                        $("#main_right").css("max-height", "");
-                    }
+                    console.log('cap');
+                    $("#main_right").css("max-height", "");
                 }
             }
+        }
 
-            mobile();
+        mobile();
 
-            function mobile() { //min support large mobile w-425px
+        function mobile() { //min support large mobile w-425px
 
-                const mql = window.matchMedia('screen and (min-width: 530px) and (max-width: 575px)');
+            const mql = window.matchMedia('screen and (min-width: 530px) and (max-width: 575px)');
 
-                checkMedia(mql);
-                mql.addListener(checkMedia);
+            checkMedia(mql);
+            mql.addListener(checkMedia);
 
-                function checkMedia(mql) {
+            function checkMedia(mql) {
 
-                    if (mql.matches) {
+                if (mql.matches) {
 
-                        console.log('Mobile');
-                    }
+                    console.log('Mobile');
                 }
             }
+        }
 
-            tablet();
+        tablet();
 
-            function tablet() {
+        function tablet() {
 
-                const mql = window.matchMedia('screen and (min-width: 576px) and (max-width: 991px)');
+            const mql = window.matchMedia('screen and (min-width: 576px) and (max-width: 991px)');
 
-                checkMedia(mql);
-                mql.addListener(checkMedia);
+            checkMedia(mql);
+            mql.addListener(checkMedia);
 
-                function checkMedia(mql) {
+            function checkMedia(mql) {
 
-                    if (mql.matches) {
+                if (mql.matches) {
 
-                        console.log('tablet');
-
-
-
-
-                        // resize form
-                        // $("#form").css("transform", "scale(78%)")
-                        // $("#form").css("-webkit-transform-origin-x", "left")
-                        // $("#form").css("-webkit-transform-origin-y", "top")
-                        // $("#locational_clearance").css("height", "calc(39*0.8cm);")
+                    console.log('tablet');
 
 
 
 
-                    }
+                    // resize form
+                    // $("#form").css("transform", "scale(78%)")
+                    // $("#form").css("-webkit-transform-origin-x", "left")
+                    // $("#form").css("-webkit-transform-origin-y", "top")
+                    // $("#locational_clearance").css("height", "calc(39*0.8cm);")
+
+
+
+
                 }
             }
+        }
 
 
-            desktop();
+        desktop();
 
-            function desktop() {
+        function desktop() {
 
-                const mql = window.matchMedia('screen and (min-width: 992px)');
+            const mql = window.matchMedia('screen and (min-width: 992px)');
 
-                checkMedia(mql);
-                mql.addListener(checkMedia);
+            checkMedia(mql);
+            mql.addListener(checkMedia);
 
-                function checkMedia(mql) {
+            function checkMedia(mql) {
 
-                    if (mql.matches) {
+                if (mql.matches) {
 
-                        console.log('desktop');
-                        $("#off_panel_steps_btn").css("display", "none") //hide btn
-                        $("#main_left").prependTo("#flex_main") // move to normal
-                        $("main_left").addClass("col-lg-3")
-                        $(".document-upload > .row").addClass("col")
-                        $(".document-upload > .row").removeClass("row")
+                    console.log('desktop');
+                    $("#off_panel_steps_btn").css("display", "none") //hide btn
+                    $("#main_left").prependTo("#flex_main") // move to normal
+                    $("main_left").addClass("col-lg-3")
+                    $(".document-upload > .row").addClass("col")
+                    $(".document-upload > .row").removeClass("row")
 
-                    } else {
+                } else {
 
 
-                        $("#off_panel_steps_btn").css("display", "block") //show off-panel bttn
-                        $("#main_left").appendTo("#off_panel_steps .offcanvas-body") //move steps to off panel
-                        $("main_left").removeClass("col-lg-3")
-                        $(".document-upload > .col").addClass("row")
-                        $(".document-upload > .col").removeClass("col")
-                    }
+                    $("#off_panel_steps_btn").css("display", "block") //show off-panel bttn
+                    $("#main_left").appendTo("#off_panel_steps .offcanvas-body") //move steps to off panel
+                    $("main_left").removeClass("col-lg-3")
+                    $(".document-upload > .col").addClass("row")
+                    $(".document-upload > .col").removeClass("col")
                 }
             }
+        }
 
         window.addEventListener('resize', function() {
             // viewport and full window dimensions will change

@@ -1,3 +1,4 @@
+
 <style>
     #test > *{
     
@@ -167,11 +168,7 @@
     
 </style>
 
-    <div style="
-    width: 240.89999999999998mm;
-    border: 1px solid black;
-    height: 402.6mm;
-">
+    <div style=" width: 240.89999999999998mm; border: 1px solid black; height: 402.6mm;" id = "electrical_form" class = "m-auto">
         
     <p class="my-3 text-center text-uppercase" style="font-size: 10px;"><b>republic of the philippines</b>  <br>
         <b>municipality of nasugbu</b>  <br> province of batangas <br>
@@ -346,19 +343,19 @@
             <div class="col mx-2" id = "scope_of_work">
                 <div id="feature_row_test" class="text-end row">
                     <div style="display:inline-flex" id = "test">
-                        <input type="radio" name = "scope_of_work_1">
+                        <input type="radio" name = "scope_of_work" id="scope_of_work_1">
                         <p class="text-start text-uppercase" style="font-size: 10px;">new installation</p>
                     </div>
                 </div>
                 <div id="feature_row_test" class="text-end row" style="margin-top: -8px;">
                     <div style="display:inline-flex" id = "test">
-                        <input type="radio" name = "scope_of_work_1">
+                        <input type="radio" name = "scope_of_work" id="scope_of_work_2">
                         <p class="text-start text-uppercase" style="font-size: 10px;">annual inspection</p>
                     </div>
                 </div>
                 <div id="feature_row_test" class="text-end row" style="margin-top: -8px;">
                     <div style="display:inline-flex" id = "test">
-                        <input type="radio" name = "scope_of_work_1">
+                        <input type="radio" name = "scope_of_work" id="scope_of_work_3">
                         <p class="text-start text-uppercase" style="font-size: 10px;">temporary</p>
                     </div>
                 </div>
@@ -367,19 +364,19 @@
             <div class="col mx-2" id = "scope_of_work_1">
                 <div id="feature_row_test" class="text-end row">
                     <div style="display:inline-flex" id = "test">
-                        <input type="radio" name = "scope_of_work_1">
+                        <input type="radio" name = "scope_of_work" id="scope_of_work_4">
                         <p class="text-start text-uppercase" style="font-size: 10px;">reconnection of service entrance</p>
                     </div>
                 </div>
                 <div id="feature_row_test" class="text-end row" style="margin-top: -8px;">
                     <div style="display:inline-flex" id = "test">
-                        <input type="radio" name = "scope_of_work_1">
+                        <input type="radio" name = "scope_of_work" id="scope_of_work_5">
                         <p class="text-start text-uppercase" style="font-size: 10px;">separation of service entrance</p>
                     </div>
                 </div>
                 <div id="feature_row_test" class="text-end row" style="margin-top: -8px;">
                     <div style="display:inline-flex" id = "test">
-                        <input type="radio" name = "scope_of_work_1">
+                        <input type="radio" name = "scope_of_work" id="scope_of_work_6">
                         <p class="text-start text-uppercase" style="font-size: 10px;">upgrading of service entrance</p>
                     </div>
                 </div>
@@ -389,13 +386,13 @@
             <div class="col mx-2" id = "scope_of_work_1">
                 <div id="feature_row_test" class="text-end row">
                     <div style="display:inline-flex" id = "test">
-                        <input type="radio" name = "scope_of_work_1">
+                        <input type="radio" name = "scope_of_work" id="scope_of_work_7">
                         <p class="text-start text-uppercase" style="font-size: 10px;">relocation of service entrance</p>
                     </div>
                 </div>
                 <div id="feature_row_test" class="text-end row" style="margin-top: -8px;">
                     <div style="display:inline-flex" id = "test">
-                        <input type="radio" name = "scope_of_work_1">
+                        <input type="radio" name = "scope_of_work" id="scope_of_work_8">
                         <p class="text-start text-uppercase" style="font-size: 10px;">others(specify)</p>
                         <input type="text" class="input-field">
                     </div>
@@ -525,7 +522,7 @@
             <div class="col mx-2 align-items-center" id="electric_engr">
                 <div id="feature_row_test" class="text-end row">
                     <div style="display:inline-flex" id="test">
-                        <input type="radio" name="electric_engr1">
+                        <input type="radio" name="electric_engr" id="electric_engr_1">
                         <p class="text-start text-uppercase fw-bold" style="font-size: 10px;">professional electric engineer</p>
                     </div>
                 </div>
@@ -533,7 +530,7 @@
             <div class="col mx-2 align-items-center" id="scope_of_work">
                 <div id="feature_row_test" class="text-end row">
                     <div style="display:inline-flex" id="test">
-                        <input type="radio" name="electric_engr1">
+                        <input type="radio" name="electric_engr" id="electric_engr_1">
                         <p class="text-start text-uppercase fw-bold" style="font-size: 10px;">registered electrical engineer</p>
                     </div>
                 </div>
@@ -541,15 +538,13 @@
             <div class="col mx-2 align-items-center" id="scope_of_work">
                 <div id="feature_row_test" class="text-end row">
                     <div style="display:inline-flex" id="test">
-                        <input type="radio" name="electric_engr1">
+                        <input type="radio" name="electric_engr" id="electric_engr_1">
                         <p class="text-start text-uppercase fw-bold" style="font-size: 10px;">registered master electrician</p>
                     </div>
                 </div>
             </div>
         </div>
         
-        
-
         <div class="row text-center my-5">
             <div class="col">
                 <div class="d-inline-flex justify-content-center align-items-center">

@@ -26,6 +26,7 @@
 
     #documents_content .tab-pane {
         padding: 1rem;
+        padding-top:0.5rem;
     }
 
     .document-upload {
@@ -40,16 +41,14 @@
 
 
 <h2>Uploading Necessary Documents</h2>
-<p>Reminder : </p>
+<!-- <p>Reminder : </p> -->
 <div id="step_three_documents">
 
-    <ul class="nav nav-pills mb-0 nav-fill border border-bottom-0 m-2 p-3 " id="documents" role="tablist">
+    <ul class="nav nav-pills mb-0 nav-fill border border-bottom-0 m-2 p-1 " id="documents" role="tablist">
         <li class="nav-item" role="presentation">
             <button class="nav-link active" id="land_tab" data-bs-toggle="pill" data-bs-target="#land_document" type="button" role="tab" aria-controls="land_document" aria-selected="true">Land Document</button>
         </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" id="additional_permit_tab" data-bs-toggle="pill" data-bs-target="#additional_permit_document" type="button" role="tab" aria-controls="additional_permit_document" aria-selected="false">Additional Permits</button>
-        </li>
+      
         <li class="nav-item" role="presentation">
             <button class="nav-link" id="plans_tab" data-bs-toggle="pill" data-bs-target="#plans_document" type="button" role="tab" aria-controls="plans_document" aria-selected="true">Plans Documents</button>
         </li>
@@ -59,63 +58,68 @@
         <li class="nav-item" role="presentation">
             <button class="nav-link" id="additional_documents_tab" data-bs-toggle="pill" data-bs-target="#additional_documents" type="button" role="tab" aria-controls="additional_documents" aria-selected="false">Additional Documents</button>
         </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="additional_permit_tab" data-bs-toggle="pill" data-bs-target="#additional_permit_document" type="button" role="tab" aria-controls="additional_permit_document" aria-selected="false">Additional Permits</button>
+        </li>
 
     </ul>
-    <div class="tab-content border border-top-0 mt-0 m-2 p-3" id="documents_content">
+    <div class="tab-content border border-top-0 mt-0 m-2 p-3 pt-1" id="documents_content">
         <div class="tab-pane fade show active" id="land_document" role="tabpanel" aria-labelledby="land_document_tab" tabindex="0">
 
-            <h4>LAND OWNERSHIP DOCUMENTS 222</h4>
+            <h4>LAND OWNERSHIP DOCUMENTS</h4>
             <?php
             // $doc_type = "registry_of_deed";
             // $doc_type_display = "Registry of Deed";
-            // $land_doc = select("document", "`doc_group` = '$plan_document' AND `type` = '$doc_type_display'");
+            // $land_doc = select("document", "`project_documents` = '$project_documents' AND `type` = '$doc_type_display'");
             require "document_card.php";
-            document_card($plan_document, "registry_of_deed", "Registry of Deed");
-            document_card($plan_document, "deed_of_sale", "Deed of Sale");
-            document_card($plan_document, "contract_of_lease", "Contract of lease");
+            document_card($project_documents, "registry_of_deed", "Registry of Deed");
+            document_card($project_documents, "deed_of_sale", "Deed of Sale");
+            document_card($project_documents, "contract_of_lease", "Contract of lease");
 
 
             ?>
 
         </div>
-        <div class="tab-pane fade" id="additional_permit_document" role="tabpanel" aria-labelledby="additional_permit_tab" tabindex="0">
-            <h4>ADDITIONAL PERMITS</h4>
 
-            <?php
-            document_card($plan_document, "barangay_permit", "Barangay Permit");
-            document_card($plan_document, "dole", "DOLE");
-            document_card($plan_document, "soil_boring_test", "Soil Boring Test");
-            ?>
-        </div>
 
         <div class="tab-pane fade" id="plans_document" role="tabpanel" aria-labelledby="plans_tab" tabindex="0">
-            PROJECT PLANS
+           <h4>PROJECT PLANS</h4> 
             <?php
-            document_card($plan_document, "location_plan", "Location Plan");
-            document_card($plan_document, "lot_plan", "Lot Plan");
-            document_card($plan_document, "specifications", "Specifications");
+            document_card($project_documents, "location_plan", "Location Plan");
+            document_card($project_documents, "lot_plan", "Lot Plan");
+            document_card($project_documents, "specifications", "Specifications");
             ?>
         </div>
         <div class="tab-pane fade" id="costs_document" role="tabpanel" aria-labelledby="costs_tab" tabindex="0">
-            PROJECT COSTS DOCUMENTS
+            <h4>PROJECT COSTS DOCUMENTS</h4> 
             <?php
-            document_card($plan_document, "latest_tax_declaration", "Latest Tax Declaration");
-            document_card($plan_document, "latest_tax_receipt", "Latest Tax Receipt");
-            document_card($plan_document, "bill_of_materials", "Bill of Materials");
-            document_card($plan_document, "cost_estimate", "Cost Estimate");
+            document_card($project_documents, "latest_tax_declaration", "Latest Tax Declaration");
+            document_card($project_documents, "latest_tax_receipt", "Latest Tax Receipt");
+            document_card($project_documents, "bill_of_materials", "Bill of Materials");
+            document_card($project_documents, "cost_estimate", "Cost Estimate");
 
             ?>
         </div>
         <div class="tab-pane fade" id="additional_documents" role="tabpanel" aria-labelledby="additional_documents_tab" tabindex="0">
-            ADDITONAL DOCUMENTS
+           <h4>ADDITONAL DOCUMENTS</h4> 
             <?php
-            document_card($plan_document, "ra_9275", "Enforcement of R.A 9275");
-            document_card($plan_document, "denr", "DENR");
-            document_card($plan_document, "dpwh_clearance", "DPWH Clearance");
-            document_card($plan_document, "structural_seismic_analysis", "Structural Design Analysis & Seismic Analysis");
-            document_card($plan_document, "logbook", "Logbook");
+            document_card($project_documents, "ra_9275", "Enforcement of R.A 9275");
+            document_card($project_documents, "denr", "DENR");
+            document_card($project_documents, "dpwh_clearance", "DPWH Clearance");
+            document_card($project_documents, "structural_seismic_analysis", "Structural Design Analysis & Seismic Analysis");
+            document_card($project_documents, "logbook", "Logbook");
 
 
+            ?>
+        </div>
+
+        <div class="tab-pane fade" id="additional_permit_document" role="tabpanel" aria-labelledby="additional_permit_tab" tabindex="0">
+            <h4>ADDITIONAL PERMITS</h4>
+
+            <?php
+            document_card($project_documents, "barangay_permit", "Barangay Permit");
+            document_card($project_documents, "dole", "DOLE");
+            document_card($project_documents, "soil_boring_test", "Soil Boring Test");
             ?>
         </div>
     </div>
@@ -151,7 +155,7 @@
         value = value + "'" + self.value + "','" + file_name + "'"; //value to be inserted
 
         //ajax call
-        insert_ajax("document", column, value);
+        insert_ajax("documents", column, value);
 
         //hide file upload button
         console.log("upload")
@@ -175,7 +179,7 @@
         try {
             // console.log(self.value)
 
-            result = full_ajax("UPDATE `document` SET `file_name`='" + self.files[0].name + "',`file`='" + self.value + "',`date_uploaded`=CURRENT_DATE() WHERE `id` = '" + id + "'")
+            result = full_ajax("UPDATE `documents` SET `file_name`='" + self.files[0].name + "',`file`='" + self.value + "',`date_uploaded`=CURRENT_DATE() WHERE `id` = '" + id + "'")
 
             if (result == "1") {
                 console.log("RESULTTT" + result)
@@ -216,7 +220,7 @@
         try {
             console.log(doc_type)
             console.log("delete_id : " + id)
-            result = full_ajax("DELETE FROM `document` WHERE `type` = '" + doc_type + "' AND `id` = '" + id + "'");
+            result = full_ajax("DELETE FROM `documents` WHERE `type` = '" + doc_type + "' AND `id` = '" + id + "'");
 
             if (result == "1") {
                 console.log("RESULTTT" + result)
