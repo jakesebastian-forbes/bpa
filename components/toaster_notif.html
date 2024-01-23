@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../bootstrap-5.3.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+  <script src="../bootstrap-5.3.0/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+  <style>
+    /* Add any custom styles here if needed */
+  </style>
+</head>
+<body>
+  <div class="container mt-3">
+   
+      
+        <button id="btnInfo" type="button" class="btn btn-info">Show Info</button>
+      
+        <button id="btnSuccess" type="button" class="btn btn-success">Show Success</button>
+      
+        <button id="btnWarning" type="button" class="btn btn-warning">Show Warning</button>
+     
+        <button id="btnError" type="button" class="btn btn-danger">Show Error</button>
+     
+   
+  </div>
+
+  <!-- JS -->
+  <script>
+    $(document).ready(init);
+
+    function init() {
+      // Initialize Toastr
+      toastr.options = {
+        closeButton: true,
+        progressBar: true,
+        positionClass: "toast-top-right",
+        timeOut: "5000",
+      };
+
+      // // Event Handlers
+      // $("#btnInfo").click(infoClick);
+      // $("#btnSuccess").click(successClick);
+      // $("#btnWarning").click(warningClick);
+      // $("#btnError").click(errorClick);
+    }
+
+
+    // Toastr
+    function notifyInfo(title, msg) {
+      toastr.info(msg, title);
+    }
+
+    function notifySuccess(title, msg) {
+      toastr.success(msg, title);
+    }
+
+    function notifyWarning(title, msg) {
+      toastr.warning(msg, title);
+    }
+
+    function notifyError(title, msg) {
+      toastr.error(msg, title);
+    }
+
+    function infoClick() {
+      var title = "Info";
+      var message = "This is an info message.";
+      notifyInfo(title, message);
+    }
+
+    function successClick() {
+      var title = "Success";
+      var message = "This is a success message.";
+      notifySuccess(title, message);
+    }
+
+    function warningClick() {
+      var title = "Warning";
+      var message = "This is a warning message.";
+      notifyWarning(title, message);
+    }
+
+    function errorClick() {
+      var title = "Error";
+      var message = "This is an error message.";
+      notifyError(title, message);
+    }
+
+    // Cookies.set('name', 'value', { expires: 7 })
+    // Cookies.remove('name')
+    
+  </script>
+</body>
+</html>

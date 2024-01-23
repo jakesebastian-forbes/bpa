@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OpenCage Geocoding with Leaflet.js</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>
+    #map {
+      height: 400px;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div id="map" style = "width: 500px; height: 400px;"></div>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/es6-promise@4.2.8/dist/es6-promise.auto.min.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+  <script>
+    // Sample addresses in Nasugbu, Batangas, Philippines
+    var addresses = [
+      'Evangelista St, Nasugbu, Batangas, Philippines',
+      'Wawa, Nasugbu, Batangas, Philippines',
+      'Tagle\'s Piggery, 3JGG+WJ8, Nasugbu, Batangas, Philippines',
+      'Nasugbu, Batangas, Philippines',
+      'Bucana,Nasugbu, Batangas, Philippines',
+      'Bucana,Nasugbu, Batangas, Philippines',
+      'Bucana,Nasugbu, Batangas, Philippines',
+      '312, Bucana,Nasugbu, Batangas, Philippines',
+      'Batangas State University ARASOF Cafeteria, Nasugbu, 4231 Batangas,Philippines',
+      // Add more addresses as needed
+    ];
+  
+    var map = L.map('map').setView([13.8250, 120.7550], 13); // Center the map on Nasugbu, Batangas
+  
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+  
+    var opencageApiKey = '8fe3e91c2f0a4fcb9ceb328a6c9ca47d'; // Replace with your OpenCage API Key
+  
+    // Function to add markers to the map based on addresses using OpenCage Geocoding API
+    function addMarkersWithOpenCage() {
+      var delay = 500; // 0.5 seconds delay between requests
+      var markers = L.featureGroup(); // Create a feature group to hold the markers
+  
+      function geocodeAddress(address) {
+        // Use OpenCage Geocoding API for geocoding
+        axios.get('https://api.opencagedata.com/geocode/v1/json', {
+          params: {
+            key: opencageApiKey,
+            q: address,
+            no_annotations: 1,
+          }
+        })
+        .then(function(response) {
+          var results = response.data.results;
+          if (results.length > 0) {
+            var location = results[0].geometry;
+            var marker = L.marker([location.lat, location.lng]);
+            marker.bindPopup('<b>' + address + '</b><br>Lat: ' + location.lat + '<br>Lon: ' + location.lng);
+            markers.addLayer(marker); // Add marker to the feature group
+          } else {
+            console.error('Location not found for address: ' + address);
+          }
+        })
+        .catch(function(error) {
+          console.error('Error fetching geolocation data:', error);
+        });
+      }
+  
+      // Process addresses with delay
+      addresses.forEach(function (address, index) {
+        setTimeout(function () {
+          geocodeAddress(address);
+  
+          // Adjust map bounds after the last marker
+          if (index === addresses.length - 1) {
+            setTimeout(function () {
+              map.fitBounds(markers.getBounds()); // Fit map bounds to the feature group
+            }, delay);
+          }
+        }, index * delay);
+      });
+  
+      // Add the feature group to the map
+      map.addLayer(markers);
+    }
+  
+    // Add markers to the map with delay using OpenCage Geocoding
+    addMarkersWithOpenCage();
+  </script>
+  
+</body>
+</html>

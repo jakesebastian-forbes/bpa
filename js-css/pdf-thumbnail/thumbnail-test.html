@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PDF Thumbnail Generator</title>
+  <script src="https://unpkg.com/pdfjs-dist@2.10.377/build/pdf.min.js"></script>
+</head>
+<body>
+
+<input type="file" id="pdfFileInput" accept=".pdf" />
+<button onclick="generateThumbnail()">Generate Thumbnail</button>
+<canvas id="thumbnailCanvas"></canvas>
+
+<script>
+async function generateThumbnail() {
+  const fileInput = document.getElementById('pdfFileInput');
+  const canvas = document.getElementById('thumbnailCanvas');
+  const context = canvas.getContext('2d');
+
+  const file = fileInput.files[0];
+  if (!file) {
+    alert('Please select a PDF file.');
+    return;
+  }
+
+  // Read the PDF file
+  const fileReader = new FileReader();
+  fileReader.onload = async function(event) {
+    const pdfData = new Uint8Array(event.target.result);
+
+    // Load the PDF using pdf.js
+    const pdf = await pdfjsLib.getDocument({ data: pdfData }).promise;
+
+    // Get the first page of the PDF
+    const pageNumber = 1;
+    const page = await pdf.getPage(pageNumber);
+
+    // Set the scale for the thumbnail (adjust as needed)
+    const scale = 1.5;
+
+    // Get the viewport of the page
+    const viewport = page.getViewport({ scale });
+
+    // Set canvas dimensions based on the viewport
+    canvas.width = viewport.width;
+    canvas.height = viewport.height;
+
+    // Draw the PDF content onto the canvas
+    await page.render({ canvasContext: context, viewport }).promise;
+  };
+
+  fileReader.readAsArrayBuffer(file);
+}
+</script>
+
+</body>
+</html>

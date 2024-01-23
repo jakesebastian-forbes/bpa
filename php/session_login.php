@@ -26,6 +26,7 @@ if (mysqli_num_rows($result) > 0) {
 
             //create session
             session_start();
+            $_SESSION['privilege'] = 'admin';
             $_SESSION['admin_id'] = $row['id'];
             $_SESSION['name'] = ucwords($row['firstname']." ".$row['lastname']);
             $_SESSION['department'] = $row['department'];
@@ -55,9 +56,9 @@ if (mysqli_num_rows($result) > 0) {
 
                 //create session
                 session_start();
+                $_SESSION['privilege'] = 'applicant';
                 $_SESSION['user_id'] = $row['id'];
                 $_SESSION['username'] = $row['username'];
-                $_SESSION['privilege'] = 'applicant';
 
                 header('Location: ../pages/applicant_home.php');
             } else { //wrong username/password

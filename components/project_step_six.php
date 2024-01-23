@@ -1,161 +1,210 @@
-<h2>Schedule Signing</h2>
+<style>
+  .upload-signing {
+    background-color: #245a94;
+    float: right;
+    font-weight: bold;
+    margin-top: -50px;
+    margin-bottom: 5px;
+  }
 
-  <style>
-   
+  @media (max-width: 780px) {
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 20px;
-    }
-
-    th, td {
-      border: 1px solid #ddd;
-      padding: 8px;
+    /* Adjustments for smaller screens (e.g., mobile) */
+    .upload-signing {
+      margin-left: 35px;
+      margin-top: 0;
       text-align: center;
+      text-align: left;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+
     }
+  }
+</style>
 
-    th {
-      background-color: #f2f2f2;
-    }
+<h2 class="mb-3 fw-bold">REQUEST FOR SIGNING SCHEDULE </h2>
 
-    .time-column {
-      font-weight: bold;
-    }
+<div class="text-center">
 
-    .event {
-      background-color: #4CAF50;
-      color: #fff;
-      font-weight: bold;
-    }
-
-    .add-event {
-      margin-top: 10px;
-    }
-
-    .event-form {
-      display: flex;
-      align-items: center;
-    }
-
-    .event-input {
-      flex-grow: 1;
-      margin-right: 10px;
-    }
-
-    .add-button {
-      cursor: pointer;
-      padding: 5px 10px;
-      background-color: #4CAF50;
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-    }
-  </style>
+</div>
 
 
+<?php
 
-  <table>
-    <thead>
-      <tr>
-        <th>Time</th>
-        <th>Monday</th>
-        <th>Tuesday</th>
-        <th>Wednesday</th>
-        <th>Thursday</th>
-        <th>Friday</th>
-        <th>Saturday</th>
-      </tr>
-    </thead>
-    <tbody id="calendar-body">
-      <!-- Calendar body will be dynamically populated using JavaScript -->
-    </tbody>
-  </table>
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "bpa";
 
-  <div class="add-event">
-    <div class="event-form">
-      <input type="text" id="event-input" class="event-input" placeholder="Event description">
-      <button onclick="addEvent()" class="add-button">Add Event</button>
-    </div>
-  </div>
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+// Check connection
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
+}
 
-  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-  <script>
-    // Function to initialize the calendar
-    function initializeCalendar() {
-      const calendarBody = $('#calendar-body');
-      const timeSlots = generateTimeSlots();
-      
-      // Loop through each time slot
-      timeSlots.forEach(timeSlot => {
-        const row = $('<tr>');
-        row.append($('<td class="time-column">').text(timeSlot));
 
-        // Add cells for each day
-        for (let i = 0; i < 6; i++) {
-          row.append($(`<td id="${getDayName(i)}_${timeSlot}">`));
+require "../components/admin_signing_proof_card.php";
+
+
+$sql = "SELECT * FROM `appointments` WHERE `applicant` = '" . $_SESSION['user_id'] . "' AND `project` = '" . $project_id . "'";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+  // output data of each row
+  if ($row = $result->fetch_assoc()) { // *schedule already set
+
+    // print_r($row);
+
+    $originalDate = $row['schedule_date'];
+    $dateTime = new DateTime($originalDate);
+    $formattedDate = $dateTime->format('F d, Y');
+
+    if ($row['eng_app'] == "0") { //*schedule pending
+      echo '<div class="text-center m-auto p-4 my-auto" style="
+        width: 500px;
+    ">';
+
+      echo "Your request for scheduled signing on <span class = 'fw-bold'>" . $formattedDate . "</span> 
+        at <span class = 'fw-bold'>" . date("h:i A", strtotime($row['schedule_time'])) . "
+         </span> is waiting approval from the Engineering Department. Please be patient. Thank you.";
+      echo "</div>";
+    } else if ($row['eng_app'] == "-1") { //**schedule denied */
+      echo '<div class="text-center m-auto p-4 my-auto" style="
+        
+        ">';
+
+      echo "We regret to inform you that your recent appointment request has been denied due to unforeseen scheduling conflicts.
+         We sincerely apologize for any inconvenience this may cause.
+         If you would like to discuss alternative appointment times <button id = 'btn_reschedule' data-id = " . $row['id'] . ">click here</button>.
+         If you have any urgent concerns please feel free to reach out to [Contact Person] at [Contact Information].
+  
+        
+        Thank you for your understanding.
+        <br>
+        
+        Best regards, <br>
+        [Your Organization]
+        
+        ";
+      echo "</div>";
+    } else if ($row['eng_app'] == "1") { //*schedule approved
+
+      $assumed_signed = full_query("SELECT * FROM `vw_project_approved_passed` WHERE project_id = '" . $project_id . "';");
+
+      if (mysqli_num_rows($assumed_signed) > 0) {
+
+        // echo "assumed";
+
+        while ($assumed_signed_row = mysqli_fetch_assoc($assumed_signed)) {
+          // print_r($assumed_signed_row);
+
+          if ($assumed_signed_row['admin_confirm'] == '1' and $assumed_signed_row['applicant_confirm'] == '0') {
+
+            echo "<button type='button' class = 'upload-signing btn btn-primary' id = 'btn_app_proof_received'
+                data-signing-id = '" . $assumed_signed_row['project_signing_id'] . "'>Proof Received</button>";
+
+            require "../components/proof_check.php";
+          } else if ($assumed_signed_row['admin_confirm'] == '1' and $assumed_signed_row['applicant_confirm'] == '1') {
+
+            echo '<p>Your appointment is completed and your building permit is now ready! </p>';
+            echo ' <button onclick = \'$("#step_seven_tab").click()\' class="btn btn-primary" style="background-color: #245a94;">Click here to claim!</button>';
+
+            // echo "<script>";
+            // echo 'document.addEventListener("DOMContentLoaded", () => {';
+            // echo '$("#steps_tab #part_4").removeClass("locked");';
+            // echo '$("#steps_tab button#step_seven_tab").removeAttr("disabled","");';
+            // echo '$("#steps_tab button#step_seven_tab").click()';
+            // echo '})';
+            // echo "</script>";
+
+
+          } else if ($assumed_signed_row['admin_confirm'] == '0' and $assumed_signed_row['applicant_confirm'] == '0') {
+
+            echo "We're preparing your building permit. Please wait for the project signing proof from engineering department.";
+          }
         }
+      } else {
+        echo '<div class="text-center m-auto p-4 justify-content-center" style="
+        
+        width: 500px;
+        background: #c9ffc9;
+        border-radius: 16px;
+        box-shadow: -1px 2px 10px 0px rgba(0,0,0,.5);
+    
+    ">';
 
-        calendarBody.append(row);
-      });
-    }
-
-    // Function to generate time slots from 6:00 AM to 6:00 PM with 15-minute intervals
-    function generateTimeSlots() {
-      const timeSlots = [];
-      let currentTime = new Date(0);
-      currentTime.setUTCHours(6, 0, 0, 0);
-
-      while (currentTime.getHours() < 18 || (currentTime.getHours() === 18 && currentTime.getMinutes() === 0)) {
-        timeSlots.push(currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
-        currentTime.setMinutes(currentTime.getMinutes() + 15);
-      }
-
-      return timeSlots;
-    }
-
-    // Function to get the day name based on the index (0 = Monday, 1 = Tuesday, ..., 5 = Saturday)
-    function getDayName(index) {
-      const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
-      return days[index];
-    }
-
-    // Function to add an event to the calendar
-    function addEvent() {
-      const eventInput = $('#event-input');
-      const description = eventInput.val();
-
-      if (description) {
-        const selectedCell = $(`#${selectedDay}_${selectedTime}`);
-        selectedCell.text(description);
-        selectedCell.addClass('event');
-
-        // Clear the input and selected values
-        eventInput.val('');
-        selectedDay = null;
-        selectedTime = null;
+        echo "We are pleased to inform you that your request for scheduled signing on <span class = 'fw-bold'>" . $formattedDate . "</span> 
+        at <span class = 'fw-bold'>" . date("h:i A", strtotime($row['schedule_time'])) . "
+         </span> has been approved by the Engineering Department. They shall be waiting for you on the appointed schedule. Thank you.";
+        echo "</div>";
       }
     }
+  }
+} else {
+  // echo "0 results";
+  require "calendar.php";
+}
 
-    let selectedDay = null;
-    let selectedTime = null;
 
-    // Event listener to handle cell selection
-    $(document).on('click', 'td:not(.time-column)', function () {
-      const cell = $(this);
-      const idParts = cell.attr('id').split('_');
+$conn->close();
 
-      // Update selected values
-      selectedDay = idParts[0];
-      selectedTime = idParts[1];
 
-      // Highlight the selected cell
-      $('td').removeClass('selected-cell');
-      cell.addClass('selected-cell');
-    });
 
-    // Initialize the calendar when the page is loaded
-    $(document).ready(function () {
-      initializeCalendar();
-    });
-  </script>
+
+
+
+
+
+?>
+
+<script>
+  $('#btn_reschedule').on('click', function() {
+    console.log($(this).data("id"))
+
+    delete_ajax("appointments", "`id` = '" + $(this).data("id") + "'");
+
+    window.location.reload();
+    // refresh_element("step_six");
+    // renderCalendar();
+
+  });
+
+
+  // let btn_eng_confirm = document.querySelectorAll('.upload-signing');
+
+  // btn_eng_confirm.forEach(btn => {
+  //     btn.addEventListener('click', function handleClick(event) {
+
+
+
+  // })
+  // })
+
+
+
+  $('#btn_app_proof_received').on('click', function() {
+
+    // console.log($(this).data('signing-id'));
+
+    update_ajax("project_signing", "applicant_confirm", "1", "`id` = '" + $(this).data('signing-id') + "'");
+    update_ajax("project", "status", "completed", "id = '<?php echo $project_id ?>'");
+
+    // insert_ajax();
+    insert_ajax("project_logs", "`id`, `project_id`, `action`, `timestamp`",
+      "UUID(), '<?php echo $project_id ?>', 'Project Completed',CURRENT_TIMESTAMP()");
+
+      $("#btn_app_proof_received").html("Confirmed")
+      $("#btn_app_proof_received").css("background-color","#198754")
+      $("#btn_app_proof_received").css("border-color","#198754")
+
+      notifySuccess("Success","Signing proof received");
+
+      sleep_time(2000);
+
+      // refresh_element("step_six");
+      window.reload();
+
+  });
+</script>

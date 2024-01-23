@@ -1,6 +1,15 @@
+<style>
+    @media (max-width: 767px) {
+  #flex_footer {
+    display: none; /* Hide the footer on smaller screens */
+  }
+}
+</style>
+
+
 <!-- footer -->
 
-<footer id="flex_footer" class="container-fluid m-0" style="background-color: var(--my_blue); color:white;">
+<footer id="flex_footer" class="container-fluid m-0" style="background-color: var(--my_blue); color:white; ">
     <div id="contact_details" class="row m-0 text-center">
 
         <div class="col-md-4 col-12 text-center p-2">

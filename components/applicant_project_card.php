@@ -1,8 +1,7 @@
 
-
 <?php
       // wrong retrival query or not
-      $condition = "applicant_id = '" . $_SESSION['user_id'] . "' ORDER BY 'dateCreated' DESC";
+      $condition = "applicant_id = '" . $_SESSION['user_id'] . "' AND `status` != 'deleted' ORDER BY last_opened DESC";
       $project = select("vw_project_card", $condition); 
 
       //check if there are result
@@ -11,10 +10,16 @@
 
       ?>
 
+        <style>
+          .btn-delete-project:hover {
+            background-color: #F5F5F5 !important;
+          }
+        </style>
+
         <!-- with project -->
 
         <div id="with_saved_project" class="p-4">
-          <div class="row p-4">
+          <div class="row p-4 fw-bold">
             Recent Projects
           </div>
 
@@ -28,33 +33,52 @@
 
             $project_status = $row['status'];
 
+            $text_color = "";
+
             if ($project_status == "open") {
               $bg_color = "green";
+              $text_color = "white";
             } else if ($project_status == "locked") {
               $bg_color = "wine";
+              $text_color = "white";
             } else if ($project_status == "reviewing") {
               $bg_color = "yellow";
             } else if ($project_status == "approved") {
               $bg_color = "yellowgreen";
             } else if ($project_status == "denied") {
               $bg_color = "red";
+              $text_color = "white";
             } else if ($project_status == "completed") {
               $bg_color = "#245a94";
+              $text_color = "white";
             } else if ($project_status == "pending") {
-              $bg_color = "yellow";
+              $bg_color = "#29ADB2";
+            } else if ($project_status == "for appointment") {
+              $bg_color = "#EAC7C7";
+            } else if ($project_status == "for signing") {
+              $bg_color = "#D3CEDF";
+            } else if ($project_status == "signed") {
+              $bg_color = "#ADA2FF";
+            } else if ($project_status == "locked") {
+              $bg_color = "#FAF0D7";
+            }else if ($project_status == "deleted") {
+              $bg_color = "#FECDA6";
+            }else if ($project_status == "returned") {
+              $bg_color = "#D0D4CA";
             };
 
 
             echo '
-  <div style = "width:245px;height:180px;border:1px solid black;" class="d-flex-inline m-2 p-0">  <!-- card -->
+  <div style = "width:245px;height:180px;border:1px solid black;" id = "card_'.$row['project_id'].'" class="d-flex-inline m-2 p-0">  <!-- card -->
   <div class="row text-end float-right m-0 px-2"> <!-- project controls  container-->
-  <div class="col p-0 d-inline-flex" style="    text-transform: uppercase;
+  <div class="col p-0 d-inline-flex status" style="    text-transform: uppercase;
   font-size: small;
-  font-weight: 600;
+  font-weight: 500;
   align-self: center;
   justify-content: center;
   border-radius: 10px;
-  background-color: ' . $bg_color . ';">' . $row['status'] . '</div>
+  background-color: ' . $bg_color . ';
+  color: '. $text_color.'">' . $row['status'] . '</div>
 
 
   <div class="col dropdown p-0"> <!-- project control dropdown -->
@@ -63,11 +87,11 @@
           
 
           <form action="../php/project_delete.php" method="post">
-          <ul class="dropdown-menu text-center">
+          <ul class="dropdown-menu text-center" style="padding: 0;">
             
-              <button type="submit" name = "project_id" value = "' . $row['project_id'] . '"
+              <button type="button" name = "project_id" data-project-id = "' . $row['project_id'] . '"
               style = "display: inline-block;width: -webkit-fill-available;border: none;
-              background: none;">Delete
+              background: none; padding: 0; margin: 0; " class = "btn-delete-project my-2">Delete
               </button>
               <!-- <li><a class="dropdown-item" href="#">UPDATE!</a></li> -->
               
@@ -75,7 +99,8 @@
       </form>
   </div>
   </div>
-  <a href="applicant_openProject.php?project_id=' . $row['project_id'] . '" > <!-- link -->
+  <a href="applicant_openProject.php?project_id=' . $row['project_id'] . '&" 
+   data-project-id = "'.$row['project_id'].'" class = "project_card_link"> <!-- link -->
   <div style= "
   background-image: url(../img/icon/project-folder.png);
   background-size: contain;
@@ -86,7 +111,7 @@
 
   
       <div class="text-center my-auto px-2" id = "' . $row['project_id'] . '">
-          <p style="margin-bottom: 0;  text-overflow: ellipsis;white-space: nowrap;overflow: hidden;"
+          <p style="margin-bottom: 0;  text-overflow: ellipsis;white-space: nowrap;overflow: hidden;" class = "project-title"
           title = "' . $row['title'] . '" >
           ' . $row['title'] . '</p> <!-- project title -->
       </div>                                                                  
@@ -96,8 +121,12 @@
           echo '
 </div>
 </div>
-<button type="button" class = "btn my-btn-blue m-4" style="width: auto;"
-data-bs-toggle="modal" data-bs-target="#project_template_select_modal">New Project Application </button>
+<div class="d-flex fixed-bottom fixed-end mb-5 mx-3 justify-content-end" style="">
+    <button type="button" class="btn mx-4" style="width: 80px; height: auto; border-radius: 50%; aspect-ratio: 1/1; margin-bottom: 20px; background-color: #6DB9EF;"
+        data-bs-toggle="modal" data-bs-target="#project_template_select_modal">
+        <span class="fs-1 text-center">+</span>
+    </button>
+</div>
 ';
         } else {
           //else return no data

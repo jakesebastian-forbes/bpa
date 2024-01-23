@@ -32,8 +32,9 @@
         /* color: white !important; */
         /* margin-left: 40px; */
         /* filter: hue-rotate(2) */
-        border: 1px solid black;
+        /* border: 1px solid black; */
         /* border-bottom: 1px solid #245A94; */
+        color:var(--my_blue) !important
     }
 
     ul {
@@ -98,13 +99,13 @@
             </a>
             <a href="public_faq.php" title="Frequently Asked Questions">
                 <li>FAQ</li>
-            </a>
-            <a href="public_feedback.php" title="Give us Feedback">
-                <li>Feedback</li>
-            </a> -->
-            <a href="applicant_account_setting.php" class="link-hover">
+            </a>-->
+            <!-- <a href="#" class="link-hover">
+                <li>Trash Bin</li>
+            </a>  -->
+            <!-- <a href="applicant_account_setting.php" class="link-hover" hidden>
                 <li>Account Settings</li>
-            </a>
+            </a> -->
 
             <a href="../php/session_logout.php" class="link-hover">
                 <li>Logout</li>
@@ -120,7 +121,8 @@
     
 //add offcanvas button
   $("#nav_right").append('<button class="btn" type="button" data-bs-toggle="offcanvas" '+
-  'data-bs-target="#offcanvas_applicant_menu" aria-controls="offcanvas_applicant_menu">'+
+  'data-bs-target="#offcanvas_applicant_menu" aria-controls="offcanvas_applicant_menu"'+
+  'id = "offcanvas_applicant_menu_btn">'+
   '<img src="../img/icon/menu.png" alt="Menu" style = "height: 37px;filter: invert(1);"></button>')
 
     

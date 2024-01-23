@@ -3,14 +3,24 @@
     --border_black_1: 1px solid black;
 }
 
+/* @font-face {
+    font-family: 'BernardMTCondensed';
+    src: url('BernardMTCondensed.ttf') format('truetype');
+
+    font-weight: normal;
+    font-style: normal;
+} */
+
 html,
 body {
     height: 100%;
     margin: 0;
-    min-width: 425px;
+    min-width: 480px;
     width: 100%;
     min-height: 500px;
     width: 100%;
+    font-family: 'Helvetica','Arial','Sans-serif' !important;
+    text-rendering: optimizeLegibility;
 }
 
 
@@ -23,8 +33,22 @@ body {
     /* Firefox */
 }
 
+/* element style */
+
+input[type="date"] {
+    background-color: white;
+  }
+  
+/* Style for a disabled date input */
+:disabled {
+    background-color: #f2f2f2; /* Example background color */
+    color: #999; /* Example text color */
+    cursor: not-allowed; /* Example cursor style */
+    /* Add any other styles you want for a disabled date input */
+  }
 
 
+/* classes */
 
 /* fill remaining space */
 #flex_container {
@@ -45,6 +69,25 @@ body {
     flex: 0 1 40px;
 }
 
+
+.flex_container {
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+}
+
+.flex_header {
+    flex: 0 1 auto;
+}
+
+.flex_main {
+    flex: 1 1 auto;
+}
+
+.flex_footer {
+    flex: 0 1 40px;
+}
+
 .my-dd-icon {
     height: 2.5rem;
 }
@@ -61,13 +104,13 @@ body {
 }
 
 .my-btn-blue {
-    background-color: #2050AB !important; 
+    background-color: #245a94 !important; 
     color: white !important;
 
 }
 
 .my-btn-blue:hover {
-    background-color: #2c5cb4;
+    background-color: #3d434a !important;
     color: #e3d63c;
 }
 
@@ -79,10 +122,38 @@ body {
 }
 
 
-.required {
+
+.required::after{
+    content: "*" ; 
     color: red;
+}
+
+
+.locked::after{
+    content: "";
+    background-image: url(../img/icon/icons8-locked-384.png);
+    height: 20px;
+    width: 20px;
+    display: inline-flex;
+    background-size: 18px 18px;
+    background-repeat: no-repeat;
+    vertical-align: text-bottom;
 
 }
+
+
+.checked::after{
+    content: "✅";
+    /* background-image: url(../img/icon/icons8-locked-384.png); */
+    height: 20px;
+    width: 20px;
+    display: inline-flex;
+    background-size: 18px 18px;
+    background-repeat: no-repeat;
+    vertical-align: text-bottom;
+}
+
+
 
 .input-no-border{
     border:transparent;
@@ -120,4 +191,40 @@ body {
     white-space: nowrap;
     overflow: hidden ;
     text-overflow: ellipsis;
+}
+
+a.my-link-hover:hover{
+    color:rgb(255, 229, 82) !important;
+}
+
+
+a.button {
+    display: inline-block;
+    padding: 10px 20px;
+    /* background-color: #3498db; */
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    /* font-weight: bold; */
+    text-align: center;
+    height: 300px;
+    margin-bottom: 2%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+a.button p{
+    text-decoration: none;
+    color: black;
+}
+
+div#step_tab_nav.nav.flex-column.nav-pills.me-3 h5{
+    /* color:red !important; */
+    font-size: 100%;
+
+}
+
+div#step_tab_nav.nav.flex-column.nav-pills.me-3 button{
+    /* color:green !important; */
+    font-size: 100%;
+
 }

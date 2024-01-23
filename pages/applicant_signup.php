@@ -22,8 +22,10 @@
             font-family: Arial, Helvetica, sans-serif;
             color: white;
             padding: 40px;
-            width: 70%;
+            width: 40%;
             min-width: 300px;
+            align-items: center;
+            justify-content: center;
         }
 
         h1 {
@@ -98,29 +100,29 @@
 
         <?php require "../components/web_navbar.php"; ?>
 
-        <div id="flex_main">
+        <div id="flex_main" style="background-image: url(../img/bg/construction_bg.webp); background-size: cover;">
             <div class="row m-0">
-                <div class="col"></div>
+
 
 
                 <div class="col">
 
 
                     <form id="regForm" method="post" action="../php/signup.php">
-                        <h1>Signup:</h1>
+                        <h1 class="fw-bold">Signup</h1>
                         <!-- One "tab" for each step in the form: -->
                         <div class="tab">Name:
                             <p><input placeholder="First name" name="fname" id="fname"></p>
                             <p><input placeholder="Last name" name="lname" id="lname"></p>
                         </div>
                         <div class="tab">Contact Info:
-                            <p><input placeholder="E-mail" name="email" id="email"></p>
-                            <p><input placeholder="Phone" name="phone" id="phone" maxlength="12"></p>
+                            <p><input placeholder="E-mail" name="email" id="email" minlength="6"></p>
+                            <p><input placeholder="Phone" name="phone" id="phone" maxlength="12" type="tel"></p>
                         </div>
                         <div class="tab">Address:
                             <p>
-                                <select placeholder="Barangay" name="barangay" id="barangay">
-                                    <option value="">Barangay</option>
+                                <select placeholder="Barangay" name="barangay" id="barangay" placeholder="barangay">
+                                    <!-- <option value="">Barangay</option> -->
                                     <option value="Aga">Aga</option>
                                     <option value="Balaytigui">Balaytigui</option>
                                     <option value="Banilad">Banilad</option>
@@ -168,8 +170,9 @@
                             </p>
 
                             <p>
+                                <label for="">Municipality</label>
                                 <select placeholder="Municipality" name="municipality">
-                                    <option value="">Municipality</option>
+                                    <!-- <option value="">Municipality</option> -->
                                     <option value="Nasugbu">Nasugbu</option>
                                 </select>
                             </p>
@@ -196,6 +199,7 @@
                         </div>
                     </form>
                 </div>
+
             </div>
 
 
@@ -206,7 +210,7 @@
 
     </div>
 
-
+    <script src="../js-css/db_operations_ajax.js"></script>
 
     <script>
         $("#logo_href")[0].setAttribute("href", "../index.php");
@@ -284,6 +288,56 @@
             //... and adds the "active" class on the current step:
             x[n].className += " active";
         }
+
+        $('#email').change(function() { // update last opened
+            console.log($(this).val())
+            var username = $(this).val();
+            $.ajax({
+                type: 'POST',
+                url: '../php/validate_availability.php',
+                data: {
+                    username: username
+                },
+                success: function(response) {
+                    // $('#usernameMessage').html(response);
+                    console.log(response);
+                }
+            });
+
+        });
+
+
+        $('#password').change(function() { // check password match
+
+            
+            if($("#password").val() == "" ||$("#password").val() == null){
+                $("#nextBtn").attr("disabled", "disabled");
+
+            }
+            if ($("#password").val() != $("#c_password").val()) {
+                $("#nextBtn").attr("disabled", "disabled");
+            } else {
+                $("#nextBtn").removeAttr("disabled");
+
+            }
+
+        })
+
+        $('#c_password').change(function() { // check password match
+
+            if($("#c_password").val() == "" ||$("#password").val() == null){
+                $("#nextBtn").attr("disabled", "disabled");
+
+            }
+
+            if ($("#password").val() != $("#c_password").val()) {
+                $("#nextBtn").attr("disabled", "disabled");
+            } else {
+                $("#nextBtn").removeAttr("disabled");
+
+            }
+
+        })
     </script>
 
 </body>

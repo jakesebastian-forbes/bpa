@@ -7,8 +7,21 @@
 
     #step_three_documents .nav-pills .nav-link {
         white-space: nowrap;
+        color: #245a94;
+    }
+    #step_three_documents .nav-pills .nav-link.active {
+        background-color: #245a94;
+        color: white;
+    }
+    #step_three_documents .nav-pills .nav-link:hover {
+        background-color: #245a94;
+        color: white;
     }
 
+    #documents_content .tab-pane {
+        padding: 1rem;
+        padding-top: 0.5rem;
+    }
     .document-upload .col {
         padding: 0px;
     }
@@ -24,11 +37,6 @@
 
     }
 
-    #documents_content .tab-pane {
-        padding: 1rem;
-        padding-top:0.5rem;
-    }
-
     .document-upload {
         margin-bottom: 1rem;
     }
@@ -40,15 +48,43 @@
 </style>
 
 
-<h2>Uploading Necessary Documents</h2>
-<!-- <p>Reminder : </p> -->
+
+<h2 class="fw-bold">UPLOADING DOCUMENTS</h2>
+<!-- <div class="progress my-2" id="progress_bar_cont">
+    <div class="progress-bar" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" id="progress_bar_step_3">
+        <span id="percentageText"></span>
+    </div>
+</div> -->
+<div id="step_three_reminder" style = "background-color:beige; padding:1rem">
+    <button type="button" style = "float:right; background-color:transparent; border:none"
+    title="Dismiss message">X</button>
+
+    <p>
+        <b>Reminder :</b> 
+    As part of our ongoing commitment to the security of sensitive information, 
+    we'd like to remind you of the preferred format for submitting important documents.    
+    For secure submissions, please use PDF format. It ensures top-notch security, searchable text, and consistent formatting. <br>
+    Your cooperation in adhering to this guideline is crucial for maintaining the highest standards of data security. 
+    If you have any questions or encounter difficulties in creating PDF files, our support team is here to assist you.
+    Thank you for your understanding and commitment to data security.
+
+    </p>
+
+
+
+</div>
+
+<?php
+// echo $doc_group;
+?>
+
 <div id="step_three_documents">
 
     <ul class="nav nav-pills mb-0 nav-fill border border-bottom-0 m-2 p-1 " id="documents" role="tablist">
         <li class="nav-item" role="presentation">
             <button class="nav-link active" id="land_tab" data-bs-toggle="pill" data-bs-target="#land_document" type="button" role="tab" aria-controls="land_document" aria-selected="true">Land Document</button>
         </li>
-      
+
         <li class="nav-item" role="presentation">
             <button class="nav-link" id="plans_tab" data-bs-toggle="pill" data-bs-target="#plans_document" type="button" role="tab" aria-controls="plans_document" aria-selected="true">Plans Documents</button>
         </li>
@@ -66,7 +102,7 @@
     <div class="tab-content border border-top-0 mt-0 m-2 p-3 pt-1" id="documents_content">
         <div class="tab-pane fade show active" id="land_document" role="tabpanel" aria-labelledby="land_document_tab" tabindex="0">
 
-            <h4>LAND OWNERSHIP DOCUMENTS</h4>
+            <h4 class="my-2">LAND OWNERSHIP DOCUMENTS</h4>
             <?php
             // $doc_type = "registry_of_deed";
             // $doc_type_display = "Registry of Deed";
@@ -83,7 +119,7 @@
 
 
         <div class="tab-pane fade" id="plans_document" role="tabpanel" aria-labelledby="plans_tab" tabindex="0">
-           <h4>PROJECT PLANS</h4> 
+            <h4 class="my-2">PROJECT PLANS</h4>
             <?php
             document_card($project_documents, "location_plan", "Location Plan");
             document_card($project_documents, "lot_plan", "Lot Plan");
@@ -91,7 +127,7 @@
             ?>
         </div>
         <div class="tab-pane fade" id="costs_document" role="tabpanel" aria-labelledby="costs_tab" tabindex="0">
-            <h4>PROJECT COSTS DOCUMENTS</h4> 
+            <h4 class="my-2">PROJECT COSTS DOCUMENTS</h4>
             <?php
             document_card($project_documents, "latest_tax_declaration", "Latest Tax Declaration");
             document_card($project_documents, "latest_tax_receipt", "Latest Tax Receipt");
@@ -101,7 +137,7 @@
             ?>
         </div>
         <div class="tab-pane fade" id="additional_documents" role="tabpanel" aria-labelledby="additional_documents_tab" tabindex="0">
-           <h4>ADDITONAL DOCUMENTS</h4> 
+            <h4 class="my-2">ADDITONAL DOCUMENTS</h4>
             <?php
             document_card($project_documents, "ra_9275", "Enforcement of R.A 9275");
             document_card($project_documents, "denr", "DENR");
@@ -114,7 +150,7 @@
         </div>
 
         <div class="tab-pane fade" id="additional_permit_document" role="tabpanel" aria-labelledby="additional_permit_tab" tabindex="0">
-            <h4>ADDITIONAL PERMITS</h4>
+            <h4 class="my-2">ADDITIONAL PERMITS</h4>
 
             <?php
             document_card($project_documents, "barangay_permit", "Barangay Permit");
@@ -126,113 +162,104 @@
 
 </div>
 
+
+
+
 <script>
-    function refresh(id) {
-        // $('#' + id).load('../components/document_card.php').fadeIn("slow");
-        // $("#"+id ).load(window.location.href + " #"+id );
+    
 
-        console.log("refresh");
-        console.log("id : " + id)
-        card_cont = $("#" + id).parent().parent()[0].id;
-        console.log("card_cont" + card_cont)
-        // $("#" + id).load(" #" + id + " > *");
+
+    //button sequence
+
+    function btn_replace(doc_type) {
+        console.log("inp_id : " + doc_type)
+        //show update/input
+        $("#update_inp_" + doc_type).css("display", "block");
+        //show cancel
+        $("#cancel_btn_" + doc_type).css("display", "");
+        //show update
+        $("#update_btn_" + doc_type).css("display", "");
+
+
+
+        // hide replace
+        $("#replace_btn_" + doc_type).css("display", "none");
+
+        // hide delete 
+        $("#delete_btn_" + doc_type).css("display", "none");
+
+
+    }
+
+    function modal_delete(self) {
+
+        var doc_id = $("#" + self.id).data("doc-id")
+        var card_cont = $("#" + self.id).data("doc-card")
+
+
+        delete_ajax("documents", "`id` = '" + doc_id + "'");
+        $("#btn_doc_delete_cancel").click();
         $("#" + card_cont).load(" #" + card_cont + " > *");
-    }
 
-    function sleep(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-    }
-
-
-    function insert_file(column, value, self) {
-
-        //format variables
-
-        let file_upload_btn = $("#" + self.id); //element id
-        let file_name = file_upload_btn[0].files[0].name; //file name
-
-        console.log("FILE NAME :" + file_name);
-        value = value + "'" + self.value + "','" + file_name + "'"; //value to be inserted
-
-        //ajax call
-        insert_ajax("documents", column, value);
-
-        //hide file upload button
-        console.log("upload")
-
-        file_upload_btn.css("display", "none");
-
-        // console.log(id.slice(id.indexOf('_') + 1));
-        //show delete and replace
-        console.log("show")
-        console.log("refresh");
-        refresh(self.id)
 
 
     }
 
 
-    function update_file(id, doc_type, self) {
 
-        console.log("update_file : " + id)
+    $('#step_three_reminder button').on('click', function() {
 
-        try {
-            // console.log(self.value)
+        $('#step_three_reminder').hide();
+        Cookies.set('step_three_reminder', 'hidden', { expires: 30 })
 
-            result = full_ajax("UPDATE `documents` SET `file_name`='" + self.files[0].name + "',`file`='" + self.value + "',`date_uploaded`=CURRENT_DATE() WHERE `id` = '" + id + "'")
+    })
 
-            if (result == "1") {
-                console.log("RESULTTT" + result)
-            }
 
-        } catch (error) {
-            console.log(error);
+    //open modal
+    $(document).on("click", ".modal-delete", function() {
+        var file_name = $(this).data('doc-file-name');
+        var file_id = $(this).data('doc-id');
+        var doc_card = $(this).data('doc-card');
+
+        $(".modal-body #delete_doc_type_view").html(file_name);
+        //  $("#delete_doc_id").val(file_id);
+        //  $("#delete_doc_card").val(doc_card);
+
+        $("#doc_delete_confirm").data("doc-id", file_id)
+        $("#doc_delete_confirm").data("doc-card", doc_card)
+
+        console.log($("#doc_delete_confirm").data("doc-id"))
+        console.log($("#doc_delete_confirm").data("doc-card"))
+
+
+    });
+
+
+    $(document).ready(function() {
+
+        if(Cookies.get('step_three_reminder') == "hidden"){
+
+        $('#step_three_reminder').hide();
         }
 
-        sleep(5000);
-        // console.log(refresh)
-        refresh(self.id);
 
-    }
-
-
-
-    function upload_btn(doc_type) {
-        $("#insert_" + doc_type).css("display", "");
-        $("#upload_btn_" + doc_type).css("display", "none");
-        // console.log("oyy");
-
-    }
-
-    function replace_btn(doc_type) {
-        $("#replace_" + doc_type).css("display", "none");
-        $("#delete_" + doc_type).css("display", "none");
-        $("#update_" + doc_type).css("display", "");
-
-    }
+        
+    update_progress_bar("progress_bar_step_3","#step_two_wrapper input[required], #step_two_wrapper select[required], #step_two_wrapper input[type='radio'][required]",
+    "#step_two_wrapper input[required], #step_two_wrapper select[required], #step_two_wrapper input[type='radio'][required]")
+        // Update the width of the progress bar
 
 
+        let all_inp_step_two = document.querySelectorAll("#step_two_wrapper input[required], #step_two_wrapper select[required], #step_two_wrapper input[type='radio'][required]");
+
+        all_inp_step_two.forEach(inp => {
+            inp.addEventListener('change', function handleClick(event) {
+
+              update_progress_bar("progress_bar_step_2","#step_two_wrapper input[required], #step_two_wrapper select[required], #step_two_wrapper input[type='radio'][required]",
+    "#step_two_wrapper input[required], #step_two_wrapper select[required], #step_two_wrapper input[type='radio'][required]")
+
+            })
+          })
 
 
-    function delete_btn(doc_type, id, self) {
-        //note : add a confirmation modal
-
-        try {
-            console.log(doc_type)
-            console.log("delete_id : " + id)
-            result = full_ajax("DELETE FROM `documents` WHERE `type` = '" + doc_type + "' AND `id` = '" + id + "'");
-
-            if (result == "1") {
-                console.log("RESULTTT" + result)
-            }
-
-        } catch (error) {
-            console.log(error);
-        }
-
-        sleep(5000);
-        // refresh(doc_type + "_" + id);
-        refresh(self.id);
-
-    }
+    })
 </script>

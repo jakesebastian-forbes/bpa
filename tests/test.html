@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Separated Digit Input</title>
+    <style>
+        .digit-cell {
+            display: inline-block;
+            border: 1px solid #ccc;
+            padding: 8px;
+            margin: 4px;
+            width: 30px; /* Adjust the width as needed */
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Example separated digit input -->
+    <div id="digitContainer">
+        <!-- JavaScript will add digit cells here -->
+    </div>
+
+    <script>
+        // JavaScript to create separated digit cells
+        const inputContainer = document.getElementById('digitContainer');
+        const maxLength = 4; // Set the maximum length of digits
+
+        function createDigitCells() {
+            inputContainer.innerHTML = ''; // Clear previous content
+
+            for (let i = 0; i < maxLength; i++) {
+                const digitCell = document.createElement('div');
+                digitCell.classList.add('digit-cell');
+                digitCell.innerHTML = '<input type="text" maxlength="1" placeholder="0">';
+                inputContainer.appendChild(digitCell);
+            }
+        }
+
+        // Call the function to create initial digit cells
+        createDigitCells();
+    </script>
+
+</body>
+</html>

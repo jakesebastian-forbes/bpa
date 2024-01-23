@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-print_r($_SESSION);
+// print_r($_SESSION);
 
 
 if (isset($_SESSION["forms"])) {
@@ -15,16 +15,16 @@ require "../php/db_func.php";
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Account Setting</title>
-    <link rel="stylesheet" href="../js-css/general.css">
-    </link>
-    <link rel="stylesheet" href="../bootstrap-5.3.0/css/bootstrap.css">
-    </link>
-    <script src="../bootstrap-5.3.0/js/bootstrap.bundle.js"></script>
-    <script src="../js-css/jquery-3.6.4.js"></script>
-    <style>
+
+    <?php 
+  $page_title = "Account Setting";
+  require "page_header.php";?>
+
+
+
+</head>
+
+<style>
         .notification-button {
             display: none;
         }
@@ -54,20 +54,20 @@ require "../php/db_func.php";
         }
 
         .nav-pills .nav-link:hover {
-            background-color: #245A94;
-            color: white;
-            border: 1px solid black;
+            background-color: #ddd;
+            color: black;
         }
 
-        #profile_info input{
+        .nav-link {
+            margin-top: 10px;
+        }
+
+        /* #profile_info input{
             border:transparent !important;
             
-        }
-    </style>
+        } */
+</style>
 
-
-
-</head>
 
 <body>
 
@@ -108,7 +108,7 @@ require "../php/db_func.php";
                             <div class="card-body">
                                 <div class="tab-content" id="v-pills-tabContent">
                                     <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab" tabindex="0">
-                                        <h6>PROFILE INFORMATION</h6>
+                                        <h6 class="fw-bold">PROFILE INFORMATION</h6>
                                         <hr>
                                         <div id = "profile_info">
                                         <form>
@@ -116,15 +116,15 @@ require "../php/db_func.php";
                                                 <div class="row">
                                                     <div class="col">
                                                         <label for="firstname" class="form-label">Lastname</label>
-                                                        <input type="text" class="form-control form-control-sm" id="lastname" name="lastname" placeholder="lastname">
+                                                        <input type="text" class="form-control form-control-sm" id="settings_lastname" name="settings_lastname" placeholder="lastname">
                                                     </div>
                                                     <div class="col">
                                                         <label for="lastname" class="form-label">Firstname</label>
-                                                        <input type="text" class="form-control form-control-sm" id="firstname" name="firstname" placeholder="firstname">
+                                                        <input type="text" class="form-control form-control-sm" id="settings_firstname" name="settings_firstname" placeholder="firstname">
                                                     </div>
                                                     <div class="col">
                                                         <label for="mi" class="form-label">M.I</label>
-                                                        <input type="text" class="form-control form-control-sm" id="mi" name="mi" placeholder="middle initial">
+                                                        <input type="text" class="form-control form-control-sm" id="settings_mi" name="settings_mi" placeholder="middle initial">
                                                     </div>
 
                                                 </div>
@@ -135,30 +135,30 @@ require "../php/db_func.php";
                                                 <div class="row mb-3">
                                                     <div class="col">
                                                         <label for="location" class="form-label">No.</label>
-                                                        <input type="text" class="form-control form-control-sm" id="no" value="" name="no" placeholder="no">
+                                                        <input type="text" class="form-control form-control-sm" id="settings_no" value="" name="settings_no" placeholder="no">
                                                     </div>
                                                     <div class="col">
                                                         <label for="location" class="form-label">Street</label>
-                                                        <input type="text" class="form-control form-control-sm" id="street" value="" name="street" placeholder="street">
+                                                        <input type="text" class="form-control form-control-sm" id="settings_street" value="" name="settings_street" placeholder="street">
                                                     </div>
                                                     <div class="col">
                                                         <label for="location" class="form-label">Lot No.</label>
-                                                        <input type="text" class="form-control form-control-sm" id="lot_no" value="" name="lot_no" placeholder="lot no">
+                                                        <input type="text" class="form-control form-control-sm" id="settings_lot_no" value="" name="settings_lot_no" placeholder="lot no">
                                                     </div>
                                                     
                                                 </div>
                                                 <div class="row mb-3">
                                                     <div class="col">
                                                         <label for="location" class="form-label">Block No.</label>
-                                                        <input type="text" class="form-control form-control-sm" id="block_no" value="" name="block_no" placeholder="block no">
+                                                        <input type="text" class="form-control form-control-sm" id="settings_block_no" value="" name="settings_block_no" placeholder="block no">
                                                     </div>
                                                     <div class="col">
                                                         <label for="location" class="form-label">Barangay</label>
-                                                        <input type="text" class="form-control form-control-sm" id="barangay" value="" name="barangay" placeholder="barangay">
+                                                        <input type="text" class="form-control form-control-sm" id="settings_barangay" value="" name="settings_barangay" placeholder="barangay">
                                                     </div>
                                                     <div class="col">
                                                         <label for="location" class="form-label">Municipality</label>
-                                                        <input type="text" class="form-control form-control-sm" id="municipality" value="" name="municipality" placeholder="municipality">
+                                                        <input type="text" class="form-control form-control-sm" id="settings_municipality" value="Nasugbu" name="settings_municipality" placeholder="municipality">
                                                     </div>
                                                 </div>
 
@@ -173,12 +173,12 @@ require "../php/db_func.php";
                                     </div>
 
                                     <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab" tabindex="0">
-                                        <h6>ACCOUNT SETTINGS</h6>
+                                        <h6 class="fw-bold">ACCOUNT SETTINGS</h6>
                                         <hr>
                                         <form>
                                             <div class="mb-3">
                                                 <label for="username" class="form-label">Username</label>
-                                                <input type="text" class="form-control form-control-sm" id="username" placeholder="Enter your username" value="kennethvaldez">
+                                                <input type="text" class="form-control form-control-sm" id="username" placeholder="Enter your username" value="">
                                                 <small id="usernameHelp" class="form-text text-muted">After changing your username, your old username becomes available for anyone else to claim.</small>
                                             </div>
                                             <hr>
@@ -191,7 +191,7 @@ require "../php/db_func.php";
                                     </div>
 
                                     <div class="tab-pane fade" id="v-pills-disabled" role="tabpanel" aria-labelledby="v-pills-disabled-tab" tabindex="0">
-                                        <h6>SECURITY SETTINGS</h6>
+                                        <h6 class="fw-bold">SECURITY SETTINGS</h6>
                                         <hr>
                                         <form>
                                             <div class="mb-3">
@@ -205,7 +205,7 @@ require "../php/db_func.php";
                                             <button type="reset" class="btn btn-light">Cancel</button>
                                         </form>
                                         <hr>
-                                        <form>
+                                        <form hidden>
                                             <div class="mb-3">
                                                 <label class="d-block"><b>Two Factor Authentication</b> </label>
                                                 <button class="btn btn-info my-2" type="button" style="background-color: #245A94; color: white">Enable two-factor authentication</button>
@@ -231,7 +231,7 @@ require "../php/db_func.php";
                                     </div>
 
                                     <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab" tabindex="0">
-                                        <h6>NOTIFICATION SETTINGS</h6>
+                                        <h6 class="fw-bold">NOTIFICATION SETTINGS</h6>
                                         <hr>
                                         <form>
                                             <div class="mb-3">
@@ -308,9 +308,39 @@ require "../php/db_func.php";
 </body>
 
 <script>
-    $('a[href="applicant_account_setting.php"] > li').addClass("my-active") //highlight active page in offcanvas menu
+    
 
-    $("#profile_info input").attr("disabled","disabled")
+    <?php 
+    
+    $acc_settings_edit = select('vw_applicant_basics',"applicant_id = '".$_SESSION['user_id']."'");
+    if (mysqli_num_rows($acc_settings_edit) > 0) {
+        while ($row = mysqli_fetch_assoc($acc_settings_edit)) {
+
+        echo "$('#settings_firstname')[0].value = '" . $row['firstname'] . "';";
+        echo "$('#settings_mi')[0].value = '" . $row['middlename'] . "';";
+        echo "$('#settings_lastname')[0].value = '" . $row['lastname'] . "';";
+        echo "$('#settings_no')[0].value ='".$row['house_no'] . "';";
+        echo "$('#settings_lot_no')[0].value ='".$row['lot_no'] . "';";
+        echo "$('#settings_street')[0].value ='".$row['street_name'] . "';";
+        echo "$('#settings_barangay')[0].value ='".$row['barangay'] . "';";
+        echo "$('#settings_block_no')[0].value ='".$row['block_no'] . "';";
+        echo "$('#username')[0].value ='".$row['username'] . "';";
+
+
+        
+        
+    }
+}
+
+    ?>
+
+$('a[href="applicant_account_setting.php"] > li').addClass("my-active") //highlight active page in offcanvas menu
+
+// $("#profile_info input").attr("disabled","disabled")
+
+
+
+
 </script>
 
 </html>
