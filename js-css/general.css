@@ -228,3 +228,8 @@ div#step_tab_nav.nav.flex-column.nav-pills.me-3 button{
     font-size: 100%;
 
 }
+
+#building_permit_certificate :checkbox[disabled] {
+    opacity: 1 !important;   /* Adjust the opacity to your preference */
+    /* Add any other styling you want for the disabled checkbox */
+  }

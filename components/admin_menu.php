@@ -75,7 +75,7 @@
             <?php if ($_SESSION['department'] == "Engineering") {
                     echo '      
                 <a href="admin_engineering_approvals.php" title="Pending Approvals">
-                <li>Pendings</li>
+                <li>Pending</li>
                 </a>
          
                 <a href="admin_engineering_appointments.php" title="Appointments">
@@ -87,7 +87,7 @@
       ';
                 } ?>
 
-            <a href="project_archive.php" title="Project Archive" hidden>
+            <a href="admin_project_archive.php" title="Project Archive">
                 <li>Project Archive</li>
             </a>
 
@@ -101,6 +101,18 @@
             <a href="public_faq.php" title="Frequently Asked Questions">
                 <li>FAQ</li>
             </a>-->
+
+            
+            <?php if ($_SESSION['department'] == "Engineering") {
+                    echo '      
+                <a href="admin_engineering_bldg_official.php" title="Building Official">
+                <li>Building Official</li>
+                </a>
+         
+              
+      ';
+                } ?>
+
 
             <a href="../php/session_logout.php">
                 <li>Logout</li>

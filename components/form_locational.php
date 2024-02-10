@@ -521,7 +521,7 @@ WHERE applicant.id = '".$project_applicant."'");
 
 if ($row = mysqli_fetch_assoc($applicant_address)) {
     // print_r($row);
-    echo '$("#vw_loc_app_address").val("'.$row["full_address"].'");';
+    echo '$("#vw_loc_app_address").val("'.formatAddress($row["full_address"]).'");';
     echo '$("#vw_loc_auth_representative").val("'.$row["full_address"].'");';
 
 
@@ -538,7 +538,7 @@ WHERE project.id = '$project_id'");
 if ($row = mysqli_fetch_assoc($project_address)) {
     // print_r($row);
 
-    echo '$("#vw_loc_proj_loc").val("'.$row["full_address"].'");';
+    echo '$("#vw_loc_proj_loc").val("'.formatAddress($row["full_address"]).'");';
 
 }
 

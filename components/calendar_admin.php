@@ -473,13 +473,13 @@
                 track_month++;
             }
 
-            if (track_month == 0) {
-                // disable button to prevent going back to previous month
-                $("#btn-calendar-previous").css("pointer-events", "none");
-            } else if (track_month > 0) {
-                // enable
-                $("#btn-calendar-previous").css("pointer-events", "auto");
-            }
+            // if (track_month == 0) {
+            //     // disable button to prevent going back to previous month
+            //     $("#btn-calendar-previous").css("pointer-events", "none");
+            // } else if (track_month > 0) {
+            //     // enable
+            //     $("#btn-calendar-previous").css("pointer-events", "auto");
+            // }
 
 
             if (currMonth < 0 || currMonth > 11) {
@@ -559,7 +559,7 @@
         $(".weekend").attr("title", "This day is a non-working day.");
 
         // disable button to prevent going back to previous month
-        $("#btn-calendar-previous").css("pointer-events", "none");
+        // $("#btn-calendar-previous").css("pointer-events", "none");
 
         $("#calendar_cont li.active").click();
 

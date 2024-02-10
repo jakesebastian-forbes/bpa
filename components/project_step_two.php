@@ -50,11 +50,11 @@
 
 <div id="step_two_wrapper" class="" style="margin: 0; padding: 0;">
 
-<div class="progress my-2" id="progress_bar_cont">
-    <div class="progress-bar" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" id="progress_bar_step_2">
-        <span id="percentageText"></span>
+  <div class="progress my-2" id="progress_bar_cont">
+    <div class="progress-bar" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" id="progress_bar_step_2" data-tab="step_two_tab">
+      <span id="percentageText"></span>
     </div>
-</div>
+  </div>
 
   <div id="step_two_locational">
     <div class="rectangle" style="margin: 0; padding: 0;">
@@ -74,12 +74,12 @@
       <h2 class="my-2 mx-3">Corporation Information</h2>
       <div class="row">
       <div class="input-wrapper col-lg-6 col-12">
-        <label for="p2_loc_corp_name" class="fw-bold">Corporation Name <span class="required"></span></label>
+        <label for="p2_loc_corp_name" class="">Corporation Name <span class="required"></span></label>
         <input type="text" id="p2_locational_corp_name" name="p2_locational_corp_name" value = ""
         data-column="corporation_name" required>
       </div>
       <div class="input-wrapper col-lg-6 col-12">
-        <label for="p2_loc_corp_address" class="fw-bold">Corporation Address <span class="required"></span></label>
+        <label for="p2_loc_corp_address" class="">Corporation Address <span class="required"></span></label>
         <input type="text" id="p2_locational_corp_address" name="p2_locational_corp_address"
         data-column="corporation_address" required>
       </div>
@@ -103,8 +103,8 @@
       </div>
 
       <div class="input-wrapper col-lg-6 col-12" id="rol_spec">
-        <label for="" class="fw-bold">Please Specify</label>
-        <input type="text" name="rol_spec_input" id="rol_spec_input" data-column="right_over_land" style="height: 45px;">
+        <label for="" class="">Please Specify</label>
+        <input type="text" name="rol_spec_input" id="rol_spec_input" data-column="rol_spec" style="height: 45px;">
       </div>
 
     </div>
@@ -127,13 +127,10 @@
 
       <div class="input-wrapper col-lg-6 col-12" id="land_use_spec">
         <label for="" class="">Please Specify</label>
-        <input type="text" name="" id="land_use_spec_input" data-column="existing_land_use">
+        <input type="text" name="" id="land_use_spec_input" data-column="existing_land_use_spec">
       </div>
 
     </div>
-
-
-
 
     <div class="row">
       <div class="input-wrapper col-lg-6 col-12">
@@ -358,11 +355,16 @@
             $("#p2_loc_building_improvement").val('<?php echo $row['building_improvement'] ?>')
 
 
-            if_spec("p2_loc_rol", "<?php echo $row['right_over_land'] ?>");
-            if_spec("p2_loc_elu", "<?php echo $row['existing_land_use'] ?>");
-            if_spec("p2_loc_proj_nature", "<?php echo $row['project_nature'] ?>");
-            // if_spec("p2_loc_proj_tenure", "<?php //echo $row['project_tenure'] 
-                                              ?>");
+
+            $("#p2_loc_rol").val('<?php echo $row['right_over_land'] ?>')
+            $("#rol_spec_input").val('<?php echo $row['rol_spec'] ?>')
+            $("#p2_loc_elu").val('<?php echo $row['existing_land_use'] ?>')
+            $("#land_use_spec_input").val('<?php echo $row['existing_land_use_spec'] ?>')
+            $("#p2_loc_proj_nature").val('<?php echo $row['project_nature'] ?>')
+            $("#proj_nature_spec_inp").val('<?php echo $row['project_nature'] ?>')
+
+
+
 
             $("#p2_loc_proj_tenure").val('<?php echo $row['project_tenure'] ?>')
             $("#proj_tenure_spec_inp").val('<?php echo $row['project_tenure_specify'] ?>')
@@ -408,12 +410,28 @@
 
         }
 
-        if ($("#p2_loc_proj_tenure").val() == "agricultural" || $("#p2_loc_proj_tenure").val() == "temporary") {
-          $("#proj_tenure_spec").show();
+        let project_tenure = $("#p2_loc_proj_tenure").val();
+
+        if (project_tenure == "" || project_tenure == undefined) {
+
         } else {
-          $("#proj_tenure_spec").hide();
+          if (project_tenure.toLowerCase() == "agricultural" || project_tenure.toLowerCase() == "temporary") {
+            $("#proj_tenure_spec").show();
+          } else {
+            $("#proj_tenure_spec").hide();
+
+
+          }
 
         }
+
+        // if ($("#p2_loc_proj_tenure").val().toLowerCase() == "agricultural" || $("#p2_loc_proj_tenure").val().toLowerCase() == "temporary") {
+        //   $("#proj_tenure_spec").show();
+        // } else {
+        //   $("#proj_tenure_spec").hide();
+
+
+        // }
 
 
         // **listen to changes to hide/show components
@@ -437,18 +455,51 @@
 
           inp.addEventListener('change', function handleClick(event) {
 
+            let spec_div = $("#" + this.getAttribute("data-spec-div"))[0].id;
+            let spec_input = $("#" + spec_div + " input")[0].id;
+
             if (this.value == "other") {
               $("#" + this.getAttribute("data-spec-div")).show()
+              // console.log("other")
+              // console.log(this.id);
+              // console.log(spec_input);
+
+
 
             } else {
               $("#" + this.getAttribute("data-spec-div")).hide()
+              // console.log("not other")
+              // console.log(this.id);
+              // console.log(spec_input);
+              // console.log($("#"+spec_input).val());
+              // console.log($("#"+spec_input).data("column"));
+
+              if ($("#" + spec_input).val() == '' || $("#" + spec_input).val() == null || $("#" + spec_input).val() == undefined) {
+                // console.log("empty");
+              } else {
+                // console.log("not empty");
+                let column = $("#" + spec_input).data("column");
+                $("#" + spec_input).val('');
+
+                update_ajax('f_locational', column, "", " id = '<?php echo $project_locational ?>'");
+
+              }
+
+
+              // console.log(this.id);
+
+              // let column = $("#czc_notice_spec_inp").data("column");
+              // update_ajax('f_locational', column, "", " id = '<?php //echo $project_locational 
+                                                                  ?>'");
+
+
             }
           });
         }
 
 
         $("#p2_loc_proj_tenure").on("change", function() {
-          if (this.value == "agricultural" || this.value == "temporary") {
+          if (this.value.toLowerCase() == "agricultural" || this.value.toLowerCase() == "temporary") {
             $("#proj_tenure_spec").show();
 
           } else {
@@ -535,7 +586,7 @@
 
         locational_selects.forEach(inp => {
           inp.addEventListener('change', function handleClick(event) {
-            console.log(this);
+            // console.log(this);
             let column = $("#" + this.id).data("column");
             let value = $("#" + this.id).val();
 
@@ -548,9 +599,9 @@
               } catch (error) {
                 console.log(error);
               }
-              console.log(value)
+              // console.log(value)
             }
-            console.log("column: ", column, " --- value:", value)
+            // console.log("column: ", column, " --- value:", value)
           });
         });
 
@@ -679,8 +730,8 @@
             <tr>
             <td class="fw-bold" >TOTAL</td>
             <td id = "sanitary_fixture_total_quantity"></td>
-
-            <td id = "sanitary_fixture_total_cost"></td>
+            <td id = "sanitary_fixture_total_cost" title = "Total = (Quantity x Cost)ₙ1 +
+             (Quantity x Cost)ₙ2 + ..."></td>
             <td></td>
             </tr>
 
@@ -717,18 +768,18 @@
 
         <div class="input-wrapper col-lg-3 col-12">
           <label for="sanitary_fixture_qnty" class="">Quantity</label>
-          <input type="number" min="1" value="1" id="sanitary_fixture_qnty" name="sanitary_fixture_qnty" required>
+          <input type="number" min="1" value="1" id="sanitary_fixture_qnty" name="sanitary_fixture_qnty">
         </div>
 
 
         <div class="input-wrapper col-lg-3 col-12">
           <label for="sanitary_fixture_cost" class="">Cost</label>
-          <input type="number" min="0" value="0" id="sanitary_fixture_cost" name="sanitary_fixture_cost" required>
+          <input type="number" min="0" value="0" id="sanitary_fixture_cost" name="sanitary_fixture_cost">
         </div>
 
         <div class="input-wrapper col-lg-3 col-12">
           <label for="sanitary_fixture_status" class="">Status</label>
-          <select class="form-select" id="sanitary_fixture_status" name="sanitary_fixture_status" required>
+          <select class="form-select" id="sanitary_fixture_status" name="sanitary_fixture_status">
             <option value="New" selected>New</option>
             <option value="Existing">Existing</option>
           </select>
@@ -736,7 +787,7 @@
 
         <div class="input-wrapper col-lg-3 col-12">
           <label for="sanitary_fixture_item" class="">Fixtures</label>
-          <select class="form-select select2" id="sanitary_fixture_item" name="sanitary_fixture_item" required>
+          <select class="form-select select2" id="sanitary_fixture_item" name="sanitary_fixture_item">
             <option value="water closet" selected>Water Closet</option>
             <option value="floor drain">Floor Drain</option>
             <option value="lavatories">Lavatories</option>
@@ -1012,7 +1063,7 @@
             remove_existing_fixture();
             console.log("sanitary event")
             sanitary_attach_event();
-    calculateTotal();
+            calculateTotal();
 
 
 
@@ -1031,26 +1082,26 @@
       };
 
       function calculateTotal() {
-            var totalCost = 0;
-            var totalQuantity = 0;
+        var totalCost = 0;
+        var totalQuantity = 0;
 
-            $('.sanitary_fixture_item').each(function () {
-                var quantity = parseFloat($(this).find('.item_qnty').text()) || 0;
-                var cost = parseFloat($(this).find('.item_cost').text()) || 0;
+        $('.sanitary_fixture_item').each(function() {
+          var quantity = parseFloat($(this).find('.item_qnty').text()) || 0;
+          var cost = parseFloat($(this).find('.item_cost').text()) || 0;
 
-                totalCost += quantity * cost;
-                totalQuantity += quantity;
-            });
+          totalCost += quantity * cost;
+          totalQuantity += quantity;
+        });
 
-            // Update the total cost and quantity in the last row
-            $('#sanitary_fixture_total_quantity').html(totalQuantity);
-            $('#sanitary_fixture_total_cost').html(totalCost);
+        // Update the total cost and quantity in the last row
+        $('#sanitary_fixture_total_quantity').html(totalQuantity);
+        $('#sanitary_fixture_total_cost').html(totalCost);
 
-            // console.log(totalQuantity)
-            // console.log(totalCost)
+        // console.log(totalQuantity)
+        // console.log(totalCost)
 
 
-        }
+      }
 
 
 
@@ -1075,7 +1126,7 @@
         });
 
         // Calculate total cost when the document is ready
-    calculateTotal();
+        calculateTotal();
 
 
 
@@ -1569,6 +1620,8 @@
 
 
 
+
+
     <div class="row">
       <p class="fw-bold text-uppercase my-2 mx-3">Use or Character of Occupancy</p>
     </div>
@@ -1608,45 +1661,45 @@
 
     <div id="unified_estimated_cost">
 
-    <div class="row">
-      <p class="fw-bold my-2 mx-3">ESTIMATED COST</p>
-      <div class="input-wrapper col-lg col-12">
-        <label for="p2_unified_building">Building<span class="required"></span></label>
-        <input type="number" data-column="est_cost_building" id="p2_unified_building" name="p2_unified_building" required>
+      <div class="row">
+        <p class="fw-bold my-2 mx-3">ESTIMATED COST</p>
+        <div class="input-wrapper col-lg col-12">
+          <label for="p2_unified_building">Building<span class="required"></span></label>
+          <input type="number" data-column="est_cost_building" id="p2_unified_building" name="p2_unified_building" required>
+        </div>
+
+        <div class="input-wrapper col-lg col-12">
+          <label for="p2_unified_electrical">Electrical<span class="required"></span></label>
+          <input type="number" data-column="est_cost_electrical" id="p2_unified_electrical" name="p2_unified_electrical" required>
+        </div>
+
+        <div class="input-wrapper col-lg col-12">
+          <label for="p2_unified_mechanical">Mechanical<span class="required"></span></label>
+          <input type="number" data-column="est_cost_mechanical" id="p2_unified_mechanical" name="p2_unified_mechanical" required>
+        </div>
+
+
       </div>
 
-      <div class="input-wrapper col-lg col-12">
-        <label for="p2_unified_electrical">Electrical<span class="required"></span></label>
-        <input type="number" data-column="est_cost_electrical" id="p2_unified_electrical" name="p2_unified_electrical" required>
+
+
+      <div class="row">
+
+        <div class="input-wrapper col-lg col-12">
+          <label for="p2_unified_electronics">Electronics<span class="required"></span></label>
+          <input type="number" data-column="est_cost_electronics" id="p2_unified_electronics" name="p2_unified_electronics" required>
+        </div>
+
+        <div class="input-wrapper col-lg col-12">
+          <label for="p2_unified_plumbing">Plumbing<span class="required"></span></label>
+          <input type="number" data-column="est_cost_plumbing" id="p2_unified_plumbing" name="p2_unified_plumbing" required>
+        </div>
+
+        <div class="input-wrapper col-lg col-12">
+          <label for="p2_unified_ttl_est_cost" class="fw-bold">TOTAL ESTIMATED COST</span></label>
+          <input type="number" data-column="est_cost_total" id="p2_unified_ttl_est_cost" name="p2_unified_ttl_est_cost" readonly>
+        </div>
       </div>
-
-      <div class="input-wrapper col-lg col-12">
-        <label for="p2_unified_mechanical">Mechanical<span class="required"></span></label>
-        <input type="number" data-column="est_cost_mechanical" id="p2_unified_mechanical" name="p2_unified_mechanical" required>
-      </div>
-
-
-    </div>
-
-
-
-    <div class="row">
-
-      <div class="input-wrapper col-lg col-12">
-        <label for="p2_unified_electronics">Electronics<span class="required"></span></label>
-        <input type="number" data-column="est_cost_electronics" id="p2_unified_electronics" name="p2_unified_electronics" required>
-      </div>
-
-      <div class="input-wrapper col-lg col-12">
-        <label for="p2_unified_plumbing">Plumbing<span class="required"></span></label>
-        <input type="number" data-column="est_cost_plumbing" id="p2_unified_plumbing" name="p2_unified_plumbing" required>
-      </div>
-
-      <div class="input-wrapper col-lg col-12">
-        <label for="p2_unified_ttl_est_cost" class="fw-bold">TOTAL ESTIMATED COST</span></label>
-        <input type="number" data-column="est_cost_total" id="p2_unified_ttl_est_cost" name="p2_unified_ttl_est_cost" readonly>
-      </div>
-    </div>
     </div>
 
 
@@ -1658,11 +1711,27 @@
       </div>
 
       <div class="input-wrapper col-lg-6 col-12">
-        <label for="p2_unified_exp_date_completion">Expected D<span class="required"></span></label>
+        <label for="p2_unified_exp_date_completion">Expected Date of Completion<span class="required"></span></label>
         <input type="date" data-column="date_estimated_completion" id="p2_unified_exp_date_completion" name="p2_unified_exp_date_completion" required>
       </div>
 
     </div>
+
+    <!-- <div class="row ">
+      <div class="input-wrapper col-lg-12 col-12">
+      <label for="application_type" class="fw-bold">Application Type<span class="required"></span></label>
+                    <select class="form-select w-100" id="unified_application_type" name="application_type" data-column="application_type" required>
+                      <option value="">Please select an option</option>
+                      <option value="Simple">Simple</option>
+                      <option value="New">New</option>
+                      <option value="Renewal">Renewal</option>
+                      <option value="Complex">Complex</option>
+                      <option value="Amendatory">Amendatory</option>
+                    </select>
+      </div>
+                    
+                  </div> -->
+
   </div>
 
 </div>
@@ -1825,78 +1894,7 @@
     }
   })
 
-  $("#p2_unified_building").change(function() {
 
-    let column = $("#" + this.id).data("column");
-    let value = $("#" + this.id).val();
-    try {
-      update_ajax('f_unified', column, value, " id = '<?php echo $project_unified ?>'");
-
-    } catch (error) {
-      console.log(error);
-    }
-  })
-
-  $("#p2_unified_electrical").change(function() {
-
-    let column = $("#" + this.id).data("column");
-    let value = $("#" + this.id).val();
-    try {
-      update_ajax('f_unified', column, value, " id = '<?php echo $project_unified ?>'");
-
-    } catch (error) {
-      console.log(error);
-    }
-  })
-
-  $("#p2_unified_mechanical").change(function() {
-
-    let column = $("#" + this.id).data("column");
-    let value = $("#" + this.id).val();
-    try {
-      update_ajax('f_unified', column, value, " id = '<?php echo $project_unified ?>'");
-
-    } catch (error) {
-      console.log(error);
-    }
-  })
-
-  $("#p2_unified_electronics").change(function() {
-
-    let column = $("#" + this.id).data("column");
-    let value = $("#" + this.id).val();
-    try {
-      update_ajax('f_unified', column, value, " id = '<?php echo $project_unified ?>'");
-
-    } catch (error) {
-      console.log(error);
-    }
-  })
-
-  $("#p2_unified_plumbing").change(function() {
-
-    let column = $("#" + this.id).data("column");
-    let value = $("#" + this.id).val();
-    try {
-      update_ajax('f_unified', column, value, " id = '<?php echo $project_unified ?>'");
-
-    } catch (error) {
-      console.log(error);
-    }
-  })
-
-  $("#p2_unified_ttl_est_cost").change(function() {
-
-    let column = $("#" + this.id).data("column");
-    let value = $("#" + this.id).val();
-
-    try {
-      update_ajax('f_unified', column, value, " id = '<?php echo $project_unified ?>'");
-
-    } catch (error) {
-      console.log(error);
-    }
-  })
 
 
   $("#p2_unified_pp_date_construction").change(function() {
@@ -1933,6 +1931,23 @@
 
     }
   })
+
+  $("#p2_unified_pp_date_construction").change(function() {
+  let parsedGivenDate = new Date($(this).val());
+  let currentDate = new Date();
+
+  console.log(parsedGivenDate.toDateString());
+  console.log(currentDate.toDateString());
+
+  // Compare the dates
+  if (parsedGivenDate < currentDate) {
+    console.log('The given date has already passed.');
+    alert('The given date has already passed. Please select a valid date.');
+    $(this).val('');
+  }
+});
+
+
 
 
 
@@ -2047,23 +2062,53 @@
 
   })
 
-  
+
   let unified_est_cost_inp = document.querySelectorAll('#unified_estimated_cost input:not(#p2_unified_ttl_est_cost)');
 
   unified_est_cost_inp.forEach(inp => {
     inp.addEventListener('change', function handleClick(event) {
 
-       let total = parseInt($("#p2_unified_ttl_est_cost").val());
-       let this_value = parseInt($(this).val());
+      console.log($(this).val());
 
-       total = total + this_value;
-       $("#p2_unified_ttl_est_cost").val(total)
-       update_ajax('f_unified', "est_cost_total", total, " id = '<?php echo $project_unified ?>'");
-      
-// console.log($(this).val());
+      if ($(this).val() == '') {
+        $(this).val(0);
+      }
+
+
+      let column = $("#" + this.id).data("column");
+      let value = $("#" + this.id).val();
+      try {
+        update_ajax('f_unified', column, value, " id = '<?php echo $project_unified ?>'");
+
+      } catch (error) {
+        console.log(error);
+      }
+
+
+
+      // let total = parseInt($("#p2_unified_ttl_est_cost").val());
+
+      let building_cost = parseInt($("#p2_unified_building").val());
+      let electrical_cost = parseInt($("#p2_unified_electrical").val());
+      let mechanical_cost = parseInt($("#p2_unified_mechanical").val());
+      let electronics_cost = parseInt($("#p2_unified_electronics").val());
+      let plumbing_cost = parseInt($("#p2_unified_plumbing").val());
+
+      // let this_value = parseInt($(this).val());
+
+      // total = total + this_value;
+
+      total = building_cost + electrical_cost + mechanical_cost + electronics_cost + plumbing_cost;
+
+
+
+      $("#p2_unified_ttl_est_cost").val(total)
+      update_ajax('f_unified', "est_cost_total", total, " id = '<?php echo $project_unified ?>'");
+
+      // console.log($(this).val());
     })
 
-})
+  })
 
   // const myElement = document.getElementById("unified_group_category_spec");
 
@@ -2082,24 +2127,26 @@
 
 <script>
   //overall script 
-  $(document).ready(function() {
+  // $(document).ready(function() 
+
+  $(window).on("load", function() {
 
 
-    update_progress_bar("progress_bar_step_2","#step_two_wrapper input[required], #step_two_wrapper select[required], #step_two_wrapper input[type='radio'][required]",
-    "#step_two_wrapper input[required], #step_two_wrapper select[required], #step_two_wrapper input[type='radio'][required]")
-        // Update the width of the progress bar
+    update_progress_bar("progress_bar_step_2", "#step_two_wrapper input[required], #step_two_wrapper select[required], #step_two_wrapper input[type='radio'][required]",
+      "#step_two_wrapper input[required], #step_two_wrapper select[required], #step_two_wrapper input[type='radio'][required]")
+    // Update the width of the progress bar
 
 
-        let all_inp_step_two = document.querySelectorAll("#step_two_wrapper input[required], #step_two_wrapper select[required], #step_two_wrapper input[type='radio'][required]");
+    let all_inp_step_two = document.querySelectorAll("#step_two_wrapper input[required], #step_two_wrapper select[required], #step_two_wrapper input[type='radio'][required]");
 
-        all_inp_step_two.forEach(inp => {
-            inp.addEventListener('change', function handleClick(event) {
+    all_inp_step_two.forEach(inp => {
+      inp.addEventListener('change', function handleClick(event) {
 
-              update_progress_bar("progress_bar_step_2","#step_two_wrapper input[required], #step_two_wrapper select[required], #step_two_wrapper input[type='radio'][required]",
-    "#step_two_wrapper input[required], #step_two_wrapper select[required], #step_two_wrapper input[type='radio'][required]")
+        update_progress_bar("progress_bar_step_2", "#step_two_wrapper input[required], #step_two_wrapper select[required], #step_two_wrapper input[type='radio'][required]",
+          "#step_two_wrapper input[required], #step_two_wrapper select[required], #step_two_wrapper input[type='radio'][required]")
 
-            })
-          })
+      })
+    })
 
 
     // // Select all input, select, and date inputs within the #step_two element

@@ -65,10 +65,22 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                Are you sure you want to submit your project for review? <br>
-                <b>This will lock your project temporarily - you will not be able to make changes</b>
-                while we send your forms and documents to designated departments.
-                Please make sure everything is filled and checked before proceeding.
+                <div id="modal_submit_confirm_message">
+                    Are you sure you want to submit your project for review? <br>
+                    <b>This will lock your project temporarily - you will not be able to make changes</b>
+                    while we send your forms and documents to designated departments.
+                    Please make sure everything is filled and checked before proceeding.
+                </div>
+
+                <div id="missing_fields" hidden>
+                    <p class="mt-2" style="color:red">
+                        Input is missing! Kindly complete all the necessary fields to proceed.</p>
+                    <p class="m-0">Common information : <span id="curr_progress_one_one" class = "fw-bold"></span></p>
+                    <p class="m-0">Fill up forms : <span id="curr_progress_one_two" class = "fw-bold"></span></p>
+                    <p class="m-0">Upload documents : <span id="curr_progress_one_three" class = "fw-bold"></span></p>
+
+                </div>
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No, I'll do it later</button>
@@ -194,6 +206,22 @@
 </div>
 
 <script>
+
+function update_all_progress_bar(){
+
+
+let inp_required = '#step_one_common_info input[required]';
+update_progress_bar("progress_bar_step_1", inp_required, inp_required)
+update_progress_bar("progress_bar_step_2", "#step_two_wrapper input[required], #step_two_wrapper select[required], #step_two_wrapper input[type='radio'][required]",
+"#step_two_wrapper input[required], #step_two_wrapper select[required], #step_two_wrapper input[type='radio'][required]")
+update_progress_bar("progress_bar_step_3", "#step_three_documents .document-card.required",
+"#step_three_documents .document-card.required > div.empty")
+
+}
+
+
+
+
     document.addEventListener("DOMContentLoaded", () => {
 
         //locational
@@ -218,6 +246,8 @@
                 }, '*');
             });
         })
+
+
 
         // unified
         $('#btn_print_unified').on('click', function() {
@@ -288,71 +318,147 @@
             });
         })
 
+        // Attach click event listeners to each button
+  document.getElementById('step_one_tab').addEventListener('click', function() {
+    update_all_progress_bar()
+  });
+
+  document.getElementById('step_two_tab').addEventListener('click', function() {
+    update_all_progress_bar()
+
+  });
+
+  document.getElementById('step_three_tab').addEventListener('click', function() {
+    update_all_progress_bar()
+
+  });
+
         $('#submit_for_review_btn').on('click', function() {
 
+            update_all_progress_bar();
 
-            var progress_bar_1_value = $("#progress_bar_step_1").html().replace("%", ""); // Remove the "%" sign
-            var progress_bar_1_value = parseInt(progress_bar_1_value, 10); // Convert to integer
+            let progress_bar_1_value = parseInt(getCurrentPercentage("progress_bar_step_1"), 10);
+            let progress_bar_2_value = parseInt(getCurrentPercentage("progress_bar_step_2"), 10);
+            let progress_bar_3_value = parseInt(getCurrentPercentage("progress_bar_step_3"), 10);
 
-            var progress_bar_2_value = $("#progress_bar_step_2").html().replace("%", ""); // Remove the "%" sign
-            var progress_bar_2_value = parseInt(progress_bar_2_value, 10); // Convert to integer
+            console.log(progress_bar_1_value)
+            console.log(progress_bar_2_value)
+            console.log(progress_bar_3_value)
 
 
-            if (!(progress_bar_1_value >= 80) || !(progress_bar_2_value >= 80)) {
+
+            if (!(progress_bar_1_value == 100) || !(progress_bar_2_value == 100) || !(progress_bar_3_value == 100)) {
+
+
+                alert("Some required fields are empty.");
+
+
+                $("#modal_submit_confirm_message").attr("hidden", "hidden")
+
                 // Your code here when either condition is not true
                 $("#btn_submit_for_review").attr("disabled", "disabled");
-                $("#btn_submit_for_review").attr("title", "Please fill out the required fields at least 80%");
+                $("#btn_submit_for_review").attr("title", "Please fill out the required fields.");
+
+                $("#missing_fields").removeAttr("hidden");
 
 
-                var emptyFields = $("#step_two_wrapper input[required], #step_two_wrapper select[required], #step_two_wrapper input[type='radio'][required]")
+
+
+                var step_one_empty = $("#step_one_common_info input[required]").filter(function() {
+                    return $(this).val().trim() === ''; // Check if the value is empty after trimming whitespace
+                });
+
+                if (step_one_empty.length > 0) {
+                    // There are empty input fields
+                    console.log("s1 Some input fields are empty.");
+                    // Do something with the emptyInputs if needed
+                    step_one_empty.css("border", "2px solid red");
+
+
+                } else {
+                    // All input fields have values
+                    console.log("s1 All input fields have values.");
+                }
+
+
+                var step_two_empty = $("#step_two_wrapper input[required], #step_two_wrapper select[required], #step_two_wrapper input[type='radio'][required]")
                     .filter(function() {
                         // Check for empty values or unchecked radio buttons
                         return $(this).val() === "" || ($(this).is(':radio') && !$("input[name='" + this.name + "']:checked").length);
                     });
 
-                if (emptyFields.length > 0) {
+                if (step_two_empty.length > 0) {
                     // There are empty fields
-                    console.log("Some required fields are empty.");
-                    alert("Some required fields are empty.");
+                    console.log("s2 Some required fields are empty.");
+                    // alert("Some required fields are empty.");
 
                     // Do something with the emptyFields if needed
-                    emptyFields.css("border", "2px solid red");
+                    step_two_empty.css("border", "2px solid red");
                 } else {
                     // All required fields are filled
-                    console.log("All required fields are filled.");
-                    alert("All required fields are filled.");
+                    console.log(" step 2 All required fields are filled.");
+                    // alert("All required fields are filled.");
 
                 }
 
 
+                var step_three_empty = $("#step_three_documents .document-card.required > div.empty")
+                // .filter(function() {
+                //     return $(this).val().trim() === ''; // Check if the value is empty after trimming whitespace
+                // });
 
-                var emptyInputs = $("#step_one_common_info input").filter(function() {
-                    return $(this).val().trim() === ''; // Check if the value is empty after trimming whitespace
-                });
-
-                if (emptyInputs.length > 0) {
+                if (step_three_empty.length > 0) {
                     // There are empty input fields
-                    console.log("Some input fields are empty.");
+                    console.log("s3 Some input fields are empty.");
                     // Do something with the emptyInputs if needed
-                    emptyInputs.css("border", "2px solid red");
+                    step_three_empty.parent().css("cssText", "border-color: red !important;");
                 } else {
                     // All input fields have values
-                    console.log("All input fields have values.");
+                    console.log("s3 All input fields have values.");
                 }
 
+                console.log(step_one_empty.length)
+                console.log(step_one_empty)
+
+                // let element = step_one_empty[0]
+
+                // element.scrollIntoView({
+                //     behavior: "smooth", // You can use "auto" or "smooth" for scrolling behavior
+                //     block: "start",     // You can use "start", "center", "end", or "nearest"
+                //     inline: "nearest"   // You can use "start", "center", "end", or "nearest"
+                // });
+
+                // // Optionally, you can focus on the element as well
+                // element.focus();
+
+                console.log(step_two_empty.length)
+                console.log(step_three_empty.length)
+
+                $("#curr_progress_one_one").html(step_one_empty.length)
+                $("#curr_progress_one_two").html(step_two_empty.length)
+                $("#curr_progress_one_three").html(step_three_empty.length)
 
 
 
-            }else{
+
+            } else {
                 // console.log("we good")
                 try {
+
+                    $("#modal_submit_confirm_message").removeAttr("hidden")
+
+
                     $("#btn_submit_for_review").removeAttr("disabled");
-                $("#btn_submit_for_review").removeAttr("title");
-                    
+                    $("#btn_submit_for_review").removeAttr("title");
+
+                    $("#missing_fields").attr('hidden');
+                    $("#missing_fields").html('');
+
+
                 } catch (error) {
                     console.log(error)
                 }
-            
+
             }
 
 
@@ -360,7 +466,24 @@
         })
 
 
+        $('#searchInput').on('input', function() {
+            var filterValue = $(this).val().toLowerCase();
+            $('#table_documents tr:gt(0)').each(function() {
+                var textToFilter = $(this).find('td:lt(3)').text().toLowerCase();
+                $(this).toggle(textToFilter.includes(filterValue));
+            });
+        });
+
+    
 
 
     })
+
+    $(document).ready(function() {
+            update_all_progress_bar()
+
+
+
+        })
+
 </script>

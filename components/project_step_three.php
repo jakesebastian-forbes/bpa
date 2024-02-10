@@ -49,12 +49,27 @@
 
 
 
-<h2 class="fw-bold">UPLOADING DOCUMENTS</h2>
+<h2 class="fw-bold">UPLOADING DOCUMENTS </h2>
+<!-- <span>
+    <button type="button" class="btn btn-secondary">
+    Checklists
+</button></span> -->
+
+
+
+
 <!-- <div class="progress my-2" id="progress_bar_cont">
     <div class="progress-bar" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" id="progress_bar_step_3">
         <span id="percentageText"></span>
     </div>
 </div> -->
+
+<div class="progress my-2" id="progress_bar_cont">
+    <div class="progress-bar" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" 
+    aria-valuemax="100" id="progress_bar_step_3" data-tab = "step_three_tab">
+      <span id="percentageText"></span>
+    </div>
+  </div>
 <div id="step_three_reminder" style = "background-color:beige; padding:1rem">
     <button type="button" style = "float:right; background-color:transparent; border:none"
     title="Dismiss message">X</button>
@@ -108,9 +123,9 @@
             // $doc_type_display = "Registry of Deed";
             // $land_doc = select("document", "`project_documents` = '$project_documents' AND `type` = '$doc_type_display'");
             require "document_card.php";
-            document_card($project_documents, "registry_of_deed", "Registry of Deed");
-            document_card($project_documents, "deed_of_sale", "Deed of Sale");
-            document_card($project_documents, "contract_of_lease", "Contract of lease");
+            document_card($project_documents, "registry_of_deed", "Registry of Deed","required");
+            document_card($project_documents, "deed_of_sale", "Deed of Sale","required");
+            document_card($project_documents, "contract_of_lease", "Contract of lease","required");
 
 
             ?>
@@ -121,18 +136,18 @@
         <div class="tab-pane fade" id="plans_document" role="tabpanel" aria-labelledby="plans_tab" tabindex="0">
             <h4 class="my-2">PROJECT PLANS</h4>
             <?php
-            document_card($project_documents, "location_plan", "Location Plan");
-            document_card($project_documents, "lot_plan", "Lot Plan");
-            document_card($project_documents, "specifications", "Specifications");
+            document_card($project_documents, "location_plan", "Location Plan","required");
+            document_card($project_documents, "lot_plan", "Lot Plan", "required");
+            document_card($project_documents, "specifications", "Specifications","required");
             ?>
         </div>
         <div class="tab-pane fade" id="costs_document" role="tabpanel" aria-labelledby="costs_tab" tabindex="0">
             <h4 class="my-2">PROJECT COSTS DOCUMENTS</h4>
             <?php
-            document_card($project_documents, "latest_tax_declaration", "Latest Tax Declaration");
-            document_card($project_documents, "latest_tax_receipt", "Latest Tax Receipt");
-            document_card($project_documents, "bill_of_materials", "Bill of Materials");
-            document_card($project_documents, "cost_estimate", "Cost Estimate");
+            document_card($project_documents, "latest_tax_declaration", "Latest Tax Declaration","required");
+            document_card($project_documents, "latest_tax_receipt", "Latest Tax Receipt","required");
+            document_card($project_documents, "bill_of_materials", "Bill of Materials","required");
+            document_card($project_documents, "cost_estimate", "Cost Estimate","required");
 
             ?>
         </div>
@@ -153,7 +168,7 @@
             <h4 class="my-2">ADDITIONAL PERMITS</h4>
 
             <?php
-            document_card($project_documents, "barangay_permit", "Barangay Permit");
+            document_card($project_documents, "barangay_permit", "Barangay Permit","required");
             document_card($project_documents, "dole", "DOLE");
             document_card($project_documents, "soil_boring_test", "Soil Boring Test");
             ?>
@@ -215,24 +230,6 @@
     })
 
 
-    //open modal
-    $(document).on("click", ".modal-delete", function() {
-        var file_name = $(this).data('doc-file-name');
-        var file_id = $(this).data('doc-id');
-        var doc_card = $(this).data('doc-card');
-
-        $(".modal-body #delete_doc_type_view").html(file_name);
-        //  $("#delete_doc_id").val(file_id);
-        //  $("#delete_doc_card").val(doc_card);
-
-        $("#doc_delete_confirm").data("doc-id", file_id)
-        $("#doc_delete_confirm").data("doc-card", doc_card)
-
-        console.log($("#doc_delete_confirm").data("doc-id"))
-        console.log($("#doc_delete_confirm").data("doc-card"))
-
-
-    });
 
 
     $(document).ready(function() {
@@ -244,22 +241,34 @@
 
 
         
-    update_progress_bar("progress_bar_step_3","#step_two_wrapper input[required], #step_two_wrapper select[required], #step_two_wrapper input[type='radio'][required]",
-    "#step_two_wrapper input[required], #step_two_wrapper select[required], #step_two_wrapper input[type='radio'][required]")
-        // Update the width of the progress bar
 
-
-        let all_inp_step_two = document.querySelectorAll("#step_two_wrapper input[required], #step_two_wrapper select[required], #step_two_wrapper input[type='radio'][required]");
-
-        all_inp_step_two.forEach(inp => {
-            inp.addEventListener('change', function handleClick(event) {
-
-              update_progress_bar("progress_bar_step_2","#step_two_wrapper input[required], #step_two_wrapper select[required], #step_two_wrapper input[type='radio'][required]",
-    "#step_two_wrapper input[required], #step_two_wrapper select[required], #step_two_wrapper input[type='radio'][required]")
-
-            })
-          })
 
 
     })
+
+
+    
+  $(window).on("load", function(){
+
+
+update_progress_bar("progress_bar_step_3", "#step_three_documents .document-card.required",
+  "#step_three_documents .document-card.required > div.empty")
+// Update the width of the progress bar
+
+
+let all_inp_step_three = document.querySelectorAll("#step_three_documents .document-card.required");
+
+all_inp_step_three.forEach(inp => {
+  inp.addEventListener('change', function handleClick(event) {
+
+    
+update_progress_bar("progress_bar_step_3", "#step_three_documents .document-card.required",
+  "#step_three_documents .document-card.required > div.empty")
+
+  })
+})
+
+
+
+})
 </script>

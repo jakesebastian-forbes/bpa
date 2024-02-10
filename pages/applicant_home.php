@@ -135,6 +135,18 @@ require "../php/db_func.php";
                   </div>
 
                   <div class="row mb-1 mx-4">
+                    <label for="application_type" class="form-label fw-bold">Application Type<span class="required"></span></label>
+                    <select class="form-select w-100" id="unified_application_type" name="application_type" data-column="application_type" required>
+                      <option value="">Please select an option</option>
+                      <option value="Simple">Simple</option>
+                      <option value="New">New</option>
+                      <option value="Renewal">Renewal</option>
+                      <option value="Complex">Complex</option>
+                      <option value="Amendatory">Amendatory</option>
+                    </select>
+                  </div>
+
+                  <div class="row mb-1 mx-4">
                     <label for="project_title" class="form-label fw-bold">What would you like to call this project?<span class="required"></span></label>
                     <input type="text" class="form-control w-100" placeholder="Project Title" name="project_title" id="project_title" required>
                   </div>
@@ -172,6 +184,12 @@ require "../php/db_func.php";
 </body>
 <script src="../js-css/db_operations_ajax.js"></script>
 <script>
+
+  
+
+
+
+
   $('a[href="applicant_home.php"] > li').addClass("my-active") //highlight active page in offcanvas menu
 
 
@@ -194,7 +212,7 @@ require "../php/db_func.php";
     try {
       // Make the AJAX call and get the result
       const result = await update_ajax("project", "status", "deleted", "`id` ='" + project_id + "'")
-      .then(data => {
+        .then(data => {
           // Use the data here
           console.log('Data fetched successfully:', data);
 
@@ -216,7 +234,7 @@ require "../php/db_func.php";
       console.error(error); // Log any errors that occurred during the AJAX call
     }
 
-    
+
   });
 </script>
 

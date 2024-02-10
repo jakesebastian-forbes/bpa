@@ -25,20 +25,10 @@
 
 <h2 class="mb-3 fw-bold">REQUEST FOR SIGNING SCHEDULE </h2>
 
-<div class="text-center">
-
-</div>
 
 
 <?php
-
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "bpa";
-
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn = db_conn();
 // Check connection
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
@@ -100,6 +90,9 @@ if ($result->num_rows > 0) {
         while ($assumed_signed_row = mysqli_fetch_assoc($assumed_signed)) {
           // print_r($assumed_signed_row);
 
+
+
+          
           if ($assumed_signed_row['admin_confirm'] == '1' and $assumed_signed_row['applicant_confirm'] == '0') {
 
             echo "<button type='button' class = 'upload-signing btn btn-primary' id = 'btn_app_proof_received'
@@ -152,6 +145,7 @@ $conn->close();
 
 
 
+        
 
 
 
@@ -188,12 +182,19 @@ $conn->close();
 
     // console.log($(this).data('signing-id'));
 
+    //generate building permit    
+
+
+
+
     update_ajax("project_signing", "applicant_confirm", "1", "`id` = '" + $(this).data('signing-id') + "'");
     update_ajax("project", "status", "completed", "id = '<?php echo $project_id ?>'");
 
     // insert_ajax();
     insert_ajax("project_logs", "`id`, `project_id`, `action`, `timestamp`",
       "UUID(), '<?php echo $project_id ?>', 'Project Completed',CURRENT_TIMESTAMP()");
+
+   
 
       $("#btn_app_proof_received").html("Confirmed")
       $("#btn_app_proof_received").css("background-color","#198754")

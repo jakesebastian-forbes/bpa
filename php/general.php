@@ -13,4 +13,59 @@ function getSubstringBetween($string, $start, $end) {
     return false; // Return false if start or end not found
 }
 
+
+function formatDate($dateString) {
+    $dateTime = new DateTime($dateString);
+    return $dateTime->format('M j, Y g:i A');
+}
+
+function formatDateOnly($dateString) {
+    $dateTime = new DateTime($dateString);
+    return $dateTime->format('M j, Y');
+}
+
+function formatTimeOnly($dateString) {
+    $dateTime = new DateTime($dateString);
+    return $dateTime->format('g:i A');
+}
+
+
+function formatAddress($addressString){
+    $formatted_address = preg_replace('/,+/', ',', ltrim($addressString, ','));
+    return $formatted_address;
+}
+
+
+
+
+function single_select($query) {
+
+
+    // Create a connection
+    $conn = db_conn();
+
+    // Check the connection
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    // Execute the query
+    $result = $conn->query($query);
+
+    // Check for errors in the query
+    if (!$result) {
+        die("Query failed: " . $conn->error);
+    }
+
+    // Fetch a single value from the result (assuming a single row, single column result)
+    $row = $result->fetch_assoc();
+    $value = $row ? reset($row) : null;
+
+    // Close the connection
+    $conn->close();
+
+    // Return the retrieved value
+    return $value;
+}
+
 ?>

@@ -35,33 +35,43 @@
 </div>
 
 <style>
-    .document-upload .col {
+    .document-card .col {
         padding: 0px;
     }
 
-    .document-upload .col.file-info {
+    .document-card .col.file-info {
         padding: 1rem
     }
 
-    .document-upload .preview-box img {
+    .document-card .preview-box img {
         width: 100%;
         height: 100%;
         object-fit: cover;
 
     }
 
-    .document-upload {
+    .document-card {
         margin-bottom: 1rem;
+        height: fit-content;
         
     }
 
-    .document-upload>.file-info.row>button {
+    .document-card>.file-info.row>button {
         width: auto;
         margin: 0.5rem;
     }
+
+    .preview-box{
+        height: inherit;
+    }
+
+    .document-card.required::after{
+        content:"REQUIRED" !important;
+    }
 </style>
 
-<!-- <script src="../js-css/general.js"></script> -->
+<script type="text/javascript" src="https://unpkg.com/pdfjs-dist@2.9.359/build/pdf.js"></script>
+
 <script>
     //ajax
 
@@ -83,7 +93,9 @@
                 // refresh_parent
 
                 notifySuccess("Success","Document has been uploaded successfully.");
-
+        
+                update_progress_bar("progress_bar_step_3", "#step_three_documents .document-card.required",
+  "#step_three_documents .document-card.required > div.empty")
 
             },
             error: function(dataResult) {
@@ -91,6 +103,7 @@
 
             }
         });
+
 
     }
 
@@ -110,9 +123,12 @@
 
             success: function(dataResult) {
                 console.log("Success! " + dataResult);
+                console.log(form_id)
                 refresh_parent(form_id);
                 notifySuccess("Success","Document has been updated successfully.");
 
+                update_progress_bar("progress_bar_step_3", "#step_three_documents .document-card.required",
+  "#step_three_documents .document-card.required > div.empty")
 
 
             },
@@ -160,37 +176,65 @@
 
         notifySuccess("Success","Document has been deleted successfully.");
 
+        update_progress_bar("progress_bar_step_3", "#step_three_documents .document-card.required",
+  "#step_three_documents .document-card.required > div.empty")
 
 
     }
 
 
-    function generateThumbnail(canvas, pdfData) {
-    // Load the PDF using pdf.js
-    pdfjsLib.getDocument({ data: pdfData })
-        .then(pdf => {
-            // Get the first page of the PDF
-            return pdf.getPage(1);
-        })
-        .then(page => {
-            // Set the scale for the thumbnail (adjust as needed)
-            const scale = 0.5;
+    function generate_thumbnail(blob_data, canvas_id) {
+            let pdfBlobData = blob_data;
 
-            // Get the viewport of the page
-            const viewport = page.getViewport({ scale });
+            // console.log(pdfBlobData);
 
-            // Set canvas dimensions based on the viewport
-            canvas.width = viewport.width;
-            canvas.height = viewport.height;
+            // Initialize PDF.js
+            pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://unpkg.com/pdfjs-dist@2.9.359/build/pdf.worker.min.js';
 
-            // Draw the PDF content onto the canvas
-            return page.render({ canvasContext: canvas.getContext('2d'), viewport }).promise;
-        })
-        .catch(error => {
-            console.error('Error generating thumbnail:', error);
-        });
-}
+            // Load PDF from blob data
+            pdfjsLib.getDocument({
+                data: atob(pdfBlobData)
+            }).promise.then(pdfDoc => {
+                // Fetch the first page
+                return pdfDoc.getPage(1); // 1 indicates the first page
+            }).then(page => {
+                // Set up the canvas
+                let canvas = document.getElementById(canvas_id);
+                let context = canvas.getContext('2d');
+                let viewport = page.getViewport({
+                    scale: 0.80
+                });
+                // canvas.width = viewport.width;
+                canvas.width = 400;
+                // canvas.height = viewport.height/2;
+                canvas.height = 180;
+ // Calculate vertical center position
+ let centerY = (canvas.height - viewport.height) / 2;
 
+
+                // Render PDF page to canvas
+                let renderContext = {
+                    canvasContext: context,
+                    viewport: viewport
+                };
+
+                
+        // Translate the context to center vertically
+        context.translate(0, centerY);
+
+                return page.render(renderContext).promise;
+            }).then(() => {
+                // Convert the canvas to base64 data URL for further use
+                let canvas = document.getElementById(canvas_id);
+                let imageDataUrl = canvas.toDataURL('image/png');
+                // console.log('Thumbnail data URL:', imageDataUrl);
+            }).catch(error => {
+                console.error('Error:', error);
+            });
+
+        }
+
+        
 
     
     //open modal
@@ -199,8 +243,7 @@
         var file_id = $(this).data('doc-id');
         var doc_card = $(this).data('doc-card');
 
-
-
+        
         $(".modal-body #delete_doc_type_view").html(file_name);
         //  $("#delete_doc_id").val(file_id);
         //  $("#delete_doc_card").val(doc_card);
@@ -213,8 +256,6 @@
         console.log($("#doc_delete_confirm").data("doc-card"))
 
 
-    
-
     });
 
 
@@ -222,7 +263,7 @@
     document.addEventListener("DOMContentLoaded", () => {
         
         // Iterate over your document cards and generate thumbnails for existing PDFs
-document.querySelectorAll('.document-upload').forEach(card => {
+document.querySelectorAll('.document-card').forEach(card => {
     const cardId = card.id;
     const docType = cardId.split('_')[1];
     // console.log(docType)
@@ -245,12 +286,12 @@ document.querySelectorAll('.document-upload').forEach(card => {
     }
 });
 
-        
         })
 
 
 
 </script>
+
 
 
 <?php
@@ -266,14 +307,16 @@ document.querySelectorAll('.document-upload').forEach(card => {
 // hide delete,replace
 
 
-function document_card($doc_group, $doc_type, $doc_type_display,)
-{
+function document_card($doc_group, $doc_type, $doc_type_display,$required=null){
 
     // $doc_type = "registry_of_deed";
     // $doc_type_display = "Deed of Sale";
     $doc_group = $doc_group;
     $doc_type = $doc_type;
     $doc_type_display = $doc_type_display;
+    $required = $required;
+
+    // echo "<script>console.log('".$required."')</script>";
 
     $land_doc = select("documents", "`doc_group` = '$doc_group' AND `type` = '$doc_type_display'");
 
@@ -282,15 +325,12 @@ function document_card($doc_group, $doc_type, $doc_type_display,)
 
             $doc_cont = "$doc_type" . "_" . $row_land_doc['id'];
             //doc_type has a file already uploaded
-            // header('Content-Type: application/pdf');
-            // echo $row_land_doc['file'];
+
 ?>
-            <div class="document-upload row border" id="<?php echo "card_" . $doc_type ?>">
-                <div class="col with-result">
-                    <div class="preview-box">
-                        <img src="../img/bg/construction_bg.webp" alt="a balloon">
-                        <!-- <canvas></canvas> -->
-                    </div>
+            <div class="document-card row border p-3 <?php echo $required ? 'required' : ''; ?>" id="<?php echo "card_" . $doc_type ?>" name = "document_card">
+                <div class="col-5 p-0 with-result preview-box">
+
+                <canvas id = "<?php echo "preview_" . $doc_type ?>" style = "object-fit: cover;object-position: center;"></canvas>
 
                 </div>
                 <div class="col file-info text-overflow-ellipsis">
@@ -319,10 +359,10 @@ function document_card($doc_group, $doc_type, $doc_type_display,)
                                         ?>" onclick="">Delete</button> -->
 
 
-                    <button type="button" class="btn btn-danger modal-delete" id="open_modal_delete" data-bs-toggle="modal" data-bs-target="#modal_delete" 
+                    <button type="button" class="btn btn-danger modal-delete"  data-bs-toggle="modal" data-bs-target="#modal_delete" 
                     data-doc-file-name="<?php echo $row_land_doc['file_name'] ?>" 
                     data-doc-id="<?php echo $row_land_doc['id'] ?>" data-doc-card="<?php echo "card_" . $doc_type ?>" 
-                    name="open_modal_delete" class="modal-delete">
+                    name="open_modal_delete" >
 
                         <!-- onclick = "send_ajax(`'.$row['id'].'`)" -->
                         Delete
@@ -332,7 +372,22 @@ function document_card($doc_group, $doc_type, $doc_type_display,)
 
 
                 </div>
+
+
+                <script>
+
+$(document).ready(function() {
+ 
+
+})
+
+// console.log("thumbnail : <?php //echo "preview_" . $doc_type ?>")
+
+generate_thumbnail("<?php echo base64_encode($row_land_doc['file']) ?>",'<?php echo "preview_" . $doc_type ?>');
+        </script>
+
             </div>
+
 
         <?php
         }
@@ -341,9 +396,10 @@ function document_card($doc_group, $doc_type, $doc_type_display,)
 
 
 
-        <div class="document-upload row border" id="<?php echo "card_" . $doc_type ?>">
-            <div class="col empty">
-                <div class="preview-box"><img src="../img/bg/construction_bg.webp" alt="a balloon"></div>
+        <div class="document-card row border <?php echo $required?>" id="<?php echo "card_" . $doc_type ?>" name = "document_card">
+            <div class="col-5 p-0 empty preview-box text-center">
+            <img src="../img/icon/pdf_upload.png" alt="a balloon" style = "height:200px;width:auto">
+                <!-- <div class="preview-box"></div> -->
             </div>
             <div class="col file-info text-overflow-ellipsis">
                 <b>No file uploaded</b>

@@ -11,10 +11,10 @@ $doc_group = mysqli_real_escape_string($conn, $_POST['doc_group']);
 $doc_type = mysqli_real_escape_string($conn, $_POST['doc_type']);
 
 // Use proper syntax for UUID or generate a unique identifier using uniqid
-$uuid = mysqli_real_escape_string($conn, uniqid());
+// $uuid = mysqli_real_escape_string($conn, uniqid());
 
 $query = "INSERT INTO `project_signing_docs`(`id`, `file_name`, `project_signing_id`, `signing_proof`, `type`, `timestamp`) 
-                                  VALUES ('$uuid', '$file_name', '$doc_group', '$file_data', '$doc_type', CURRENT_TIMESTAMP())";
+                                  VALUES (UUID(), '$file_name', '$doc_group', '$file_data', '$doc_type', CURRENT_TIMESTAMP())";
 
 // Check connection
 if ($conn->connect_error) {

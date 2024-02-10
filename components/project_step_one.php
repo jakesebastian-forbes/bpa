@@ -59,7 +59,7 @@
 <h2 class="fw-bold">COMMON INFORMATION</h2>
 <!-- <h1><span id="step_percent"></span>%</h1> -->
 <div class="progress" id="progress_bar_cont">
-    <div class="progress-bar" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" id="progress_bar_step_1">
+    <div class="progress-bar" role="progressbar" style="width: 50%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="progress_bar_step_1" data-tab="step_one_tab">
         <span id="percentageText"></span>
     </div>
 </div>
@@ -83,13 +83,13 @@
                 <div class="row">
                     <div class="d-flex">
                         <h4 class="">BASIC INFORMATION</h4>
-                        <a href="applicant_account_setting.php" class="mx-2 my-1"><span style="font-size: 15px;">Edit</span></a>
+                        <a href="applicant_account_setting.php" class="mx-2 my-1"><span style="font-size: 15px;" hidden>Edit</span></a>
                     </div>
 
                 </div>
 
                 <div class="row">
-                    <div class="input-wrapper col-lg-6 col-11" >
+                    <div class="input-wrapper col-lg-6 col-11">
                         <label for="app_fname">First Name </label>
                         <input type="text" id="app_fname" name="app_fname" disabled>
                     </div>
@@ -107,7 +107,7 @@
 
                     <div class="input-wrapper col-lg-6 col-11">
                         <label for="app_tin" class="required">Tax Identification Number</label>
-                        <input type="text" id="app_tin" name="app_tin" data-column="tin" required placeholder="Tax Identification Number">
+                        <input type="number" id="app_tin" name="app_tin" data-column="tin" required placeholder="Tax Identification Number">
                     </div>
                 </div>
 
@@ -118,11 +118,11 @@
                 <div class="row">
                     <div class="input-wrapper col-lg-6 col-11">
                         <label for="email">Email<span class="required"></span></label>
-                        <input type="text" id="email" name="email" disabled required>
+                        <input type="text" id="email" name="email" disabled>
                     </div>
                     <div class="input-wrapper col-lg-6 col-11">
                         <label for="contact_number">Contact Number<span class="required"></span></label>
-                        <input type="tel" id="contact_number" name="contact_number" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" maxlength="11" disabled onkeyup="valContactNumber(this.id)" required>
+                        <input type="tel" id="contact_number" name="contact_number" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" maxlength="11" disabled onkeyup="valContactNumber(this.id)">
                     </div>
                 </div>
             </div>
@@ -159,8 +159,8 @@
                         <input type="number" id="floor_number" name="floor_number" data-column='floor_no' placeholder="Floor Number">
                     </div>
                     <div class="input-wrapper col-lg-6 col-11">
-                        <label for="street_name" >Street Name<span class="required"></span></label>
-                        <input type="text" required id="street_name" name="street_name" data-column="street_name" placeholder="Street Name" onclick="validateInput(this)" >
+                        <label for="street_name">Street Name<span class="required"></span></label>
+                        <input type="text" required id="street_name" name="street_name" data-column="street_name" placeholder="Street Name">
                     </div>
                 </div>
 
@@ -174,7 +174,7 @@
                         <input type="number" id="block_number" name="block_number" data-column='block_no' placeholder="Block Number">
                     </div>
                 </div>
-\
+
                 <div class="row">
                     <div class="input-wrapper col-lg-6 col-11">
                         <label for="purok">Purok</label>
@@ -247,11 +247,11 @@
                     </div>
                     <div class="input-wrapper col-lg-3 col-md-5 col-11">
                         <label for="proj_tct_no">TCT Number<span class="required"></span></label>
-                        <input type="text" id="proj_tct_no" name="proj_tct_no" data-column="tct_no" required>
+                        <input type="number" id="proj_tct_no" name="proj_tct_no" data-column="tct_no" required>
                     </div>
                     <div class="input-wrapper col-lg-3 col-md-5 col-11">
                         <label for="td_no">Tax Declaration Number<span class="required"></span></label>
-                        <input type="text" id="td_no" name="td_no" data-column="tax_dec_no" required>
+                        <input type="number" id="td_no" name="td_no" data-column="tax_dec_no" required>
                     </div>
                 </div>
 
@@ -313,16 +313,16 @@
                 <h4>Full-time Inspector/Supervisor</h4>
                 <div class="row">
                     <div class="input-wrapper col-lg-4 col-11">
-                        <label for="proj_inspector_name">Name</label>
+                        <label for="proj_inspector_name">Name<span class="required"></span></label>
                         <input type="text" id="proj_inspector_name" name="proj_inspector_name" data-column="name">
                     </div>
                     <div class="input-wrapper col-lg-4 col-11">
-                        <label for="proj_inspector_prof">Profession</label>
+                        <label for="proj_inspector_prof">Profession<span class="required"></label>
                         <input type="text" id="proj_inspector_prof" name="proj_inspector_prof" data-column="profession">
                     </div>
                     <div class="input-wrapper col-lg-4 col-11">
-                        <label for="proj_prc_reg_no">PRC Registered Number</label>
-                        <input type="text" id="proj_prc_reg_no" name="proj_prc_reg_no" data-column="prc_no">
+                        <label for="proj_prc_reg_no">PRC Registered Number<span class="required"></label>
+                        <input type="number" id="proj_prc_reg_no" name="proj_prc_reg_no" data-column="prc_no">
                     </div>
 
                 </div>
@@ -401,20 +401,24 @@
     ?>
 
 
-    function update_progress_bar(id,inp_ttl_query,inp_emp_query) {
+    function update_progress_bar(id, inp_ttl_query, inp_emp_query) {
 
-            //get percentage of filled required
+        //get percentage of filled required
         //total
-        let inp_ttl = $(""+inp_ttl_query).length
+        let inp_ttl = $("" + inp_ttl_query).length
 
         //empty
-        let inp_emp = $(""+inp_emp_query).filter(function() {
+        let inp_emp = $("" + inp_emp_query).filter(function() {
             return !$(this).val();
         }).length;
 
         let completion_percent = ((inp_ttl - inp_emp) / inp_ttl) * 100;
 
         $("#" + id).width(completion_percent + "%");
+        // console.log((inp_ttl - inp_emp) + "/" + inp_ttl)
+
+        // $("#" + id).html( (inp_ttl - inp_emp) + "/" + inp_ttl);
+
 
         // Change the color based on the completion percentage
         if (completion_percent < 30) {
@@ -425,29 +429,58 @@
             $("#" + id).css("background-color", "#4CAF50"); // Green
         }
         // Update the text content with the rounded percentage
-        $("#" + id).text(completion_percent.toFixed(0) + "%");
+        // $("#" + id).text(completion_percent.toFixed(0) + "%");
+        $("#" + id).text((inp_ttl - inp_emp) + "/" + inp_ttl);
+
+        $("#" + id).data("currentPercentage", completion_percent);
+
+
+        // console.log((inp_ttl))
+        // console.log((inp_emp))
+
+        // console.log((inp_ttl - inp_emp))
+
+        if (inp_emp == 0 || inp_emp == '0') {
+            $("#" + $("#" + id).data("tab")).addClass("checked")
+
+        } else {
+            $("#" + $("#" + id).data("tab")).removeClass("checked")
+
+
+        }
+
 
     }
+
+
+    function getCurrentPercentage(id) {
+ // Retrieve the stored percentage from the data attribute
+ var storedPercentage = $("#" + id).data("currentPercentage");
+
+return storedPercentage || 0; // Return 0 if the percentage is not stored
+    }
+
+
+
 
     //do after document is loaded
     $(window).on("load", function() {
 
-    
-
-        update_progress_bar("progress_bar_step_1","#step_one_common_info input","#step_one_common_info input")
+        let inp_required = '#step_one_common_info input[required]';
+        update_progress_bar("progress_bar_step_1", inp_required, inp_required)
         // Update the width of the progress bar
 
 
-        let all_inp_step_one = document.querySelectorAll('#step_one_common_info input');
+        let all_inp_step_one = document.querySelectorAll(inp_required);
 
         all_inp_step_one.forEach(inp => {
             inp.addEventListener('change', function handleClick(event) {
 
-        update_progress_bar("progress_bar_step_1","#step_one_common_info input","#step_one_common_info input")
+                update_progress_bar("progress_bar_step_1", inp_required, inp_required)
 
             })
 
-})
+        })
 
 
         //summary
@@ -604,9 +637,9 @@
             });
         }); // **PROJ SUPERVISOR END */
 
-        function validateInput(input) {
-            input.value = input.value.replace(/[^A-Za-z]/g, '');
-        }
+        // function validateInput(input) {
+        //     input.value = input.value.replace(/[^A-Za-z]/g, '');
+        // }
 
     }); //*doc load end
 </script>

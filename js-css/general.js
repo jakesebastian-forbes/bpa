@@ -14,6 +14,8 @@ async function sleep_time(ms) {
 
 
 function refresh_element(id) {
+  console.log("refresh element");
+
   // console.log("refresh");
   // console.log("id : " + id)
   // card_cont = $("#" + id).parent().parent()[0].id;
@@ -23,10 +25,10 @@ function refresh_element(id) {
 }
 
 function refresh_parent(id) {
-  console.log("refresh");
+  console.log("refresh parent");
   console.log("id : " + id);
   card_cont = $("#" + id).parent().parent()[0].id;
-  console.log("card_cont" + card_cont);
+  console.log("card_cont: " + card_cont);
   // $("#" + id).load(" #" + id + " > *");
   $("#" + card_cont).load(" #" + card_cont + " > *");
 }
@@ -75,3 +77,24 @@ function init() {
   function notifyError(title, msg) {
     toastr.error(msg, title);
   }
+
+
+
+
+
+
+ function extractIdFromString(inputString, prefixToRemove) {
+    const regex = new RegExp(`${prefixToRemove}(\\w{8}-\\w{4}-\\w{4}-\\w{4}-\\w{12})`);
+    const match = inputString.match(regex);
+
+    if (match && match[1]) {
+        return match[1];
+    } else {
+        return null;
+    }
+}
+
+
+function isNullOrEmpty(value) {
+  return value === null || value === undefined || value === '';
+}

@@ -374,7 +374,7 @@ require '../php/page_restriction.php';
             // console.log(project_status);
             if (project_status.toLowerCase() != "open") {
                 // disable progress bar
-                $("#progress_bar_cont").hide()
+                // $("#progress_bar_cont").hide()
 
                 //disable title input
                 $("#inp_project_name").attr("disabled", "disabled")
@@ -404,8 +404,12 @@ require '../php/page_restriction.php';
 
             if (project_status.toLowerCase() == "returned") {
                 $('#part_2').removeClass('locked', '');
-                $('#project_trail').hide();
+                // $('#project_trail').hide();
                 $('#project_returned_cont').show();
+
+                $("#main_right input, #main_right select, #main_right button").removeAttr("disabled");
+                $("#step_four input, #step_four radio, #step_four select, #step_four checkbox").attr("readonly", true);
+$("#searchInput").removeAttr("readonly")
 
 
 

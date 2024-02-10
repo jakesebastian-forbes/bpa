@@ -20,6 +20,7 @@
         #cert_cont input {
             font-weight: bold !important;
             padding: 10px !important;
+            text-transform: capitalize;
         }
 
        
@@ -123,13 +124,7 @@
                 margin-bottom: 4px;
             }
 
-            .checkbox {
-                /* width: 4px;
-                height: 4px;
-                margin: 0;
-                padding: 0;
-                vertical-align: middle; */
-            }
+         
 
             .custom-align {
                 display: flex;
@@ -203,7 +198,8 @@
 
         
 
-    <div class="certificate" id = "building_permit_certificate" style = " transform: scale(0.850)">
+    <div class="certificate" id = "building_permit_certificate" 
+    class = "text-center" style = " transform: scale(0.850)">
         <div class="certificate-header">
             <div class="row">
                 <div class="col d-flex justify-content-center">
@@ -217,7 +213,7 @@
                             Province OF Batangas
                         </p>
                         <p class="fw-bold" style="font-size: 16px; margin-bottom: -36px;">Office of the Building Official</p><br>
-                        <p class="text-center fs-3 fw-bold" style="">Building Permit</p><br>
+                        <p class="text-center fs-3 fw-bold" >Building Permit</p><br>
                     </div>
                 </div>
 
@@ -231,16 +227,16 @@
             <!-- Application Purpose -->
             <div class="text-center" style="margin-top: -45px; ">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="New" id="new" style="width: 20px; height: 20px;">
+                    <input class="form-check-input" type="checkbox" value="New" id="new" name="application_type_checkbox" style="width: 20px; height: 20px;">
                     <label class=" mx-4 custom-align" for="new" style="font-size: 18px;">New</label>
                 </div>
 
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="Renewal" id="renewal" style="width: 20px; height: 20px;">
+                    <input class="form-check-input" type="checkbox" value="Renewal" id="renewal" name="application_type_checkbox" style="width: 20px; height: 20px;">
                     <label class=" mx-4 custom-align" for="renewal" style="font-size: 18px;">Renewal</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="Amendatory" id="amendatory" style="width: 20px; height: 20px;">
+                    <input class="form-check-input" type="checkbox" value="Amendatory" id="amendatory" name="application_type_checkbox" style="width: 20px; height: 20px;">
                     <label class=" mx-4 custom-align" for="amendatory" style="font-size: 18px;">Amendatory</label>
                 </div>
             </div> <br>
@@ -255,7 +251,7 @@
 
                             </label>
                         </div>
-                        <input class="input-field" style="height: 20px; width: 152px;" type="text" placeholder="">
+                        <input class="input-field" style="height: 20px; width: 152px;" type="text" placeholder="" id="building_permit_no">
                     </div>
                     <div class="d-inline-flex align-items-start justify-content-start">
                         <div class="">
@@ -264,7 +260,7 @@
 
                             </label>
                         </div>
-                        <input class="input-field" style="height: 20px; width: 211px;" type="text" placeholder=""><br>
+                        <input class="input-field" style="height: 20px; width: 211px;" type="text" placeholder="" id="bp_date_issued"><br>
                     </div>
                     <div class="d-inline-flex align-items-start justify-content-start">
                         <div class="">
@@ -273,7 +269,7 @@
 
                             </label>
                         </div>
-                        <input class="input-field" style="height: 20px ; width: 243px;" type="text" placeholder=""><br>
+                        <input class="input-field" style="height: 20px ; width: 243px;" type="text" placeholder="" id="bp_fsec_no"><br>
                     </div>
                     <div class="d-inline-flex align-items-start justify-content-start">
                         <div class="">
@@ -282,7 +278,7 @@
 
                             </label>
                         </div>
-                        <input class="input-field" style="height: 20px; width: 215px;" type="text" placeholder="">
+                        <input class="input-field"  style="height: 20px; width: 215px;" type="text" placeholder="" id="bp_date_issued_fsec">
                     </div>
                 </div>
                 <div class="col-4">
@@ -296,7 +292,7 @@
 
                             </label>
                         </div>
-                        <input class="input-field mx-1" style="height: 20px; width: 167px;" type="text" placeholder="">
+                        <input class="input-field mx-1" style="height: 20px; width: 167px;" type="text" placeholder="" id="bp_or_no">
                     </div>
                     <div class="d-inline-flex align-items-start justify-content-start">
                         <div class="">
@@ -305,7 +301,7 @@
 
                             </label>
                         </div>
-                        <input class="input-field" style="height: 20px; width: 257px;" type="text" placeholder=""><br>
+                        <input class="input-field" style="height: 20px; width: 257px;" type="text" placeholder="" id="bp_date_paid"><br>
                     </div>
 
                 </div>
@@ -468,7 +464,7 @@
 
                         </label>
 
-                        <input class="input-field" style="height: 20px; width: 383px;  " type="text" placeholder="">
+                        <input class="input-field" style="height: 20px; width: 383px;  " type="text" placeholder="" id="cert_classified">
 
 
                     </div>
@@ -519,7 +515,7 @@
             <div class="row bottom-row">
                 <center>
 
-                    <u><b>ENGR. ROMEO A. VELASCO</u><br>
+                    <u ><b><span  class = "text-uppercase" id = "bldg_official_name"></span></u><br>
                     BUILDING OFFICIAL</b><br>
                     (signature over Printed name)
 
@@ -530,17 +526,10 @@
 
         </div>
 
-
     </div>
     </div>
 
     <script>
-
-
-
-
-
-
 
         <?php
         
@@ -552,10 +541,17 @@
         vw_project_basics.lot_no,
         vw_project_basics.block_no,
         vw_project_basics.barangay,
+        vw_project_basics.name,
         vw_project_basics.profession,
         vw_project_ids.unified,
         f_unified.scope, 
-        f_unified.est_cost_total
+        f_unified.application_type,
+        f_unified.occupancy_group,
+        f_unified.occupancy_type,
+        f_unified.occupancy_specify,
+        f_unified.est_cost_total,
+        f_locational.right_over_land,
+        certificate_building_permit.permit_no
         
         FROM 
             vw_project_ids
@@ -564,7 +560,11 @@
         JOIN 
             vw_applicant_basics ON vw_project_ids.project_applicant = vw_applicant_basics.applicant_id
         JOIN 
-            f_unified ON vw_project_ids.unified = f_unified.id
+            f_unified ON vw_project_ids.unified = f_unified.id 
+        JOIN 
+        	f_locational ON vw_project_ids.locational = f_locational.id
+        JOIN 
+        	certificate_building_permit ON vw_project_ids.project_id = certificate_building_permit.project_id
         WHERE vw_project_ids.project_id = '".$project_id."'");
 
         
@@ -579,16 +579,83 @@
             echo '$("#cert_brgy").val("'.$row["barangay"].'");';
             echo '$("#cert_scope").val("'.$row["scope"].'");';
             echo '$("#cert_project_cost").val("'.$row["est_cost_total"].'");';
-            echo '$("#cert_in_charge").val("'.$row["profession"].'");';
+            echo '$("#cert_in_charge").val("'.$row["name"].'");';
+            echo '$("#cert_classified").val("'.$row["right_over_land"].'");';
+            echo '$("#building_permit_no").val("'.$row["permit_no"].'");';
+            // echo '$("#bp_date_issued").val("'.$row["permit_no"].'");';
+            // echo '$("#bp_fsec_no").val("'.$row["permit_no"].'");';
 
+            $occupancy_type = $row['occupancy_group'].' - ' .$row['occupancy_type'];
+            echo "$('#cert_coo')[0].value ='".$occupancy_type. "';";
 
+            echo '$(\'input[name="application_type_checkbox"][value="' . $row['application_type'] . '"]\').prop(\'checked\', true);';
 
         }
-        
-        
-        
-        
-        
+
+        // $building_official = select("building_official", "`id` = '572d315b-be36-11ee-bfee-0a0027000017'");
+
+        // if (mysqli_num_rows($building_official) > 0) {
+        //     if ($row = mysqli_fetch_assoc($building_official)) {
+        //         echo "$('#bldg_official_name b span').text('".$row["full_name"]."');";
+        //     }
+        // }
+
+        $vw_locational_form = select("certificate_building_permit", "`project_id` = '$project_id'");
+
+        $building_official_id = "";
+        if (mysqli_num_rows($vw_locational_form) > 0) {
+
+        if ($row = mysqli_fetch_assoc($vw_locational_form)) {
+            echo '$("#bp_date_issued").val("'.formatDateOnly(date("Y-m-d", strtotime($row["date_issued"]))).'");';
+            
+            echo '$("#bp_or_no").val("'.$row["or_no"].'");';
+            echo '$("#bp_date_paid").val("'.formatDateOnly(date("Y-m-d", strtotime($row["date_paid"]))).'");';
+            $building_official_id = $row["building_official"];
+            
+        }
+    }
+
+    $vw_locational_form = select("building_official", "`id` = '$building_official_id'");
+
+    $building_official_id;
+    if (mysqli_num_rows($vw_locational_form) > 0) {
+
+    if ($row = mysqli_fetch_assoc($vw_locational_form)) {
+        echo"$('#bldg_official_name').html('".$row["full_name"]."');";
+
+    }
+}
+
+     $fsec_permit = select("certificate_fsec_permit", "`project_id` = '$project_id'");
+     if (mysqli_num_rows($fsec_permit) > 0) {
+
+        if ($row = mysqli_fetch_assoc($fsec_permit)) {
+            
+            echo '$("#bp_fsec_no").val("'.$row["permit_no"].'");';
+            echo '$("#bp_date_issued_fsec").val("'.formatDateOnly(date("Y-m-d", strtotime($row["date_issued"]))).'");';
+            
+            
+            
+        }
+    }
+
+    
         
         ?>
+
+
+
+        
+
+
+
+$(document).ready(function() {
+  // Set inputs, radio buttons, and checkboxes inside #building_permit_certificate to readonly
+  $("#building_permit_certificate input, #building_permit_certificate radio, #building_permit_certificate checkbox").attr("readonly", true);
+//   $("#building_permit_certificate checkbox").prop("disabled", true);
+$("#building_permit_certificate :checkbox").prop("disabled", true);
+// $("#building_permit_certificate :input").prop("readonly", true);
+
+});
+
     </script>

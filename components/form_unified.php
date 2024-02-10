@@ -32,6 +32,11 @@
 
     }
 
+    #form_unified_header input {
+        font-size: 10px;
+
+    }
+
     #form_unified div.col-2 {
         text-align: start;
     }
@@ -219,7 +224,7 @@
         <div class="row">
             <div class="col"></div>
             <div class="col-2">
-                <p><span><input type="checkbox" name="" id=""></span>SIMPLE</p>
+                <p><span><input type="checkbox" name="application_type" id="" value="Simple"></span>SIMPLE</p>
 
             </div>
             <div class="col-2">
@@ -227,31 +232,31 @@
 
             </div>
             <div class="col-2">
-                <p><span><input type="checkbox" name="" id=""></span>COMPLEX</p>
+                <p><span><input type="checkbox" name="application_type" id="" value="Complex"></span>COMPLEX</p>
             </div>
             <div class="col"></div>
         </div>
         <div class="row">
             <div class="col"></div>
             <div class="col-2">
-                <p><span><input type="checkbox" name="" id=""></span>NEW</p>
+                <p><span><input type="checkbox" name="application_type" id="" value="New"></span>NEW</p>
 
             </div>
             <div class="col-2">
-                <p><span><input type="checkbox" name="" id=""></span>RENEWAL</p>
+                <p><span><input type="checkbox" name="application_type" id="" value="Renewal"></span>RENEWAL</p>
 
             </div>
             <div class="col-2">
-                <p><span><input type="checkbox" name="" id=""></span>AMENDATORY</p>
+                <p><span><input type="checkbox" name="application_type" id="" value="Amendatory"></span>AMENDATORY</p>
             </div>
             <div class="col"></div>
         </div>
         <div class="row mb-2">
             <div class="d-flex">
                 <p style="margin-left:20px;">THIS ALSO APPLIES FOR : </p>
-                <p style="margin-left:39px;"><span><input type="checkbox" name="" id=""></span>LOCATIONAL
+                <p style="margin-left:39px;"><span><input type="checkbox" name="" id="" value="" checked></span>LOCATIONAL
                     CLEARANCE</p>
-                <p style="margin-left:103px;"><span><input type="checkbox" name="" id=""></span>FIRE SAFETY
+                <p style="margin-left:103px;"><span><input type="checkbox" name="" id="" checked></span>FIRE SAFETY
                     EVALUATION CLEARANCE</p>
             </div>
         </div>
@@ -276,10 +281,12 @@
 
                 
                 <?php
-                $table_id = "unified_area_no";
-                require "no_table.php";
+                //$table_id = "unified_area_no";
+                //require "no_table.php";
                 
                 ?>
+
+                <input type="text" class="form-control fw-bold" style="width: 90%; height: 20px;" id="unified_area_no">
 
 
 
@@ -1532,9 +1539,13 @@
     echo "$('#est_electronics')[0].value ='".$row['est_cost_electronics'] . "';";
     echo "$('#est_plumbing')[0].value ='".$row['est_cost_plumbing'] . "';";
 
+    echo "$('#unified_area_no')[0].value ='".$row['area_no'] . "';";
+
+    echo '$(\'input[name="application_type"][value="' . $row['application_type'] . '"]\').prop(\'checked\', true);';
+
     //proposed date
-    echo "$('#unified_start_construction')[0].value ='".$row['date_proposed_construction'] . "';";
-    echo "$('#unified_exp_completion')[0].value ='".$row['date_estimated_completion'] . "';";
+    echo "$('#unified_start_construction')[0].value ='".formatDateOnly($row['date_proposed_construction']). "';";
+    echo "$('#unified_exp_completion')[0].value ='".formatDateOnly($row['date_estimated_completion']) . "';";
     }
     }
 

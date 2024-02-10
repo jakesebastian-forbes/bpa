@@ -57,16 +57,18 @@ require '../php/page_restriction.php';
                 <div id="kpi_cards">
 
                     <div class="row d-flex justify-content-between">
-                        <div class="col">
-                            <div class="card border-dark border" style="aspect-ratio: 3/1;">
+                        
+
+                    <div class="col">
+                            <div class="card border-dark border" style="aspect-ratio: 1/0;">
                                 <div class="card-body">
                                     <h5 class="card-title text-dark text-center" style="font-size: 15px;">TOTAL NUMBER OF APPLICATIONS</h5>
                                     <?php
-                                    $total_application_count = full_query("SELECT COUNT(id) as `count` FROM `project` WHERE `status` != 'deleted'");
+                                    $total_application_count = full_query("SELECT COUNT(id) as `count` FROM `project_logs` WHERE `action` = 'Approved by Fire'");
 
                                     if (mysqli_num_rows($total_application_count) > 0) {
                                         if ($row = mysqli_fetch_assoc($total_application_count)) {
-                                            echo '<p class="card-text text-center fw-bold" style="font-size: 40px;">' . $row['count'] . '</p>';
+                                            echo '<p class="card-text text-center fw-bold" style="font-size: 40px; margin-top: 20px;">' . $row['count'] . '</p>';
                                         }
                                     }
                                     ?>
@@ -76,14 +78,41 @@ require '../php/page_restriction.php';
 
                         </div>
 
+                        
+
                         <div class="col">
-                            <div class="card border-dark border" style="aspect-ratio: 3/1;">
+                            <a href="admin_engineering_approvals.php#pending_application_table" class="my-link-hover" style="text-decoration: none; color: black;">
+                                <div class="card border-dark border" style="aspect-ratio: 1/0;">
+                                    <div class="card-body">
+                                        <h5 class="card-title text-center" style="font-size: 15px; transition: color 0.3s;">PENDING APPLICATION REVIEW</h5>
+                                        
+                                        <?php
+                                        $pending_application_count = full_query("SELECT COUNT(project_id) as `count` FROM `vw_project_last_action` WHERE action = 'Delivered to Engineering';");
+
+                                        if (mysqli_num_rows($pending_application_count) > 0) {
+                                            if ($row = mysqli_fetch_assoc($pending_application_count)) {
+                                                echo '<p class="card-text text-center fw-bold" style="font-size: 40px; margin-top: 20px;">' . $row['count'] . '</p>';
+                                            }
+                                        }
+                                        ?>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+
+                        
+                    </div>
+                    <div class="row d-flex justify-content-between my-2">
+
+                    <div class="col">
+                            <div class="card border-dark border" style="aspect-ratio: 1/0;">
                                 <div class="card-body">
                                     <h5 class="card-title text-dark text-center" style="font-size: 15px;" title="From project submission to project approval">AVERAGE TIME OF EVALUATION</h5>
                                     <?php
                                     $avg_proj_eval_time = full_query("SELECT
                                     AVG(duration_hours) AS average_duration_hours
-                                FROM
+                                    FROM
                                     (
                                         SELECT
                                             project_id,
@@ -101,7 +130,7 @@ require '../php/page_restriction.php';
                                     ) AS subquery;
                                 
                                 
-                                ");
+                                    ");
 
                                     if (mysqli_num_rows($avg_proj_eval_time) > 0) {
                                         if ($row = mysqli_fetch_assoc($avg_proj_eval_time)) {
@@ -118,83 +147,70 @@ require '../php/page_restriction.php';
                         </div>
 
                         <div class="col">
-                            <div class="card border-dark border" style="aspect-ratio: 3/1;">
-                                <div class="card-body">
-                                    <a href="admin_engineering_approvals.php#pending_application_table" style="text-decoration: none;">
-                                        <h5 class="card-title text-dark text-center my-link-hover" style="font-size: 15px; transition: color 0.3s;;">PENDING APPLICATION REVIEW</h5>
-                                    </a>
-                                    <?php
-                                    $pending_application_count = full_query("SELECT COUNT(project_id) as `count` FROM `vw_project_last_action` WHERE action = 'Delivered to Engineering';");
+                            <a href="admin_project_archive.php" class="my-link-hover" style="text-decoration: none; color: black;">
+                                <div class="card border-dark border" style="aspect-ratio: 3/1;">
+                                    <div class="card-body">
+                                        <h5 class="card-title  text-center " style="font-size: 15px; transition: color 0.3s;">APPROVED APPLICATIONS</h5>
+                                        
+                                        <?php
+                                        $pending_count = full_query("SELECT COUNT(project_id) as `count` FROM `project_logs` WHERE `action` = 'Approved by Engineering'");
 
-                                    if (mysqli_num_rows($pending_application_count) > 0) {
-                                        if ($row = mysqli_fetch_assoc($pending_application_count)) {
-                                            echo '<p class="card-text text-center fw-bold" style="font-size: 40px;">' . $row['count'] . '</p>';
+                                        if (mysqli_num_rows($pending_count) > 0) {
+                                            if ($row = mysqli_fetch_assoc($pending_count)) {
+                                                echo "<h1 class='fw-bold text-center' id='approved_application_count'>" . $row['count'] . "</h1>";
+                                            } else {
+                                                echo "<h1 class='fw-bold text-center' id='approved_application_count'>0</h1>";
+                                            }
                                         }
-                                    }
-                                    ?>
+                                        ?>
+                                    </div>
                                 </div>
-                            </div>
+                            </a>
                         </div>
+
+
                         <div class="col">
-
                             <?php
-
-
                             $pending_schedule = full_query("SELECT COUNT(id) as count FROM `appointments` WHERE  eng_app = '0'");
 
                             if (mysqli_num_rows($pending_schedule) > 0) {
                                 if ($row = mysqli_fetch_assoc($pending_schedule)) {
-
-
                             ?>
-                                    <div style="aspect-ratio:3/1;" class="card border border-dark text-center">
-                                        <div class="card-body">
-                                            <a href="admin_engineering_approvals.php#pending_schedule_approval_cont" style="text-decoration:none;">
-
+                                    <a href="admin_engineering_approvals.php#pending_schedule_approval_cont" class="my-link-hover" style="text-decoration: none; color: black;">
+                                        <div style="aspect-ratio: 3/1;" class="card border border-dark text-center">
+                                            <div class="card-body">
                                                 <h5 class="card-title text-dark text-center" style="font-size: 15px;">PENDING SCHEDULE APPROVAL</h5>
-                                            </a>
-
-                                            <p class="card-text text-center fw-bold" style="font-size: 40px;"><?php echo $row['count'] ?></p>
+                                                <p class="card-text text-center fw-bold" style="font-size: 40px;"><?php echo $row['count'] ?></p>
+                                            </div>
                                         </div>
-
-
-                                <?php
+                                    </a>
+                            <?php
                                 }
                             }
-                                ?>
-
-                                    </div>
-
-
-
-
+                            ?>
                         </div>
+
                         <div class="col">
-
-
                             <?php
                             $pending_schedule = full_query("SELECT COUNT(id) as count FROM `appointments` WHERE schedule_date = CURRENT_DATE() AND eng_app = '1'");
 
                             if (mysqli_num_rows($pending_schedule) > 0) {
                                 if ($row = mysqli_fetch_assoc($pending_schedule)) {
-
-
                             ?>
-                                    <div style="aspect-ratio:3/1;" class="card border border-dark text-center">
-                                        <div class="card-body">
-                                            <a href="admin_engineering_appointments.php" style="text-decoration:none;">
+                                    <a href="admin_engineering_appointments.php" class="my-link-hover" style="text-decoration: none; color: black;">
+                                        <div style="aspect-ratio: 3/1;" class="card border border-dark text-center">
+                                            <div class="card-body">
                                                 <h5 class="card-title text-dark text-center" style="font-size: 15px;">SCHEDULED SIGNING TODAY</h5>
-                                            </a>
-                                            <p class="card-text text-center fw-bold" style="font-size: 40px;"><?php echo $row['count'] ?></p>
+                                                <p class="card-text text-center fw-bold" style="font-size: 40px;"><?php echo $row['count'] ?></p>
+                                            </div>
                                         </div>
-
-
-                                <?php
+                                    </a>
+                            <?php
                                 }
                             }
-                                ?>
-                                    </div>
+                            ?>
                         </div>
+
                     </div>
                 </div>
 
@@ -295,7 +311,7 @@ require '../php/page_restriction.php';
 
 
 
-            ?>
+            <!-- ?> -->
 
 
 

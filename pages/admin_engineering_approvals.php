@@ -47,6 +47,10 @@ require '../php/page_restriction.php';
 
 
                         echo '  <table class="table table-responsive w-100 border-dark">
+
+                                <tr> 
+                                    <th colspan="5" class="text-center" style="background-color: #245a94; color: white;">PENDING APPLICATION REVIEW</th>
+                                </tr>
                                 <tr>
                                     <th>Applicant</th>
                                     <th>Project</th>
@@ -68,10 +72,10 @@ require '../php/page_restriction.php';
                                 <td><?php echo $row['project_title'] ?></td>
                                 <!-- <td><?php //echo $row['type'] 
                                             ?></td> -->
-                                <td><?php echo $row['address'] ?></td>
-                                <td><?php echo $row['latest_timestamp'] ?></td>
+                                <td><?php echo formatAddress($row['address']) ?></td>
+                                <td><?php echo formatDate($row['latest_timestamp']) ?></td>
                                 <td>
-                                    <a href="admin_review.php?project_id=<?php echo $row['project_id'];?>&">
+                                    <a href="admin_review.php?project_id=<?php echo $row['project_id'];?>&" class="btn btn-secondary">
                                         Review
                                     </a>
 
@@ -142,7 +146,7 @@ require '../php/page_restriction.php';
 
                             echo '</table>';
                         } else {
-                            echo "<p class='fw-bold'>No pending appointment requests.</p>";
+                            echo "<p class='fw-bold'>No pending appointment requests for signing.</p>";
                         };
 
                         ?>

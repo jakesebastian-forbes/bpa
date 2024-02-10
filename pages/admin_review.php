@@ -87,26 +87,7 @@ if (mysqli_num_rows($vw_project_ids) > 0) {
 
         <div id="flex_main " class="row m-0">
 
-        <div class="row text-center">
 
-            <?php
-            $returned_once = full_query("SELECT `id`,`project_id`,`action`,`comment`,`timestamp` FROM `project_logs`
-             WHERE `action` LIKE '%returned%' AND `project_id` = '" . $project_id . "'");
-            if (mysqli_num_rows($returned_once) > 0) {
-                if ($row = mysqli_fetch_assoc($returned_once)) {
-
-
-
-                    $dept = preg_match('/Returned by (.+)/', $row['action'], $matches) ? $matches[1] : '';
-
-                    echo "<p>This project has been returned to the applicant by " . $dept . " department for reason :
-                    <i>&quot" . $row['comment'] . "&quot</i>. Please consider this when reviewing the application.</p>
-                    ";
-                }
-            }
-            ?>
-
-</div>
 
             <!-- 
             //project action
@@ -124,7 +105,7 @@ if (mysqli_num_rows($vw_project_ids) > 0) {
 
 
 
-            <div class="row p-4">
+            <div class="row ">
                 <div id="main_left" class="col-3" style="background-color:beige;padding:30px;position:relative; min-height:420px">
 
                     <div class=" project_summary">
@@ -150,18 +131,18 @@ if (mysqli_num_rows($vw_project_ids) > 0) {
                             while ($row = mysqli_fetch_assoc($vw_project_approval)) {
                                 // print_r($row)
                                 $fullname = $row['firstname'] . ' ' . $row['middlename'] . ' ' . $row['lastname'];
-                                $name =  $row['firstname'] .' '. $row['lastname'];
+                                $name =  $row['firstname'] . ' ' . $row['lastname'];
 
 
-                                $email = $row['email'] ;
-                                $contact_no = $row['contact_no'] ;
+                                $email = $row['email'];
+                                $contact_no = $row['contact_no'];
                         ?>
                                 <p>Applicant : <span id="review_applicant_name" name="review_applicant_name" class="fw-bold"><?php echo $fullname ?></span></p>
                                 <p>Contact No. : <span id="review_contact_no" name="review_contact_no" class="fw-bold"><?php echo $row['contact_no'] ?></span></p>
                                 <p>E-mail : <span id="review_email" name="review_email" class="fw-bold"><?php echo $row['email'] ?></span></p>
                                 <p>Project : <span id="review_proj_name" name="review_proj_name" class="fw-bold"><?php echo $row['title'] ?></span></p>
                                 <p>Type : <span id="review_proj_type" name="review_proj_type" class="fw-bold"><?php echo $row['existing_land_use'] ?></span></p>
-                                <p>Project Location : <span id="review_proj_loc" name="review_proj_loc" class="fw-bold"><?php echo $row['full_address'] ?></span></p>
+                                <p>Project Location : <span id="review_proj_loc" name="review_proj_loc" class="fw-bold"><?php echo formatAddress($row['full_address']) ?></span></p>
                         <?php
                             }
                         }
@@ -172,9 +153,40 @@ if (mysqli_num_rows($vw_project_ids) > 0) {
 
                     </div>
 
+                    <div class="row mt-2">
+
+                        <?php
+                        $returned_once = full_query("SELECT `id`,`project_id`,`action`,`comment`,`timestamp` FROM `project_logs`
+ WHERE `action` LIKE '%returned%' AND `project_id` = '" . $project_id . "'");
+                        if (mysqli_num_rows($returned_once) > 0) {
+
+                            echo "<p>This project was once been returned to the applicant. 
+                            Please consider this when reviewing the application.</p>";                            
+                            while ($row = mysqli_fetch_assoc($returned_once)) {
+
+
+
+                                $dept = preg_match('/Returned by (.+)/', $row['action'], $matches) ? $matches[1] : '';
+
+                                // echo "<p>This project was once been returned to the applicant by " . $dept . " department for reason :
+                                //  <i>&quot" . $row['comment'] . "&quot</i>. Please consider this when reviewing the application.</p>";
+
+                                 echo $dept . " department for reason :
+                                    <i>&quot" . $row['comment'] . "&quot</i>";
+
+
+                            }
+
+                                                   
+
+                        }
+                        ?>
+
+                    </div>
+
                 </div>
 
-                <div id="project_action" class="p-3" style="position: fixed; bottom: 0; left: 0; right: 0; background-color: #f8f9fa; padding: 10px;">
+                <div id="project_action" class="p-3" style="position: fixed; bottom: 0; left: 0; right: 0; background-color: #f8f9fa; padding: 10px; z-index:2;">
 
                     <button type="button" class="btn btn-secondary white-text project-verdict" id="application_return" data-bs-toggle="modal" data-bs-target="#project_verdict" value="return">
                         Return
@@ -193,7 +205,7 @@ if (mysqli_num_rows($vw_project_ids) > 0) {
                 </div>
 
 
-                <div class="col-9">
+                <div class="col-9" id="main_right">
                     <?php require "../components/project_step_four.php" ?>
                 </div>
             </div>
@@ -223,11 +235,11 @@ if (mysqli_num_rows($vw_project_ids) > 0) {
                         <input type="text" name="department" id="department" value="<?php echo $_SESSION['department'] ?>" hidden>
                         <input type="text" value="<?php echo $project_id ?>" name="project_id" id="project_id" hidden>
                         <input type="text" name="project_verdict_hidden" id="project_verdict_hidden" hidden>
-                        <input type="text" name="applicant_name" id="applicant_name" value = "<?php echo $name?>" hidden>
-                        <input type="text" name="applicant_email" id="applicant_email" value = "<?php echo $email?>" hidden>
-                        <input type="text" name="project_title" id="project_title" value = "<?php echo $project_title?>" hidden>
+                        <input type="text" name="applicant_name" id="applicant_name" value="<?php echo $name ?>" hidden>
+                        <input type="text" name="applicant_email" id="applicant_email" value="<?php echo $email ?>" hidden>
+                        <input type="text" name="project_title" id="project_title" value="<?php echo $project_title ?>" hidden>
 
-                        <input type="text" name="applicant_contact_no" id="applicant_contact_no" value = "<?php echo $contact_no?>" hidden>
+                        <input type="text" name="applicant_contact_no" id="applicant_contact_no" value="<?php echo $contact_no ?>" hidden>
 
 
 
@@ -235,19 +247,60 @@ if (mysqli_num_rows($vw_project_ids) > 0) {
                             Confirm?
                         </p>
 
-                        <div class="row">
+                        <div class="row" id="log_comment_div">
                             <label for="log_comment">Comment</label>
-                            <input type="text" id="log_comment" name="log_comment">
+                            <input type="text" id="log_comment" name="log_comment" >
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary" id = "proj_review_confirm">Confirm</button>
+                        <button type="submit" class="btn btn-primary" id="proj_review_confirm">Confirm</button>
 
                 </form>
             </div>
         </div>
     </div>
+    </div>
+
+
+
+
+    <!-- modal comment document -->
+    <div class="modal fade" id="modal_comment_document" tabindex="-1" aria-labelledby="modal_comment_documentLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="submit_confirmationLabel">Comments</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                    <div class="modal-body">
+
+                       
+                        <div id="document_comments" class= "p-2">
+                          
+
+                        </div>
+
+                        
+                        <div id="insert_document_comments_div" class = "text-center">
+                            <div class="d-flex gap-2">
+                                <input type="text" class ="form-control w-75" placeholder="Your comment..." id = "comment_box_inp">
+                                <button class = "btn my-btn-blue w-15" id = "comment_box_btn" >Comment</button>
+                            </div>
+                                
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <!-- <button type="submit" class="btn btn-primary" id="proj_review_confirm">Confirm</button> -->
+
+            </div>
+        </div>
+    </div>
+
+
     </div>
 
 
@@ -259,6 +312,11 @@ if (mysqli_num_rows($vw_project_ids) > 0) {
             // $('a[href="admin_<?php //echo strtolower($_SESSION['department']) 
                                 ?>_home.php"] > li').addClass("my-active") //highlight active page in offcanvas menu
 
+            $("#main_right input, #main_right select, #main_right button").attr("readonly", true);
+            $("#step_four input, #step_four radio, #step_four select, #step_four checkbox").attr("readonly", true);
+            $("#searchInput").removeAttr("readonly")
+
+
 
             document.title = "<?php echo $project_title ?>"
             // remove center
@@ -269,8 +327,9 @@ if (mysqli_num_rows($vw_project_ids) > 0) {
             // add center project name
             $("#nav_center").append('<div class="text-center" id ="project_title"><input class="text-center" ' +
                 'style ="background-color:transparent;border:none;color:white" type="text" name="" id="inp_project_name" ' +
-                'onchange = "update_title()" value="<?php echo $project_title; ?>" </div>')
-                // disabled><br><small><?php //echo ucwords($project_status) ?></small>
+                'onchange = "update_title()" value="<?php echo $project_title; ?>" ></div>')
+            // disabled><br><small><?php //echo ucwords($project_status) 
+                                    ?></small>
             $("#nav_center").addClass("m-auto");
 
 
@@ -284,6 +343,10 @@ if (mysqli_num_rows($vw_project_ids) > 0) {
             //disable forms
             $("#locational_form input").attr("disabled", "disabled")
 
+            $("#inp_project_name").attr("disabled", "disabled")
+
+
+
             //pass data to modal
             $(document).on("click", ".project-verdict", function() {
                 var myproject_verdict = $(this).val();
@@ -294,39 +357,93 @@ if (mysqli_num_rows($vw_project_ids) > 0) {
                 $("#project_verdict_hidden").val(myproject_verdict)
 
 
+                if (myproject_verdict == "approve") {
+                    $("#log_comment_div").hide();
+
+                } else {
+                    $("#log_comment_div").show();
+
+                }
+
+
+
             });
 
+
+         
+
+
             $('#proj_review_confirm').click(async function() {
-                
+
                 console.log("project confirm");
 
-            
+
             })
 
 
-            
-    <?php
-        try {
-            $link = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-            // print_r($_SESSION);
-            $project_id = getSubstringBetween($link, "project_id=", "&");
-        } catch (\Throwable $th) {
-            //throw $th;
-        }
-    
-    
-    ?>
 
-    let link = '<?php echo $link;?>';
-
-if (link.includes('approve=success')) {
-    // console.log("The substring is present.");
-    notifySuccess("Success", "Project Approval Success");
-} else {
-    console.log("The substring is not present.");
-}
+            <?php
+            try {
+                $link = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+                // print_r($_SESSION);
+                $project_id = getSubstringBetween($link, "project_id=", "&");
+            } catch (\Throwable $th) {
+                //throw $th;
+            }
 
 
+            ?>
+
+            let link = '<?php echo $link; ?>';
+
+            if (link.includes('approve=success')) {
+                // console.log("The substring is present.");
+                notifySuccess("Success", "Project Approval Success");
+            } else {
+                console.log("The substring is not present.");
+            }
+
+
+
+            <?php
+
+
+            // Get the current URL
+            $currentUrl = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+
+            // Get the current page
+            $currentPage = basename($_SERVER['PHP_SELF']);
+
+            // echo "console.log('Current URL: $currentUrl');";
+            // echo "console.log('Current Page: $currentPage');";
+
+            if ($currentPage == "admin_review.php") {
+
+                echo '$("#table_documents tr td button.document-comment").removeAttr("hidden");';
+            }
+
+
+            ?>
+
+
+
+$("#comment_box_btn").click(function() {
+
+console.log($("#comment_box_inp").val())
+console.log($("#comment_box_inp").data("doc-id"))
+
+    let comment = $("#comment_box_inp").val();
+    let doc_id = $("#comment_box_inp").data("doc-id");
+
+    if(isNullOrEmpty(comment) == false){
+        // not empty
+        insert_ajax("documents_comment", "`id`,`doc_id`, `comment`, `comment_by`", "UUID(),'" + doc_id + "','" + comment + "','<?php echo $_SESSION['admin_id']; ?>'");
+
+        $("#comment_box_inp").val('')
+    }
+
+
+})
 
 
 

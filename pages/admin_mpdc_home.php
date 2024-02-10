@@ -7,6 +7,7 @@ require "../php/db_func.php";
 $privilege = "admin";
 $department = "mpdc";
 require '../php/page_restriction.php';
+require '../php/general.php';
 
 ?>
 
@@ -45,66 +46,76 @@ require '../php/page_restriction.php';
 
             <div class="p-5">
 
-                <!-- <div class="row text-end pb-4" id="filters">
-                    <div class="col"></div>
-                    <div class="col">
 
-                        <select name="" id="">
-                            <option value="">Today</option>
-                            <option value="">Yesterday</option>
-                            <option value="">All</option>
-                            <option value="">Specify</option>
-
-
-                        </select>
-                    </div>
-
-
-                </div> -->
-
-                <div class="row d-flex justify-content-center">
+                <div class="row d-flex justify-content-center text-center">
                     <div class="col-lg-3 col-6">
                         <div class="card border border-dark text-center kpi-cont">
-                            <div class="card-body">
-                                <h5 class="card-title text-center" style="font-size: 15px;">TOTAL NUMBER OF APPLICATIONS</h5>
-                                <p id = "total_count" class="card-text fw-bold text-center" style="font-size: 40px;">0</p>
+                        <div class="card-body">
+                                <h5 class="card-title text-dark text-center" style="font-size: 15px;">TOTAL NUMBER OF APPLICATIONS</h5>
+                                <?php
+                                $total_application_count = full_query("SELECT COUNT(id) as `count` FROM `project_logs` WHERE `action` = 'Project Submitted'");
+
+                                if (mysqli_num_rows($total_application_count) > 0) {
+                                    if ($row = mysqli_fetch_assoc($total_application_count)) {
+                                        echo '<p class="card-text text-center fw-bold" style="font-size: 40px;">' . $row['count'] . '</p>';
+                                    }
+                                }
+                                ?>
+
                             </div>
                             
+
                         </div>
                     </div>
+
+
                     <div class="col-lg-3 col-6">
-                    <div class="card border border-dark kpi-cont">
-                            <div class="card-body">
-                                <h5 class="card-title text-center" style="font-size: 15px;">APPROVED/DENIED RATIO</h5>
-                                <p id = "total_count" class="card-text fw-bold text-center" style="font-size: 40px;">0/0</p>
+                        <a href="admin_project_archive.php" class="my-link-hover" style="text-decoration: none; color: black;">
+                            <div class="card border border-dark kpi-cont">
+                                <div class="card-body">
+                                    <h5 class="card-title text-center my-link-hover" style="font-size: 15px; transition: color 0.3s; ">APPROVED APPLICATIONS</h5>
+                                    
+                                    <?php
+                                    $pending_count = full_query("SELECT COUNT(project_id) as `count` FROM `project_logs` WHERE `action` = 'Approved by MPDC'");
+                                    
+                                    if (mysqli_num_rows($pending_count) > 0) {
+                                        if ($row = mysqli_fetch_assoc($pending_count)) {
+                                            echo "<h1 class='fw-bold' id='approved_application_count'>" . $row['count'] . "</h1>";
+                                        } else {
+                                            echo "<h1 class='fw-bold' id='approved_application_count'>0</h1>";
+                                        }
+                                    }
+                                    ?>
+                                </div>
                             </div>
-                            
-                        </div>
+                        </a>
                     </div>
+
+
+
                     <div class="col-lg-3 col-6">
                         <div class="card border border-dark text-center kpi-cont">
                             <div class="card-body">
                                 <h5 class="card-title text-center" style="font-size: 15px;">PENDING APPLICATION REVIEW</h5>
-                                    
-                                        <?php
+
+                                <?php
 
 
-                                        $pending_count = full_query("SELECT COUNT(project_title)'pending' 
+                                $pending_count = full_query("SELECT COUNT(project_title)'pending' 
                                         FROM `vw_project_last_action` WHERE `action` = 'Delivered to MPDC'");
 
-                                        if (mysqli_num_rows($pending_count) > 0) {
+                                if (mysqli_num_rows($pending_count) > 0) {
 
-                                            if ($row = mysqli_fetch_assoc($pending_count)) {
-                                                echo "<h1 class='fw-bold' id = 'pending_count'> ".$row['pending']."</h1>";
-                                            }else{
-                                                echo "<h1 class='fw-bold' id = 'pending_count'>0</h1>";
+                                    if ($row = mysqli_fetch_assoc($pending_count)) {
+                                        echo "<h1 class='fw-bold' id = 'pending_count'> " . $row['pending'] . "</h1>";
+                                    } else {
+                                        echo "<h1 class='fw-bold' id = 'pending_count'>0</h1>";
+                                    }
+                                }
+                                ?>
 
-                                            }
-                                        }
-                                        ?>
-                                   
                             </div>
-                        
+
                         </div>
                     </div>
                     <!-- <div class="col-lg-3 col-6">
@@ -119,16 +130,18 @@ require '../php/page_restriction.php';
 
 
                 <div class="text-center">
-       
-                        <?php
+
+                    <?php
 
 
-                        $pending_project = full_query("SELECT * FROM `vw_project_last_action` WHERE action = 'Delivered to MPDC';");
+                    $pending_project = full_query("SELECT * FROM `vw_project_last_action` WHERE action = 'Delivered to MPDC';");
 
-                        if (mysqli_num_rows($pending_project) > 0) {
+                    if (mysqli_num_rows($pending_project) > 0) {
 
-                            
-                    echo '  <table class="table table-responsive w-100 border">
+
+                        echo '  
+                    <h3 class="my-3">Pending Applications to review</h3>
+                    <table class="table table-responsive w-100 border">
                     <tr>
                         <th>Applicant</th>
                         <th>Project</th>
@@ -138,40 +151,41 @@ require '../php/page_restriction.php';
                         <th>Action</th>
                     </tr>';
 
-                            while ($row = mysqli_fetch_assoc($pending_project)) {
+                        while ($row = mysqli_fetch_assoc($pending_project)) {
 
 
-                        ?>
+                    ?>
 
-                                    <tr>
-
-
-                                        <td><?php echo $row['applicant'] ?></td>
-                                        <td><?php echo $row['project_title'] ?></td>
-                                        <!-- <td><?php //echo $row['type'] ?></td> -->
-                                        <td><?php echo $row['address'] ?></td>
-                                        <td><?php echo $row['latest_timestamp'] ?></td>
-                                        <td>
-                                            <a href="admin_review.php?project_id=<?php echo $row['project_id'];?>&">
-                                                Review
-                                            </a>
-
-                                        </td>
-                                    </tr>
+                            <tr>
 
 
+                                <td><?php echo $row['applicant'] ?></td>
+                                <td><?php echo $row['project_title'] ?></td>
+                                <!-- <td><?php //echo $row['type'] 
+                                            ?></td> -->
+                                <td><?php echo formatAddress($row['address']) ?></td>
+                                <td><?php echo $row['latest_timestamp'] ?></td>
+                                <td>
 
-                        <?php
-                                
-                            }
+                                    <a href="admin_review.php?project_id=<?php echo $row['project_id']; ?>&" class="btn btn-secondary">
+                                        Review
+                                    </a>
 
-                      
-                    echo '</table>';
-                }
-                else{
-                    echo "No pending applications";
-                };
-                        ?>
+                                </td>
+                            </tr>
+
+
+
+                    <?php
+
+                        }
+
+
+                        echo '</table>';
+                    } else {
+                        echo "No pending applications";
+                    };
+                    ?>
 
 
 

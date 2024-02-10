@@ -10,6 +10,7 @@ $ext_land_use = $_POST['ext_land_use'];
 $right_over_land = $_POST['right_over_land'];
 $owned_by_corporation = ($_POST['corporate_owned'] == 'yes' ? 1 : 0);
 $project_title = $_POST['project_title'];
+$project_type = $_POST['application_type'];
 
 
 // print_r($_POST);
@@ -28,7 +29,7 @@ $supervisor_id = gen_uuid();
 insert("supervisor","`id`","'$supervisor_id'");
 
 $unified_id = gen_uuid();
-insert("f_unified","`id`","'$unified_id'");
+insert("f_unified","`id`,`application_type`","'$unified_id','$project_type'");
 
 $locational_id = gen_uuid();
 insert("f_locational","`id`,`right_over_land`,`existing_land_use`",

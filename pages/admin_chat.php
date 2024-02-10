@@ -385,7 +385,7 @@ require "../php/db_func.php";
 </body>
 
 <script>
-    $('a[href="applicant_chat.php"] > li').addClass("my-active") //highlight active page in offcanvas menu
+    $('a[href="admin_chat.php"] > li').addClass("my-active") //highlight active page in offcanvas menu
 
 
   // Function to load messages for a specific sender and receiver

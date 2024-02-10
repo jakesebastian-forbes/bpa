@@ -3,8 +3,8 @@
 session_start();
 // print_r($_SESSION);
 
-$privilege = "applicant";
-require '../php/page_restriction.php';
+// $privilege = "applicant";
+// require '../php/page_restriction.php';
 
 require "../php/db_func.php";
 
@@ -69,8 +69,8 @@ document.addEventListener("DOMContentLoaded", () => {
   // window.print();
 
 
+ 
 
-})
 
 // Add an event listener to receive the message
 window.addEventListener('message', function (event) {
@@ -81,6 +81,7 @@ window.addEventListener('message', function (event) {
 
     // Step 4: Paste the HTML content to the new document
     const destinationElement = document.querySelector('body');
+    // const destinationElement = document.querySelector('body #print_cont');
     destinationElement.innerHTML = event.data.html;
 
     // Step 5: Adjust input values if needed
@@ -90,6 +91,23 @@ window.addEventListener('message', function (event) {
         clonedInputs[index].value = value;
     });
 });
+
+
+
+$('#print_cont :input').each(function() {
+        var elementType = this.type || this.tagName.toLowerCase();
+        
+        // Check the type of the element and set readonly or disabled accordingly
+        if (elementType === 'text' || elementType === 'textarea' || elementType === 'select-one') {
+          $(this).prop('readonly', true);
+        } else if (elementType === 'checkbox' || elementType === 'radio') {
+          $(this).prop('disabled', true);
+        }
+      });
+
+
+})
+
 
 </script>
 

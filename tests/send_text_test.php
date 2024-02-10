@@ -2,7 +2,7 @@
 
 require "php/semaphore_api.php";
 
-
+$project_title = 'test';
 
 $contact_no = '09550591149';
 $full_name = "Reignoel Rodriguez";

@@ -127,42 +127,37 @@
 
   if (strtolower($project_status) == "returned") {
 
-    $project_returned = full_query("SELECT * FROM `vw_project_last_action` WHERE `project_id` = '".$project_id."'");
+    $project_returned = full_query("SELECT * FROM `vw_project_last_action` WHERE `project_id` = '" . $project_id . "'");
 
-        if (mysqli_num_rows($project_returned) > 0) {
-          if ($row = mysqli_fetch_assoc($project_returned)) {
+    if (mysqli_num_rows($project_returned) > 0) {
+      if ($row = mysqli_fetch_assoc($project_returned)) {
+        //get last word(department)
+        $dept_returned = substr($row['action'], (strrpos($row['action'], ' ') ?: -1) + 1);
 
-            echo " <div id='project_returned_cont' style = 'display:none;'>
+        echo " <div id='project_returned_cont' style = 'display:none;'>
 
-            <h6 class='my-3'>Your project was <span class='fw-bold'> ".strtolower($row['action'])." </span> department. You can check for the department's administrator
-             remarks to find out why.
+            <h6 class='my-3'>Your project was <span class='fw-bold'> " . strtolower($row['action']) . " </span> department. 
+            You can check for the department's administrator remarks to find out why.
               <br> Or you can ask them by using our <a href = 'applicant_chat.php'>chat feature</a>.
-              <br> Once you are ready to make changes on you application, click
-               <button id = 'btn_open_project' class='btn my-btn-blue my-3' data-project-id = '" . $project_id . "'>here</button> 
-               to open your project and make necessary changes.
+              <br> For now, you are free make changes on your application, once you are ready, click
+               <button id = 'btn_resubmit_project' class='btn my-btn-blue my-3' data-project-id = '" . $project_id . "' data-resubmit='" . $dept_returned . "'>here</button> 
+               to once again submit your application to submit you application to the department.
             </h6>
           
           </div>";
-        
-
-          }
-        
-        }  
-
-
-
+      }
+    }
   }
 
-  if (strtolower($project_status) == "approved" ) {
+  if (strtolower($project_status) == "approved") {
     echo '<div class="my-3">Congratulations! Your project has been fully approved by all departments.
-              <button onclick = "$(`#step_six_tab`).click()">Click here</button> to request an appointment.
+              <button onclick = "$(`#step_six_tab`).click()" class="btn my-btn-blue">Click here</button> to request an appointment.
     </div>';
   } else if (strtolower($project_status) == "completed") {
     echo '<div>Congratulations! Your project has been fully approved by all departments.
              
     </div>';
-  }
-   else if(strtolower($project_status) == "pending"){
+  } else if (strtolower($project_status) == "pending") {
 
 
 
@@ -199,14 +194,16 @@
     </div>
 
 
+  <?php
+  }
+
+  ?>
 
 
-    <div class="row my-4">
-      <table class="table">
 
-        <?php
+      <?php
 
-        $project_trail_table = full_query("SELECT *
+      $project_trail_table = full_query("SELECT *
     FROM `project_logs`
     WHERE  `timestamp` > (
         SELECT `timestamp`
@@ -216,14 +213,23 @@
         ORDER BY `timestamp` DESC
         LIMIT 1
     )
+    AND `project_id` = '" . $project_id . "'
       ORDER BY `timestamp` DESC
     ;
     ");
 
-        if (mysqli_num_rows($project_trail_table) > 0) {
+      if (mysqli_num_rows($project_trail_table) > 0) {
 
 
-          echo ' <thead>
+        echo '
+        
+  <div class="row my-4">
+  <!-- <h3>Project Trail</h3> -->
+
+  <table class="table caption-top table-responsive mt-3">
+  <caption>Project Trail</caption>
+        
+        <thead>
       <tr class="border">
         <th scope="col">Timestamp</th>
         <th scope="col">Action</th>
@@ -231,15 +237,15 @@
       </tr>
     </thead>
     <tbody>';
-          while ($row = mysqli_fetch_assoc($project_trail_table)) {
+        while ($row = mysqli_fetch_assoc($project_trail_table)) {
 
-            if ($row['comment'] == '' || $row['comment'] == NULL) {
-              $comment = 'N/A';
-            }else{
-              $comment = $row['comment'];
-            }
+          if ($row['comment'] == '' || $row['comment'] == NULL) {
+            $comment = 'N/A';
+          } else {
+            $comment = $row['comment'];
+          }
 
-            echo "
+          echo "
     <tr>
         <td>" . $row['timestamp'] . "</td>
         <td>" . $row['action'] . "</td>
@@ -247,29 +253,33 @@
       
   </tr>
   ";
-        ?>
+      ?>
 
 
 
-            <!-- Add more rows as needed -->
+          <!-- Add more rows as needed -->
 
 
-    </div>
 
 <?php
 
-          }
-
-
-          echo '  </tbody>
-</table>';
         }
+
+
+        echo '  </tbody>
+</table>
+
+</div>
+';
       }
+
 
 ?>
 
 
 </div>
+
+
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
@@ -369,6 +379,22 @@
 
 
     });
+
+
+
+    $('#btn_resubmit_project').click(async function() {
+      let project_id = $(this).data("project-id");
+      let action = "Delivered to " + $(this).data("resubmit");
+      insert_ajax("project_logs", "id,project_id,action", "UUID(),'" + project_id + "','" + action + "'")
+      update_ajax("project", "status", "pending", "`id` ='" + project_id + "'")
+
+
+      window.location.reload();
+
+
+
+    })
+
 
   });
 </script>
